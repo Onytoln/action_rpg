@@ -1,0 +1,180 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 636a31ea5cc8f4f41ac3eb831a876efa, type: 3}
+  m_Name: Magic Missile Projectile Boost Properties
+  m_EditorClassIdentifier: 
+  abilityPrefab: {fileID: 0}
+  abilityId: mage_magic_missile_skill_projectile_booster
+  name: Projectile Enchantment Buff
+  hitInfoId: .
+  icon: {fileID: 21300000, guid: d8f79421ffb560d4ea95baf2a1546c2d, type: 3}
+  abilityDamage:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 10
+    totalValue: 0
+    isDirty: 1
+  damageTypes:
+  - damageType: 0
+    damageWeight: 1
+    isMainDamageType: 1
+  benefitFromCriticalStrike:
+  - <CriticalStrikeBenefitType>k__BackingField: 0
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 1
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 2
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 3
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 3
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  benefitFromPenetration:
+  - <PenetrationBenefitType>k__BackingField: 19
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 20
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 21
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 22
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 23
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  travelSpeed:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  minCastRange:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  maxCastRange:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  hitRange:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  hitAngle:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  cooldown:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  duration:
+    primaryValue: 3
+    minStatValue: 1
+    maxStatValue: 1e+10
+    totalValue: 3
+    isDirty: 0
+  tickRate:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  maxStacks:
+    description: 
+    primaryValue: 18
+    minStatValue: 0
+    maxStatValue: 18
+    totalValue: 18
+    isDirty: 0
+  <Stackable>k__BackingField: 1
+  <Refreshable>k__BackingField: 1
+  <Permanent>k__BackingField: 0
+  <MultiInstanced>k__BackingField: 0
+  <SurvivesDeath>k__BackingField: 0
+  <SurvivesSceneLoad>k__BackingField: 0
+  <SurvivesGameSessionEnd>k__BackingField: 0
+  bonusProjectilePerStacks:
+    description: 
+    primaryValue: 3
+    minStatValue: 1
+    maxStatValue: 3
+    totalValue: 3
+    isDirty: 0
+  bonusScalePerStacks:
+    description: 
+    primaryValue: 2
+    minStatValue: 1
+    maxStatValue: 2
+    totalValue: 2
+    isDirty: 0
+  bonusScaleValue:
+    primaryValue: 0.1
+    minStatValue: 0.001
+    maxStatValue: 1
+    totalValue: 0.1
+    isDirty: 0
+  <RemoveOnSkillFired>k__BackingField:
+    defaultValue: 1
+    whenEqual: 0
+  <SkillToBoostId>k__BackingField: mage_skill_magic_missile

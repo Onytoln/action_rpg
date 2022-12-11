@@ -1,0 +1,162 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 794cd2ea233f1e24ab3b448e751ea8da, type: 3}
+  m_Name: Mana Percentage Restoration Buff Properties
+  m_EditorClassIdentifier: 
+  abilityPrefab: {fileID: 0}
+  abilityId: potion_buff_percentual_mana_restoration_over_time
+  name: Mana Restoration Buff
+  hitInfoId: .
+  icon: {fileID: 0}
+  abilityDamage:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 10
+    totalValue: 0
+    isDirty: 1
+  damageTypes:
+  - damageType: 0
+    damageWeight: 1
+    isMainDamageType: 1
+  benefitFromCriticalStrike:
+  - <CriticalStrikeBenefitType>k__BackingField: 0
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 1
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 2
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 3
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 3
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  benefitFromPenetration:
+  - <PenetrationBenefitType>k__BackingField: 19
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 20
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 21
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 22
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 23
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  travelSpeed:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  minCastRange:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  maxCastRange:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  hitRange:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  hitAngle:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  cooldown:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  duration:
+    primaryValue: 10
+    minStatValue: 10
+    maxStatValue: 10
+    totalValue: 0
+    isDirty: 0
+  tickRate:
+    primaryValue: 1
+    minStatValue: 1
+    maxStatValue: 1
+    totalValue: 0
+    isDirty: 0
+  maxStacks:
+    description: 
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  <Stackable>k__BackingField: 0
+  <Refreshable>k__BackingField: 1
+  <Permanent>k__BackingField: 0
+  <MultiInstanced>k__BackingField: 0
+  <SurvivesDeath>k__BackingField: 0
+  <SurvivesSceneLoad>k__BackingField: 0
+  <SurvivesGameSessionEnd>k__BackingField: 0
+  percentManaPerTick:
+    primaryValue: 0.02
+    minStatValue: 0.02
+    maxStatValue: 0.3
+    totalValue: 0
+    isDirty: 0

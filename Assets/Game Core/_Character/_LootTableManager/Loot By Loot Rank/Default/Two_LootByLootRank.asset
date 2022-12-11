@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd3d94ba086f4b7459905d7740af166f, type: 3}
+  m_Name: Two_LootByLootRank
+  m_EditorClassIdentifier: 
+  <LootRank>k__BackingField: 2
+  <MinItemsToDropDefault>k__BackingField: 3
+  <ChanceToDropLoot>k__BackingField: 1
+  <LootByLootRankLootTable>k__BackingField:
+  - <DropWeight>k__BackingField: 400
+    <LootType>k__BackingField: 0
+  - <DropWeight>k__BackingField: 290
+    <LootType>k__BackingField: 1
+  - <DropWeight>k__BackingField: 40
+    <LootType>k__BackingField: 2
+  - <DropWeight>k__BackingField: 140
+    <LootType>k__BackingField: 3
+  - <DropWeight>k__BackingField: 130
+    <LootType>k__BackingField: 4
+  <ItemRarityLootTable>k__BackingField:
+  - <DropWeight>k__BackingField: 200
+    <ItemRarity>k__BackingField: 0
+  - <DropWeight>k__BackingField: 450
+    <ItemRarity>k__BackingField: 1
+  - <DropWeight>k__BackingField: 275
+    <ItemRarity>k__BackingField: 2
+  - <DropWeight>k__BackingField: 75
+    <ItemRarity>k__BackingField: 3

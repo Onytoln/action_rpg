@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d51c3b0f2a157a24bb5742dcfe16b0b8, type: 3}
+  m_Name: Test Scene Loot
+  m_EditorClassIdentifier: 
+  scene: 3
+  currencyLoot:
+  - <DropWeight>k__BackingField: 520
+    <Item>k__BackingField: {fileID: 11400000, guid: 350e1d467fde6ab4d91f6604ebedf626, type: 2}
+  regularEquipmentLoot: []
+  uniqueEquipmentLoot: []
+  consumablesLoot: []
+  otherLoot: []

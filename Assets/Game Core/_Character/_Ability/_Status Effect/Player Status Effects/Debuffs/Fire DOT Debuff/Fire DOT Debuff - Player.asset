@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c378b3e48730aa4baa61a6a11e7c7a9, type: 3}
+  m_Name: Fire DOT Debuff - Player
+  m_EditorClassIdentifier: 
+  statusEffectProperties: {fileID: 11400000, guid: 8df1dbe34849a8149aa61f4b7f2dd9e4, type: 2}
+  <Stackable>k__BackingField: 1
+  <Refreshable>k__BackingField: 1
+  <Permanent>k__BackingField: 0
+  debuffTypes: 0000000001000000
+  maxDebuffStrenghtModifiers: 1
+  burningParticlesPrefab: {fileID: 2494613671321434583, guid: c8c8fb131cdcf6a4bbe0de0c6dfffd41, type: 3}
+  audioPrefab: {fileID: 5222842810433910589, guid: ad19a138a6085b140b4b633ea888fbd3, type: 3}

@@ -1,0 +1,262 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff2bf6473ab1d54db30d39eb65ab9ac, type: 3}
+  m_Name: Fireball Properties
+  m_EditorClassIdentifier: 
+  abilityPrefab: {fileID: 121802, guid: d1f8bf600c7891e49abded4bc617cedb, type: 3}
+  abilityId: mage_skill_fireball
+  name: Fireball
+  hitInfoId: mage_skill_fireball_hit_direct
+  icon: {fileID: 21300000, guid: 988a76a020fb4c442af8e36c2a5fd9a2, type: 3}
+  abilityDamage:
+    primaryValue: 1.25
+    minStatValue: 0
+    maxStatValue: 10
+    totalValue: 0
+    isDirty: 0
+  damageTypes:
+  - damageType: 1
+    damageWeight: 0.5
+    isMainDamageType: 1
+  - damageType: 0
+    damageWeight: 0.5
+    isMainDamageType: 1
+  benefitFromCriticalStrike:
+  - <CriticalStrikeBenefitType>k__BackingField: 0
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 1
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 2
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 3
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 3
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  benefitFromPenetration:
+  - <PenetrationBenefitType>k__BackingField: 19
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 20
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 21
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 22
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 23
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  travelSpeed:
+    primaryValue: 10
+    minStatValue: 3
+    maxStatValue: 50
+    totalValue: 0
+    isDirty: 0
+  minCastRange:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  maxCastRange:
+    primaryValue: 20
+    minStatValue: 5
+    maxStatValue: 20
+    totalValue: 0
+    isDirty: 0
+  hitRange:
+    primaryValue: 20
+    minStatValue: 5
+    maxStatValue: 50
+    totalValue: 0
+    isDirty: 0
+  hitAngle:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  cooldown:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 1e+12
+    totalValue: 0
+    isDirty: 0
+  manaCost:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 100
+    totalValue: 0
+    isDirty: 0
+  skillCastType: 0
+  <SkillTypes>k__BackingField: 0100000002000000
+  chargeSystem:
+    <MaxCharges>k__BackingField:
+      description: 
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      totalValue: 0
+      isDirty: 0
+    <CurrentCharges>k__BackingField: 0
+    <ChargeReplenishmentType>k__BackingField: 0
+    <DefaultChargesUseRate>k__BackingField:
+      description: 
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      totalValue: 0
+      isDirty: 0
+    <DefaultChargesReplenishmentRateOneByOne>k__BackingField:
+      description: 
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      totalValue: 0
+      isDirty: 0
+  buffHolder: []
+  debuffHolder:
+  - debuffToApply: {fileID: 11400000, guid: 25a3f4a0e81832642b670fd261b39c95, type: 2}
+    stacksToApply:
+      description: 
+      primaryValue: 1
+      minStatValue: 0
+      maxStatValue: 2147483647
+      totalValue: 1
+      isDirty: 0
+    <ApplyManually>k__BackingField: 0
+    <ApplyOnHitInfoId>k__BackingField: 
+    <ShowInTooltip>k__BackingField: 1
+  castTime:
+    primaryValue: 1.32
+    minStatValue: 0.01
+    maxStatValue: 3
+    totalValue: 0
+    isDirty: 0
+  animationClip: {fileID: 7400000, guid: 6891d285b05c19c468fc6a65fdc3b096, type: 2}
+  castTime_second:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  animationClipSecond: {fileID: 7400000, guid: a4334ab4b6729a24292608a858207bb8, type: 2}
+  castTime_third:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  animationClipThird: {fileID: 7400000, guid: e6a45041ede5dea40abb6674ac54a5c7, type: 2}
+  skillTriggers:
+  - triggerName: Spammable_1
+    animationSpeedFloatName: SpammableAnim_1_Speed
+  - triggerName: Spammable_2
+    animationSpeedFloatName: SpammableAnim_2_Speed
+  - triggerName: Spammable_3
+    animationSpeedFloatName: SpammableAnim_3_Speed
+  hashedSkillTriggers:
+  - triggerHash: -447841542
+    animationSpeedFloatHash: 358148362
+  - triggerHash: 2085038912
+    animationSpeedFloatHash: 615576471
+  - triggerHash: 188750806
+    animationSpeedFloatHash: -2100824029
+  <MinLevelRequired>k__BackingField: 0
+  <Scale>k__BackingField:
+    primaryValue: 1
+    minStatValue: 0.1
+    maxStatValue: Infinity
+    totalValue: 0
+    isDirty: 0
+  <ProjectileFireType>k__BackingField: 0
+  <ProjectileCount>k__BackingField:
+    description: 
+    primaryValue: 1
+    minStatValue: 1
+    maxStatValue: 20
+    totalValue: 0
+    isDirty: 0
+  <MaxPierceCount>k__BackingField:
+    description: 
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 2147483647
+    totalValue: 0
+    isDirty: 0
+  <MaxUniqueTargetHits>k__BackingField:
+    description: 
+    primaryValue: 1
+    minStatValue: 1
+    maxStatValue: 2147483647
+    totalValue: 0
+    isDirty: 0
+  <CanPierceTerrain>k__BackingField: 0
+  <PiercesAllTargets>k__BackingField: 0
+  <InfiniteUniqueTargetHits>k__BackingField: 0
+  explosionHitInforId: mage_skill_fireball_hit_explosion
+  explosionRadius:
+    primaryValue: 3.2
+    minStatValue: 1
+    maxStatValue: 20
+    totalValue: 0
+    isDirty: 0
+  explosionDamage:
+    primaryValue: 0.4
+    minStatValue: 0
+    maxStatValue: 1e+17
+    totalValue: 0
+    isDirty: 0
+  explosionDamageTypes:
+  - damageType: 1
+    damageWeight: 1
+    isMainDamageType: 1

@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3cf867c9e4d5049ba86c4970c0de9a, type: 3}
+  m_Name: tutorial_weapon
+  m_EditorClassIdentifier: 
+  itemID: tutorial_weapon
+  name: Tutorial Weapon
+  icon: {fileID: 21300000, guid: c0280fafa88fc374899c40a7f7982b39, type: 3}
+  stackAmountMax: 1
+  stackSize: 1
+  itemRarity: 0
+  itemCooldown: 0
+  itemCooldownCategory: 0
+  equipmentSlot: 6
+  <ActiveBaseStats>k__BackingField:
+  - baseStat: 0
+    isResistance: 0
+    statMultiplier: 1.5
+  rollableStats:
+  - baseStat: 1
+    isResistance: 0
+    statMultiplier: 1
+  - baseStat: 2
+    isResistance: 0
+    statMultiplier: 1
+  - baseStat: 3
+    isResistance: 0
+    statMultiplier: 1
+  - baseStat: 4
+    isResistance: 0
+    statMultiplier: 2
+  - baseStat: 6
+    isResistance: 0
+    statMultiplier: 1
+  minBaseStats: 2
+  maxBaseStats: 3
+  minBaseStatPercentualValue: 0
+  <ActiveEnchantments>k__BackingField: []

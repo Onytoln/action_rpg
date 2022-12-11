@@ -1,0 +1,252 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63cb76f9000082340b7572280e39586a, type: 3}
+  m_Name: summon_skeleton_warrior_melee_attack
+  m_EditorClassIdentifier: 
+  characterComponent: {fileID: 0}
+  castPoint: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
+  skillObject: {fileID: 0}
+  abilityPrefab: {fileID: 0}
+  abilityId: skeleton_warrior_melle_attack
+  name: Skeleton Warrior Melee Attack
+  currentHitInfoId: 
+  hitInfoId: skeleton_warrior_melle_attack_hit_direct
+  icon: {fileID: 0}
+  abilityDamage:
+    description: 
+    primaryValue: 2
+    minStatValue: 0
+    maxStatValue: 10
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  damageTypes:
+  - damageType: 0
+    damageWeight: 1
+    isMainDamageType: 1
+  benefitFromCriticalStrike:
+  - description: Crit chance benefit absolute modifier
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 1
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  - description: Crit chance benefit relative modifier
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 1
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  - description: Crit damage benefit absolute modifier
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 3
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  - description: Crit damage benefit relative modifier
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 1
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  benefitFromPenetration:
+  - description: Physical pene benefit
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 1
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  - description: Fire pene benefit
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 1
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  - description: Ice pene benefit
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 1
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  - description: Lightning pene benefit
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 1
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  - description: Poison pene benefit
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 1
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  travelSpeed:
+    description: 
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  minCastRange:
+    description: 
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  maxCastRange:
+    description: 
+    primaryValue: 2
+    minStatValue: 2
+    maxStatValue: 2
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  hitRange:
+    description: 
+    primaryValue: 2
+    minStatValue: 2
+    maxStatValue: 2
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  hitAngle:
+    description: 
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  cooldown:
+    description: 
+    primaryValue: 5
+    minStatValue: 0
+    maxStatValue: 10
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  skillLogic: {fileID: 0}
+  manaCost:
+    description: 
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  skillCastType: 0
+  skillType: 0
+  chargeSystem:
+    <MaxCharges>k__BackingField:
+      description: 
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      absoluteModifiers: 
+      relativeModifiers: []
+      totalValue: 0
+      isDirty: 0
+    <CurrentCharges>k__BackingField: 0
+    <ChargeReplenishmentType>k__BackingField: 0
+    <DefaultChargesUseRate>k__BackingField:
+      description: 
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      absoluteModifiers: 
+      relativeModifiers: []
+      totalValue: 0
+      isDirty: 0
+    <DefaultChargesReplenishmentRateOneByOne>k__BackingField:
+      description: 
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      absoluteModifiers: 
+      relativeModifiers: []
+      totalValue: 0
+      isDirty: 0
+  buffHolder: []
+  debuffHolder: []
+  castTime:
+    description: 
+    primaryValue: 1.5
+    minStatValue: 0.6
+    maxStatValue: 3
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  animationDurationDefaultValue: 1.844666
+  animationDurationCurrentValue: 0
+  castTimeAttackSpeedOldValue: 0
+  castTime_second:
+    description: 
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  animationDurationDefaultValue_second: 0
+  animationDurationCurrentValue_second: 0
+  castTimeAttackSpeedOldValue_second: 0
+  castTime_third:
+    description: 
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+    isDirty: 0
+  animationDurationDefaultValue_third: 0
+  animationDurationCurrentValue_third: 0
+  castTimeAttackSpeedOldValue_third: 0
+  skillTriggers:
+  - triggerName: Attack_1
+    animationSpeedFloatName: Attack_1_Speed
+  hashedSkillTriggers:
+  - triggerHash: -1388329595
+    animationSpeedFloatHash: 1388312938
+  <MinLevelRequired>k__BackingField: 0

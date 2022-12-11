@@ -1,0 +1,204 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05591bbedfd1d2e4682b468e87d7b557, type: 3}
+  m_Name: Teleport Properties
+  m_EditorClassIdentifier: 
+  abilityPrefab: {fileID: 0}
+  abilityId: mage_skill_teleport
+  name: Teleport
+  hitInfoId: .
+  icon: {fileID: 21300000, guid: 2aeeedbccc435a74fa96b25b6a6efa38, type: 3}
+  abilityDamage:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 10
+    totalValue: 0
+    isDirty: 0
+  damageTypes:
+  - damageType: 0
+    damageWeight: 1
+    isMainDamageType: 1
+  benefitFromCriticalStrike:
+  - <CriticalStrikeBenefitType>k__BackingField: 0
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 1
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 2
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 3
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 3
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  benefitFromPenetration:
+  - <PenetrationBenefitType>k__BackingField: 19
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 20
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 21
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 22
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 23
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  travelSpeed:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  minCastRange:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  maxCastRange:
+    primaryValue: 9
+    minStatValue: 5
+    maxStatValue: 20
+    totalValue: 0
+    isDirty: 0
+  hitRange:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  hitAngle:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  cooldown:
+    primaryValue: 9
+    minStatValue: 0
+    maxStatValue: 1e+29
+    totalValue: 0
+    isDirty: 0
+  manaCost:
+    primaryValue: 30
+    minStatValue: 0
+    maxStatValue: 1e+20
+    totalValue: 0
+    isDirty: 0
+  <SkillCastType>k__BackingField: 0
+  <SkillCastSpeedScalingType>k__BackingField: 1
+  <SkillTypes>k__BackingField: 04000000
+  chargeSystem:
+    <MaxCharges>k__BackingField:
+      description: 
+      primaryValue: 2
+      minStatValue: 0
+      maxStatValue: 2147483647
+      totalValue: 0
+      isDirty: 0
+    <CurrentCharges>k__BackingField: 0
+    <ChargeReplenishmentType>k__BackingField: 0
+    <DefaultChargesUseRate>k__BackingField:
+      description: 
+      primaryValue: 1
+      minStatValue: 1
+      maxStatValue: 2147483647
+      totalValue: 0
+      isDirty: 0
+    <DefaultChargesReplenishmentRateOneByOne>k__BackingField:
+      description: 
+      primaryValue: 1
+      minStatValue: 1
+      maxStatValue: 2147483647
+      totalValue: 0
+      isDirty: 0
+  buffHolder:
+  - buffToApply: {fileID: 11400000, guid: 89331191aeb5e0a4b83b77a5f8ec6f22, type: 2}
+    stacksToApply:
+      description: 
+      primaryValue: 1
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 0
+    <ApplyManually>k__BackingField: 1
+    <ShowInTooltip>k__BackingField: 1
+  debuffHolder: []
+  castTime:
+    primaryValue: 0.3
+    minStatValue: 0.1
+    maxStatValue: 3
+    totalValue: 0
+    isDirty: 0
+  animationClip: {fileID: 7400000, guid: 9bc2d68cc66a7e944a0239521c676816, type: 2}
+  castTime_second:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  animationClipSecond: {fileID: 0}
+  castTime_third:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  animationClipThird: {fileID: 0}
+  skillTriggers:
+  - triggerName: MovementAbility_1
+    animationSpeedFloatName: MovementAbility_1_Speed
+  hashedSkillTriggers:
+  - triggerHash: 1691831556
+    animationSpeedFloatHash: -1955593892
+  <MinLevelRequired>k__BackingField: 0
+  rangeTolerance: 0.7

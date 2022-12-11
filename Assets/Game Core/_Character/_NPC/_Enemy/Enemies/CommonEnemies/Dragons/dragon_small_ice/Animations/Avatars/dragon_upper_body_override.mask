@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: dragon_upper_body_override
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: DragonSoulEater
+    m_Weight: 1
+  - m_Path: Root_Pelvis
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Chest
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Chest/Neck
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Chest/Neck/Head
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Chest/Neck/Head/Eye_Left
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Chest/Neck/Head/Eye_Right
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Chest/Neck/Head/Jaw
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Chest/Neck/Head/Jaw/JawTip
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Chest/Neck/Head/UpperMouth
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Chest/Neck/NeckFat_Left
+    m_Weight: 0
+  - m_Path: Root_Pelvis/Spine/Chest/Neck/NeckFat_Right
+    m_Weight: 0
+  - m_Path: Root_Pelvis/Spine/Chest/UpperArm_Left
+    m_Weight: 0
+  - m_Path: Root_Pelvis/Spine/Chest/UpperArm_Left/LowerArm_Left
+    m_Weight: 0
+  - m_Path: Root_Pelvis/Spine/Chest/UpperArm_Left/LowerArm_Left/Hand_Left
+    m_Weight: 0
+  - m_Path: Root_Pelvis/Spine/Chest/UpperArm_Left/LowerArm_Left/Hand_Left/HandTip_Left
+    m_Weight: 0
+  - m_Path: Root_Pelvis/Spine/Chest/UpperArm_Right
+    m_Weight: 0
+  - m_Path: Root_Pelvis/Spine/Chest/UpperArm_Right/LowerArm_Right
+    m_Weight: 0
+  - m_Path: Root_Pelvis/Spine/Chest/UpperArm_Right/LowerArm_Right/Hand_Right
+    m_Weight: 0
+  - m_Path: Root_Pelvis/Spine/Chest/UpperArm_Right/LowerArm_Right/Hand_Right/HandTip_Right
+    m_Weight: 0
+  - m_Path: Root_Pelvis/Spine/ValleyFat
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Left
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingIndex01_Left
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingIndex01_Left/WingIndex02_Left
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingIndex01_Left/WingIndex02_Left/WingIndex03_Left
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingMiddle01_Left
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingMiddle01_Left/WingMiddle02_Left
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingMiddle01_Left/WingMiddle02_Left/WingMiddle03_Left
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingPinky01_Left
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingPinky01_Left/WingPinky02_Left
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Left/Wing02_Left/Wing03_Left/WingHand_Left/WingPinky01_Left/WingPinky02_Left/WingPinky03_Left
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Right
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingIndex01_Right
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingIndex01_Right/WingIndex02_Right
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingIndex01_Right/WingIndex02_Right/WingIndex03_Right
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingMiddle01_Right
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingMiddle01_Right/WingMiddle02_Right
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingMiddle01_Right/WingMiddle02_Right/WingMiddle03_Right
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingPinky01_Right
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingPinky01_Right/WingPinky02_Right
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Spine/Wing01_Right/Wing02_Right/Wing03_Right/WingHand_Right/WingPinky01_Right/WingPinky02_Right/WingPinky03_Right
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Tail01
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Tail01/Tail02
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Tail01/Tail02/Tail03
+    m_Weight: 1
+  - m_Path: Root_Pelvis/Tail01/Tail02/Tail03/TailEnd
+    m_Weight: 1
+  - m_Path: Root_Pelvis/UpperLeg_Left
+    m_Weight: 0
+  - m_Path: Root_Pelvis/UpperLeg_Left/LowerLeg_Left
+    m_Weight: 0
+  - m_Path: Root_Pelvis/UpperLeg_Left/LowerLeg_Left/ReverseLeg_Left
+    m_Weight: 0
+  - m_Path: Root_Pelvis/UpperLeg_Left/LowerLeg_Left/ReverseLeg_Left/Feet_Left
+    m_Weight: 0
+  - m_Path: Root_Pelvis/UpperLeg_Left/LowerLeg_Left/ReverseLeg_Left/Feet_Left/Toe_Left
+    m_Weight: 0
+  - m_Path: Root_Pelvis/UpperLeg_Right
+    m_Weight: 0
+  - m_Path: Root_Pelvis/UpperLeg_Right/LowerLeg_Right
+    m_Weight: 0
+  - m_Path: Root_Pelvis/UpperLeg_Right/LowerLeg_Right/ReverseLeg_Right
+    m_Weight: 0
+  - m_Path: Root_Pelvis/UpperLeg_Right/LowerLeg_Right/ReverseLeg_Right/Feet_Right
+    m_Weight: 0
+  - m_Path: Root_Pelvis/UpperLeg_Right/LowerLeg_Right/ReverseLeg_Right/Feet_Right/Toe_Right
+    m_Weight: 0

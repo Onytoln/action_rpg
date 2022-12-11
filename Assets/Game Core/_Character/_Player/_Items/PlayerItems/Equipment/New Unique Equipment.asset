@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f40c7e453804b4aabbda215101ee6a, type: 3}
+  m_Name: New Unique Equipment
+  m_EditorClassIdentifier: 
+  itemID: test_item_unique_1
+  name: New Item
+  icon: {fileID: 0}
+  stackAmountMax: 1
+  stackSize: 1
+  isIdentified: 0
+  itemRarity: 4
+  itemCooldown: 0
+  itemCooldownCategory: 0
+  <CheckForDistance>k__BackingField: 1
+  <InCooldownUnusable>k__BackingField: 1
+  equipmentSlot: 0
+  <ActiveBaseStats>k__BackingField: []
+  rollableStats: []
+  minBaseStats: 2
+  maxBaseStats: 5
+  minBaseStatPercentualValue: 0
+  <ActiveEnchantments>k__BackingField: []
+  uniqueValue: 

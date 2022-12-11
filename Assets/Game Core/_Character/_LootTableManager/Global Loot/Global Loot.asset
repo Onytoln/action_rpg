@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d51c3b0f2a157a24bb5742dcfe16b0b8, type: 3}
+  m_Name: Global Loot
+  m_EditorClassIdentifier: 
+  currencyLoot:
+  - <DropWeight>k__BackingField: 650
+    <Item>k__BackingField: {fileID: 11400000, guid: 1fa0fc5aeee912a4b97a8a430e3f956e, type: 2}
+  - <DropWeight>k__BackingField: 300
+    <Item>k__BackingField: {fileID: 11400000, guid: d951598081894fb479037c597a31d585, type: 2}
+  - <DropWeight>k__BackingField: 50
+    <Item>k__BackingField: {fileID: 11400000, guid: cd4bc766184a481418a5f4d880c06626, type: 2}
+  regularEquipmentLoot:
+  - <DropWeight>k__BackingField: 100
+    <Item>k__BackingField: {fileID: 11400000, guid: fe6230a0b76d3b349937421565712e92, type: 2}
+  - <DropWeight>k__BackingField: 100
+    <Item>k__BackingField: {fileID: 11400000, guid: e778709d15ddcab4ea17d76a7ab3a4c8, type: 2}
+  - <DropWeight>k__BackingField: 100
+    <Item>k__BackingField: {fileID: 11400000, guid: e2139370c7f341042bd008e7b0675ee5, type: 2}
+  - <DropWeight>k__BackingField: 100
+    <Item>k__BackingField: {fileID: 11400000, guid: fa3b6d024a8e2994dbfef45276475a43, type: 2}
+  - <DropWeight>k__BackingField: 100
+    <Item>k__BackingField: {fileID: 11400000, guid: 7af1ab443ce41b346911a8959e7b31a0, type: 2}
+  - <DropWeight>k__BackingField: 100
+    <Item>k__BackingField: {fileID: 11400000, guid: 38f088da757b4b449bf6dda319960d9c, type: 2}
+  - <DropWeight>k__BackingField: 100
+    <Item>k__BackingField: {fileID: 11400000, guid: 28ab6668f1188ba4e98f36774263451a, type: 2}
+  - <DropWeight>k__BackingField: 100
+    <Item>k__BackingField: {fileID: 11400000, guid: 651784ee1c878bd4fbb4955d1863baaa, type: 2}
+  - <DropWeight>k__BackingField: 100
+    <Item>k__BackingField: {fileID: 11400000, guid: c9b47c338d96d5742b2ddaaedcf00c2b, type: 2}
+  - <DropWeight>k__BackingField: 125
+    <Item>k__BackingField: {fileID: 11400000, guid: bca63efd3f4b98546a358a0b529c681a, type: 2}
+  - <DropWeight>k__BackingField: 100
+    <Item>k__BackingField: {fileID: 11400000, guid: ca91f6442c88e944ea0a8de062f0f22f, type: 2}
+  uniqueEquipmentLoot:
+  - <DropWeight>k__BackingField: 100
+    <Item>k__BackingField: {fileID: 11400000, guid: de4cac9117838a64ba3ddb5c1bd9cd40, type: 2}
+  consumablesLoot:
+  - <DropWeight>k__BackingField: 100
+    <Item>k__BackingField: {fileID: 11400000, guid: 722d1659dcb62ff44983fc1079cf1f91, type: 2}
+  - <DropWeight>k__BackingField: 35
+    <Item>k__BackingField: {fileID: 11400000, guid: aaeea89b47bf6d04995bc2e1940692eb, type: 2}
+  - <DropWeight>k__BackingField: 100
+    <Item>k__BackingField: {fileID: 11400000, guid: 4facac8a235bd3242ba174d2c123e227, type: 2}
+  - <DropWeight>k__BackingField: 35
+    <Item>k__BackingField: {fileID: 11400000, guid: 262f00538e3130848b156b402f8781af, type: 2}
+  otherLoot: []

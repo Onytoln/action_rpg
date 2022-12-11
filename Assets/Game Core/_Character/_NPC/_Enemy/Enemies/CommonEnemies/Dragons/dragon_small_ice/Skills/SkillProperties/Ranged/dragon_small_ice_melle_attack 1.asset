@@ -1,0 +1,206 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63cb76f9000082340b7572280e39586a, type: 3}
+  m_Name: dragon_small_ice_melle_attack 1
+  m_EditorClassIdentifier: 
+  abilityPrefab: {fileID: 0}
+  abilityId: dragon_small_ice_melee_attack
+  name: new skill
+  hitInfoId: dragon_small_ice_melee_attack_hit_direct
+  icon: {fileID: 0}
+  abilityDamage:
+    primaryValue: 2.3
+    minStatValue: 0
+    maxStatValue: 10
+    totalValue: 0
+    isDirty: 0
+  damageTypes:
+  - damageType: 0
+    damageWeight: 0.5
+    isMainDamageType: 1
+  - damageType: 2
+    damageWeight: 0.5
+    isMainDamageType: 1
+  benefitFromCriticalStrike:
+  - <CriticalStrikeBenefitType>k__BackingField: 0
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      totalValue: 0
+      isDirty: 0
+  - <CriticalStrikeBenefitType>k__BackingField: 0
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      totalValue: 0
+      isDirty: 0
+  - <CriticalStrikeBenefitType>k__BackingField: 0
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      totalValue: 0
+      isDirty: 0
+  - <CriticalStrikeBenefitType>k__BackingField: 0
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      totalValue: 0
+      isDirty: 0
+  benefitFromPenetration:
+  - <PenetrationBenefitType>k__BackingField: 19
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 20
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 21
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 22
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 23
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  travelSpeed:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  minCastRange:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  maxCastRange:
+    primaryValue: 2.2
+    minStatValue: 2.2
+    maxStatValue: 2.2
+    totalValue: 0
+    isDirty: 0
+  hitRange:
+    primaryValue: 2
+    minStatValue: 2
+    maxStatValue: 2
+    totalValue: 0
+    isDirty: 0
+  hitAngle:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  cooldown:
+    primaryValue: 6
+    minStatValue: 3
+    maxStatValue: 9
+    totalValue: 0
+    isDirty: 0
+  manaCost:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  skillCastType: 0
+  <SkillTypes>k__BackingField: 00000000
+  chargeSystem:
+    <MaxCharges>k__BackingField:
+      description: 
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      totalValue: 0
+      isDirty: 0
+    <CurrentCharges>k__BackingField: 0
+    <ChargeReplenishmentType>k__BackingField: 0
+    <DefaultChargesUseRate>k__BackingField:
+      description: 
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      totalValue: 0
+      isDirty: 0
+    <DefaultChargesReplenishmentRateOneByOne>k__BackingField:
+      description: 
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      totalValue: 0
+      isDirty: 0
+  buffHolder: []
+  debuffHolder:
+  - debuffToApply: {fileID: 11400000, guid: e0a035d1cca243a4c990c9982608ca57, type: 2}
+    stacksToApply:
+      description: 
+      primaryValue: 2
+      minStatValue: 2
+      maxStatValue: 2
+      totalValue: 0
+      isDirty: 0
+    <ApplyManually>k__BackingField: 0
+    <ApplyOnHitInfoId>k__BackingField: 
+    <ShowInTooltip>k__BackingField: 0
+  castTime:
+    primaryValue: 1.5
+    minStatValue: 0.5
+    maxStatValue: 4
+    totalValue: 0
+    isDirty: 0
+  animationClip: {fileID: 7400000, guid: 35978f3fc97ce574fbfd19cdb6568982, type: 2}
+  castTime_second:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  animationClipSecond: {fileID: 0}
+  castTime_third:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  animationClipThird: {fileID: 0}
+  skillTriggers:
+  - triggerName: Attack_1
+    animationSpeedFloatName: Attack_1_Speed
+  hashedSkillTriggers:
+  - triggerHash: -1388329595
+    animationSpeedFloatHash: 1388312938
+  <MinLevelRequired>k__BackingField: 0

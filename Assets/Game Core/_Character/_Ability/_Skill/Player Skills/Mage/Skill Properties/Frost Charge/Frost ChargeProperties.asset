@@ -1,0 +1,264 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba055a19d2db5bf49bc3f59fe8686dfb, type: 3}
+  m_Name: Frost ChargeProperties
+  m_EditorClassIdentifier: 
+  abilityPrefab: {fileID: 4662600800283424337, guid: ebbd31d763cb644468fca4deaa371e7b, type: 3}
+  abilityId: mage_skill_frost_charge
+  name: Frost Charge
+  hitInfoId: mage_skill_frost_charge_hit_direct
+  icon: {fileID: 21300000, guid: cfa025a988aa51f43881abc7a827b0ea, type: 3}
+  abilityDamage:
+    primaryValue: 0.35
+    minStatValue: 0.1
+    maxStatValue: 10
+    totalValue: 0
+    isDirty: 0
+  damageTypes:
+  - damageType: 2
+    damageWeight: 1
+    isMainDamageType: 1
+  benefitFromCriticalStrike:
+  - <CriticalStrikeBenefitType>k__BackingField: 0
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 1
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 2
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 3
+      totalValue: 0
+      isDirty: 1
+  - <CriticalStrikeBenefitType>k__BackingField: 3
+    <CriticalStrikeBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  benefitFromPenetration:
+  - <PenetrationBenefitType>k__BackingField: 19
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 20
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 21
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 22
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  - <PenetrationBenefitType>k__BackingField: 23
+    <PenetrationBenefit>k__BackingField:
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 1
+      totalValue: 0
+      isDirty: 1
+  travelSpeed:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  minCastRange:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  maxCastRange:
+    primaryValue: 25
+    minStatValue: 25
+    maxStatValue: 25
+    totalValue: 0
+    isDirty: 0
+  hitRange:
+    primaryValue: 1
+    minStatValue: 0.5
+    maxStatValue: 2
+    totalValue: 0
+    isDirty: 0
+  hitAngle:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  cooldown:
+    primaryValue: 9
+    minStatValue: 3
+    maxStatValue: 16
+    totalValue: 0
+    isDirty: 0
+  manaCost:
+    primaryValue: 40
+    minStatValue: 10
+    maxStatValue: 80
+    totalValue: 0
+    isDirty: 0
+  <SkillCastType>k__BackingField: 0
+  <SkillCastSpeedScalingType>k__BackingField: 1
+  <SkillTypes>k__BackingField: 040000000000000002000000
+  chargeSystem:
+    <MaxCharges>k__BackingField:
+      description: 
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      totalValue: 0
+      isDirty: 0
+    <CurrentCharges>k__BackingField: 0
+    <ChargeReplenishmentType>k__BackingField: 0
+    <DefaultChargesUseRate>k__BackingField:
+      description: 
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      totalValue: 0
+      isDirty: 0
+    <DefaultChargesReplenishmentRateOneByOne>k__BackingField:
+      description: 
+      primaryValue: 0
+      minStatValue: 0
+      maxStatValue: 0
+      totalValue: 0
+      isDirty: 0
+  buffHolder: []
+  debuffHolder:
+  - debuffToApply: {fileID: 11400000, guid: 9e63a653fb155ad408bc960e16da237f, type: 2}
+    stacksToApply:
+      description: 
+      primaryValue: 1
+      minStatValue: 0
+      maxStatValue: 2147483647
+      totalValue: 0
+      isDirty: 0
+    <ApplyManually>k__BackingField: 0
+    <ApplyOnHitInfoId>k__BackingField: mage_skill_frost_charge_hit_direct
+    <ShowInTooltip>k__BackingField: 1
+  - debuffToApply: {fileID: 11400000, guid: 9e63a653fb155ad408bc960e16da237f, type: 2}
+    stacksToApply:
+      description: 
+      primaryValue: 5
+      minStatValue: 0
+      maxStatValue: 2147483647
+      totalValue: 0
+      isDirty: 0
+    <ApplyManually>k__BackingField: 0
+    <ApplyOnHitInfoId>k__BackingField: mage_skill_frost_charge_hit_explosion
+    <ShowInTooltip>k__BackingField: 0
+  castTime:
+    primaryValue: 0.5
+    minStatValue: 0.1
+    maxStatValue: 1
+    totalValue: 0
+    isDirty: 0
+  animationClip: {fileID: 7400000, guid: 45b3df12bcc36544fa98a73dbd1da0bd, type: 2}
+  castTime_second:
+    primaryValue: 0.5
+    minStatValue: 0.1
+    maxStatValue: 1
+    totalValue: 0
+    isDirty: 0
+  animationClipSecond: {fileID: 7400000, guid: 7d870412daa573c49ab972e6e874e3d0, type: 2}
+  castTime_third:
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    totalValue: 0
+    isDirty: 0
+  animationClipThird: {fileID: 0}
+  skillTriggers:
+  - triggerName: MovementProgressive_1
+    animationSpeedFloatName: MovementProgressive_1_Speed_start
+  - triggerName: MovementProgressive_1_Loop_end
+    animationSpeedFloatName: MovementProgressive_1_Speed_end
+  hashedSkillTriggers:
+  - triggerHash: 156387180
+    animationSpeedFloatHash: -1262228970
+  - triggerHash: 784845218
+    animationSpeedFloatHash: 1048558521
+  <MinLevelRequired>k__BackingField: 0
+  <Scale>k__BackingField:
+    primaryValue: 1
+    minStatValue: 0.1
+    maxStatValue: Infinity
+    totalValue: 0
+    isDirty: 0
+  <ChargeDuration>k__BackingField:
+    primaryValue: 0.8
+    minStatValue: 0.5
+    maxStatValue: 2
+    totalValue: 0
+    isDirty: 0
+  <ChargeSpeed>k__BackingField:
+    primaryValue: 8
+    minStatValue: 4
+    maxStatValue: 16
+    totalValue: 0
+    isDirty: 0
+  <MaxPierceCount>k__BackingField:
+    description: 
+    primaryValue: 1
+    minStatValue: 1
+    maxStatValue: 211111111
+    totalValue: 0
+    isDirty: 0
+  <PiercesAllTargets>k__BackingField:
+    defaultValue: 1
+    whenEqual: 0
+  postChargeExplosionHitInforId: mage_skill_frost_charge_hit_explosion
+  postChargeExplosionRadius:
+    primaryValue: 1.8
+    minStatValue: 0.1
+    maxStatValue: 12
+    totalValue: 0
+    isDirty: 0
+  postChargeExplosionDamage:
+    primaryValue: 1.5
+    minStatValue: 0.1
+    maxStatValue: 10
+    totalValue: 0
+    isDirty: 0
+  postChargeExplosionDamageTypes:
+  - damageType: 2
+    damageWeight: 1
+    isMainDamageType: 1

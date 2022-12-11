@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38f5f92d3d35804599c75144e78297c, type: 3}
+  m_Name: New Mana Restoration Potion Over Time
+  m_EditorClassIdentifier: 
+  itemID: mana_potion_over_time
+  name: Mana Restoration Potion
+  icon: {fileID: 21300000, guid: 4d984360ea12e3b4683926e35a91910e, type: 2}
+  stackAmountMax: 10
+  stackSize: 1
+  isIdentified: 1
+  lootHolder: {fileID: 0}
+  itemRarity: 0
+  itemCooldown: 5
+  itemCooldownCategory: 4
+  <CheckForDistance>k__BackingField: 1
+  <InCooldownUnusable>k__BackingField: 1
+  potionManaRestoration: 0.1
+  manaRestorationBuffHolder:
+    buffToApply: {fileID: 11400000, guid: 3f96dec4ab745be40800a300ab1b13aa, type: 2}
+    stacksToApply:
+      description: 
+      primaryValue: 1
+      minStatValue: 1
+      maxStatValue: 2147483647
+      totalValue: 0
+      isDirty: 1
+    <ApplyManually>k__BackingField: 0
+    <ShowInTooltip>k__BackingField: 1

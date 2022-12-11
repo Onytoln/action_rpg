@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3cf867c9e4d5049ba86c4970c0de9a, type: 3}
+  m_Name: ench test
+  m_EditorClassIdentifier: 
+  itemID: ench_test
+  name: New Item
+  icon: {fileID: 0}
+  stackAmountMax: 1
+  stackSize: 1
+  isIdentified: 0
+  lootHolder: {fileID: 0}
+  itemRarity: 2
+  itemCooldown: 0
+  itemCooldownCategory: 0
+  <CheckForDistance>k__BackingField: 1
+  <InCooldownUnusable>k__BackingField: 1
+  equipmentSlot: 0
+  <ActiveBaseStats>k__BackingField:
+  - baseStat: 16
+    isResistance: 1
+    statMultiplier: 1
+  - baseStat: 17
+    isResistance: 1
+    statMultiplier: 1
+  rollableStats: []
+  minBaseStats: 2
+  maxBaseStats: 5
+  minBaseStatPercentualValue: 0
+  <ActiveEnchantments>k__BackingField:
+  - {fileID: 11400000, guid: d1dea6f5b3e268748a77d68310b16048, type: 2}
+  - {fileID: 11400000, guid: 0cfe8a98ea4314147837339ac72e48df, type: 2}
+  - {fileID: 11400000, guid: 990d2e32a1cc5d548a7aa636e0f6d744, type: 2}

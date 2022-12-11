@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09e477fd7da79c04c8062092c33c8274, type: 3}
+  m_Name: SkillProperties
+  m_EditorClassIdentifier: 
+  characterStats: {fileID: 0}
+  skillObject: {fileID: 0}
+  skillLogic: {fileID: 0}
+  castPoint: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
+  skillPrefab: {fileID: 0}
+  skillId: 
+  name: test
+  description: Base desc
+  hitInfoDesc: 
+  icon: {fileID: 21300000, guid: 2aeeedbccc435a74fa96b25b6a6efa38, type: 3}
+  skillDamage:
+    description: 
+    skillProperties: {fileID: 0}
+    penetrationType: 25
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+  damageTypes:
+  - damageType: 6
+    damageWeight: 1
+    isMainDamageType: 1
+  manaCost:
+    description: 
+    skillProperties: {fileID: 0}
+    penetrationType: 25
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+  skillCastType: 1
+  skillType: 0
+  castTime:
+    description: 
+    skillProperties: {fileID: 0}
+    penetrationType: 25
+    primaryValue: 0.1
+    minStatValue: 0.05
+    maxStatValue: 1
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+  animationDurationDefaultValue: 0
+  animationDurationCurrentValue: 0
+  castTimeAttackSpeedOldValue: 0
+  castTime_second:
+    description: 
+    skillProperties: {fileID: 0}
+    penetrationType: 0
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+  animationDurationDefaultValue_second: 0
+  animationDurationCurrentValue_second: 0
+  castTimeAttackSpeedOldValue_second: 0
+  castTime_third:
+    description: 
+    skillProperties: {fileID: 0}
+    penetrationType: 0
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+  animationDurationDefaultValue_third: 0
+  animationDurationCurrentValue_third: 0
+  castTimeAttackSpeedOldValue_third: 0
+  skillTriggers: []
+  travelSpeed:
+    description: 
+    skillProperties: {fileID: 0}
+    penetrationType: 25
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+  hitRange:
+    description: 
+    skillProperties: {fileID: 0}
+    penetrationType: 25
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+  hitAngle:
+    description: 
+    skillProperties: {fileID: 0}
+    penetrationType: 25
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0
+  benefitFromCriticalStrike: []
+  benefitFromPenetration: []
+  cooldown:
+    description: 
+    skillProperties: {fileID: 0}
+    penetrationType: 25
+    primaryValue: 0
+    minStatValue: 0
+    maxStatValue: 0
+    absoluteModifiers: []
+    relativeModifiers: []
+    totalValue: 0

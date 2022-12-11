@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d51ee3b4fbc26c41a150a397c30ca3c, type: 3}
+  m_Name: Fire Resistance
+  m_EditorClassIdentifier: 
+  statName: Fire Resistance
+  statDescription: 
+  statType: 14
+  primaryValue: 0
+  minStatValue: -Infinity
+  maxStatValue: Infinity
+  maxStatValueModifiers: []
+  absoluteModifiers: []
+  relativeModifiers: []
+  totalModifiers: []
+  totalValue: 0
+  defaultScaleValue: 100
+  minScalableStatValue: -0.2
+  maxScalableStatValue: 0.8
+  maxScaledStatValueModifiers: []

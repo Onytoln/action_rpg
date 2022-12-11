@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa30efd7d41af040b4e6ac970f45b36, type: 3}
+  m_Name: Test Scene Enemies
+  m_EditorClassIdentifier: 
+  <Scene>k__BackingField: 3
+  <EnemySpawnCountMin>k__BackingField: 10
+  <EnemySpawnCountMax>k__BackingField: 20
+  <EnemyLootTable>k__BackingField:
+  - <DropWeight>k__BackingField: 600
+    <Enemy>k__BackingField: {fileID: 6644883703116310108, guid: ede1f7e30e5c65d428b7d387599b630d, type: 3}
+    <GuaranteedSpawnCount>k__BackingField: 12
+  - <DropWeight>k__BackingField: 300
+    <Enemy>k__BackingField: {fileID: 1052195439241008043, guid: 13405e1456a0dcb42baecd8d9b22b7b5, type: 3}
+    <GuaranteedSpawnCount>k__BackingField: 6
+  - <DropWeight>k__BackingField: 100
+    <Enemy>k__BackingField: {fileID: 1758500680, guid: f5b9abc8f972f0346b5c1474defa4886, type: 3}
+    <GuaranteedSpawnCount>k__BackingField: 2
+  - <DropWeight>k__BackingField: 100
+    <Enemy>k__BackingField: {fileID: 1758500680, guid: 538d839b6717b3b45a2918796421d059, type: 3}
+    <GuaranteedSpawnCount>k__BackingField: 2

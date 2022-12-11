@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 115b980ca2086cc4491a11c41b9aceda, type: 3}
+  m_Name: Frost Debuff Enemy
+  m_EditorClassIdentifier: 
+  statusEffectProperties: {fileID: 11400000, guid: 2e641187de7b4e74a94a5bf9be5021c8, type: 2}
+  debuffTypes: 0a00000008000000
+  maxDebuffStrenghtModifiers: 20
+  frostedMaterial: {fileID: 2100000, guid: b7d1e6646ab696a45b34b4ba2a44cb00, type: 2}
+  materialLerpSpeed: 0.8
+  audioPrefab: {fileID: 0}
