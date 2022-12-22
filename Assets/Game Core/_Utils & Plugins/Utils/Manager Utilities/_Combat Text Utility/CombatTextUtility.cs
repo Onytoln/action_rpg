@@ -35,22 +35,22 @@ public class CombatTextUtility : MonoBehaviour, IDisableUntilGameLoaded {
         }
     }
 
-    public void SpawnCombatText(Vector3 spawnPosition, string text, Color32 textColor, Color32? outlineColor = null, Transform followedTransform = null, int fontSize = 0,
-        Vector3? combatTextScale = null, float disappearTime = 0, float speed = 0, float speedDecrement = 0, float scaleRate = 0, Vector3? direction = null, Color32? textColor2 = null) {
+    public CombatText SpawnCombatText(Vector3 spawnPosition, string text) {
 
         CombatText combatText = objectPoolManager.GetPooledObject(combatTextPrefab.name, combatTextPrefab.gameObject, spawnPosition + spawnOffset, Utils.MainCam.transform.rotation)
            .GetComponent<CombatText>();
 
+        combatText.Initialize(text);
+
         combatTextSortOrder++;
-        combatText.SetCombatText(text, textColor, outlineColor, followedTransform, fontSize, combatTextScale, disappearTime, speed, speedDecrement, scaleRate, direction, textColor2);
         activeCombatTexts.Add(combatText);
         combatText.OnTextEnd += OnTextEnd;
-
-        combatText.gameObject.SetActive(true);
 
         if (combatTextSortOrder > 1000) {
             combatTextSortOrder = 0;
         }
+
+        return combatText;
     }
 
     private void OnTextEnd(CombatText combatText) {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour, ILoadable, IProgress {
+public class InputManager : MonoBehaviour, ILoadable {
     private class KeyData {
         public bool keyDown = false;
         public bool keyHeld = false;
@@ -41,9 +41,6 @@ public class InputManager : MonoBehaviour, ILoadable, IProgress {
 
     public event Action<ILoadable> OnLoad;
 
-    public bool ReportsProgress => true;
-    public float Progress { get; private set; }
-
     private void OnValidate() {
         if (excludeKeys == null || excludeKeys.Count == 0) {
             KeyCode[] codes = (KeyCode[])System.Enum.GetValues(typeof(KeyCode));
@@ -60,13 +57,12 @@ public class InputManager : MonoBehaviour, ILoadable, IProgress {
     private void Awake() {
         if (Instance == null) Instance = this;
 
-        GameSceneManager.PreSceneLoadPhase.ExecuteTaskConcurrently(LoadInputsAsync, this, ExecuteAmount.Once, GameStage.AnyStage);
+        GameSceneManager.PreSceneLoadPhase.ExecuteTaskConcurrently(LoadInputsAsync, null, ExecuteAmount.Once, GameStage.AnyStage);
     }
 
     private Task LoadInputsAsync() => Task.Run(LoadInputs);
 
     private void LoadInputs() {
-        //-------------------------------------------------------------------------------------------
         keyCodes = (KeyCode[])System.Enum.GetValues(typeof(KeyCode));
         List<KeyCode> activeKeys = new List<KeyCode>();
 
@@ -79,8 +75,6 @@ public class InputManager : MonoBehaviour, ILoadable, IProgress {
 
         this.activeKeys = activeKeys.ToArray();
 
-        Progress = 0.5f;
-
         keysStringDic = new Dictionary<KeyCode, string>();
 
         for (int i = 0; i < keyCodes.Length; i++) {
@@ -89,14 +83,10 @@ public class InputManager : MonoBehaviour, ILoadable, IProgress {
             }
         }
 
-        Progress = 0.7f;
-
         for (int i = 0; i < 10; i++) {
             keysStringDic[(KeyCode)((int)KeyCode.Alpha0 + i)] = i.ToString();
             keysStringDic[(KeyCode)((int)KeyCode.Keypad0 + i)] = i.ToString();
         }
-
-        Progress = 0.9f;
 
         keysStringDic[KeyCode.Comma] = ",";
         keysStringDic[KeyCode.Escape] = "Esc";
@@ -106,8 +96,6 @@ public class InputManager : MonoBehaviour, ILoadable, IProgress {
         keysStringDic[KeyCode.Mouse2] = "M3";
         keysStringDic[KeyCode.Mouse3] = "M4";
         keysStringDic[KeyCode.Mouse4] = "M5";
-
-        Progress = 1f;
 
         Scheduler.ExecuteOnMainThread(() => {
             IsLoaded = true;
