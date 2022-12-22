@@ -54,7 +54,7 @@ MonoBehaviour:
   textMeshPro: {fileID: 6940701594337595542}
   combatTextDefaultSize: {x: 0.1, y: 0.1, z: 0.1}
   offset: {x: 0, y: 0.6, z: 0}
-  defaultDissapearTime: 0.8
+  defaultDisappearTime: 0.8
   defaultSpeed: 5
   defaultSpeedDecrement: 1
   defaultDirectionX: 0.3
