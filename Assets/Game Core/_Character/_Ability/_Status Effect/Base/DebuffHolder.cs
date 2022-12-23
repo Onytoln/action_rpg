@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class DebuffHolder {
     public Debuff debuffToApply;
-    public SkillStatInt stacksToApply = new SkillStatInt(null, 1, 1, int.MaxValue);
+    public StatInt stacksToApply = new StatInt(null, 1, 1, int.MaxValue);
     [field: SerializeField] public bool ApplyManually { get; set; } = false;
     [field: SerializeField] public string ApplyOnHitInfoId { get; set; }
     [field: SerializeField] public bool ShowInTooltip { get; set; } = true;

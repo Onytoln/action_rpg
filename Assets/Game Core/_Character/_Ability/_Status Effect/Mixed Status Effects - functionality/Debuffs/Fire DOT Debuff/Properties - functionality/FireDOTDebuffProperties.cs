@@ -3,7 +3,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Fire DOT Debuff Properties", menuName = "Status Effects/Debuff Properties/Fire DOT Debuff Properties")]
 public class FireDOTDebuffProperties : StatusEffectProperties {
-    public SkillStat damagePerStack;
+    public StatFloat damagePerStack;
 
     public override void AssignReferences() {
         base.AssignReferences();

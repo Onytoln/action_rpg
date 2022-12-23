@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Stat", menuName = "NPC/Stat")]
-public class Stat : ScriptableObject, ICoreCharacterStat {
+public class ChracterStat : ScriptableObject, ICoreCharacterStat {
     public string statName;
 
     [TextArea] public string statDescription;
@@ -50,7 +50,7 @@ public class Stat : ScriptableObject, ICoreCharacterStat {
 
     #endregion
 
-    public Stat GetCopy() {
+    public ChracterStat GetCopy() {
         BeforeInstantiate();
         return Instantiate(this);
     }

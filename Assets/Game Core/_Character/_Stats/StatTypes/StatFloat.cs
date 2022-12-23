@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SkillStatInt {
-    public event Action<SkillStatInt> OnStatChanged;
-    public string description;
-    [System.NonSerialized] public Action setTooltipDirtyMethod;
+public class StatFloat : StatBase {
+    [field: System.NonSerialized] public Action SetTooltipDirtyMethod { get; set; }
 
-    [SerializeField, Header("Core values")] private int primaryValue;
-    [SerializeField] private int minStatValue;
-    [SerializeField] private int maxStatValue;
-    [NonSerialized] private List<int> absoluteModifiers = new List<int>();
+    [SerializeField, Header("Core values")] private float primaryValue;
+    [SerializeField] private float minStatValue;
+    [SerializeField] private float maxStatValue;
+    [NonSerialized] private List<float> absoluteModifiers = new List<float>();
     [NonSerialized] private List<float> relativeModifiers = new List<float>();
-    [SerializeField, Header("Total value")] private int totalValue;
+    [SerializeField, Header("Total value")]
+    private float totalValue;
 
     [SerializeField, HideInInspector] private bool isDirty = true;
 
     [NonSerialized] private bool initialized = false;
 
-    public SkillStatInt(string description, int primaryValue, int minStatValue, int maxStatValue) {
-        this.description = description;
+    public StatFloat(float primaryValue, float minStatValue, float maxStatValue) {
         this.primaryValue = primaryValue;
         this.minStatValue = minStatValue;
         this.maxStatValue = maxStatValue;
@@ -28,14 +26,14 @@ public class SkillStatInt {
 
     private void CalculateValue() {
         totalValue = primaryValue;
-        float totalRelativeMods = 0;
+        float totalRelativeMods = 0f;
         absoluteModifiers.ForEach(x => totalValue += x);
         relativeModifiers.ForEach(x => totalRelativeMods += x);
-        totalValue = (int)(totalValue * (1 + totalRelativeMods));
+        totalValue *= 1 + totalRelativeMods;
         totalValue = Mathf.Clamp(totalValue, minStatValue, maxStatValue);
     }
 
-    public int GetValue() {
+    public float GetValue() {
         Initialize();
         if (isDirty) {
             isDirty = false;
@@ -44,11 +42,11 @@ public class SkillStatInt {
         return totalValue;
     }
 
-    public void AddAbsoluteModifier(int absoluteModifier, int replace = 0) {
-        if (absoluteModifier == 0 && replace == 0) { return; }
+    public void AddAbsoluteModifier(float absoluteModifier, float replace = 0f) {
+        if (absoluteModifier == 0f && replace == 0f) { return; }
         Initialize();
 
-        if (replace != 0) {
+        if (replace != 0f) {
             int index = absoluteModifiers.FindIndex(x => x == replace);
             if (index != -1) {
                 absoluteModifiers[index] = absoluteModifier;
@@ -58,21 +56,21 @@ public class SkillStatInt {
         }
 
         SetTooltipDirty();
-        OnStatChanged?.Invoke(this);
+        StatChanged();
     }
 
-    public void RemoveAbsoluteModifier(int absoluteModifier) {
-        if (absoluteModifier == 0) { return; }
+    public void RemoveAbsoluteModifier(float absoluteModifier) {
+        if (absoluteModifier == 0f) { return; }
         Initialize();
 
         absoluteModifiers.Remove(absoluteModifier);
 
         SetTooltipDirty();
-        OnStatChanged?.Invoke(this);
+        StatChanged();
     }
 
-    public void AddRelativeModifier(float relativeModifier, float replace = 0) {
-        if (relativeModifier == 0f && replace == 0f) return;
+    public void AddRelativeModifier(float relativeModifier, float replace = 0f) {
+        if (relativeModifier == 0f && replace == 0f) { return; }
         Initialize();
 
         if (replace != 0f) {
@@ -85,57 +83,64 @@ public class SkillStatInt {
         }
 
         SetTooltipDirty();
-        OnStatChanged?.Invoke(this);
+        StatChanged();
     }
 
     public void RemoveRelativeModifier(float relativeModifier) {
-        if (relativeModifier == 0f) return;
+        if (relativeModifier == 0f) { return; }
         Initialize();
 
         relativeModifiers.Remove(relativeModifier);
 
         SetTooltipDirty();
-        OnStatChanged?.Invoke(this);
+        StatChanged();
     }
 
-    public void SetPrimaryValue(int value) {
-        if (value == 0) return;
+    public void SetPrimaryValue(float value) {
+        if (value == 0f) { return; }
         Initialize();
 
         primaryValue = value;
 
         SetTooltipDirty();
-        OnStatChanged?.Invoke(this);
+        StatChanged();
     }
 
-    public void SetMinMax(int min, int max) {
+    public float GetPrimaryValue() {
+        return primaryValue;
+    }
+
+    public float GetMinValue() {
+        return minStatValue;
+    }
+
+    public float GetMaxValue() {
+        return maxStatValue;
+    }
+
+    public void SetMinMax(float min, float max) {
         Initialize();
 
         minStatValue = min;
         maxStatValue = max;
 
         SetTooltipDirty();
-        OnStatChanged?.Invoke(this);
-    }
-
-    public int GetPrimaryValue() {
-        return primaryValue;
+        StatChanged();
     }
 
     public void SetTooltipDirty() {
         isDirty = true;
-        setTooltipDirtyMethod?.Invoke();
+        SetTooltipDirtyMethod?.Invoke();
     }
 
-    public void Initialize() {
+    private void Initialize() {
         if (initialized) return;
         initialized = true;
 
-        absoluteModifiers ??= new List<int>();
+        absoluteModifiers ??= new List<float>();
         relativeModifiers ??= new List<float>();
 
         isDirty = true;
         _ = GetValue();
     }
 }
-

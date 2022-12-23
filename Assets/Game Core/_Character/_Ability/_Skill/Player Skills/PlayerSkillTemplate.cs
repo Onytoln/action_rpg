@@ -81,7 +81,7 @@ public class PlayerSkillTemplate : SkillTemplate, IActionBarSlottable {
     }
 
     protected virtual void StandaloneCast(Transform releasePoint) {
-        throw new NotImplementedException("This skill does not support standalone cast.");
+        Debug.LogError("This skill does not support standalone cast.");
     }
 
     #endregion

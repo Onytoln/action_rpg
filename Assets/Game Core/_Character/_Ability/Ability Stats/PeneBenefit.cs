@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class PeneBenefit {
     [field: SerializeField] public StatType PenetrationBenefitType { get; private set; }
-    [field: SerializeField] public SkillStat PenetrationBenefit { get; private set; }
+    [field: SerializeField] public StatFloat PenetrationBenefit { get; private set; }
 
-    public PeneBenefit(StatType penetrationBenefitType, SkillStat penetrationBenefit) {
+    public PeneBenefit(StatType penetrationBenefitType, StatFloat penetrationBenefit) {
         PenetrationBenefitType = penetrationBenefitType;
         PenetrationBenefit = penetrationBenefit;
     }

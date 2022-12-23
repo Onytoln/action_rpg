@@ -9,7 +9,7 @@ public class SkillStatIntContainer {
         PrimaryValue = primaryValue;
     }
 
-    public SkillStatIntContainer(SkillStatInt skillStatInt) {
+    public SkillStatIntContainer(StatInt skillStatInt) {
         Value = skillStatInt.GetValue();
         PrimaryValue = skillStatInt.GetPrimaryValue();
     }

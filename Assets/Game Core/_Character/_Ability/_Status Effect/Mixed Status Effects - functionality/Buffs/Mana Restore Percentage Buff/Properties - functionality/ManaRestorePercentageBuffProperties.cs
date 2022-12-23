@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Mana Percentage Restoration Buff Properties", menuName = "Status Effects/Buff Properties/Mana Percentage Restoration Buff Properties")]
 public class ManaRestorePercentageBuffProperties : StatusEffectProperties
 {
-    public SkillStat percentManaPerTick;
+    public StatFloat percentManaPerTick;
 
     public override void AssignReferences() {
         base.AssignReferences();

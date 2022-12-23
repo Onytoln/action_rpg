@@ -8,7 +8,7 @@ public class StatElement : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public StatType statTypeToAssign;
     public StatStringType statStringType;
 
-    private Stat assignedStat;
+    private ChracterStat assignedStat;
 
     [SerializeField] private Text statNameText;
     [SerializeField] private Text statValueText;
@@ -17,7 +17,7 @@ public class StatElement : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private bool isDirty = true;
 
-    public void AddStat(Stat stat) {
+    public void AddStat(ChracterStat stat) {
         assignedStat = stat;
         statNameText.text = stat.statName;
         RefreshStatValue();

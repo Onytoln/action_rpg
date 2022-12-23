@@ -3,10 +3,10 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Frost Debuff Properties", menuName = "Status Effects/Debuff Properties/Frost Debuff Properties")]
 public class FrostDebuffProperties : StatusEffectProperties {
-    public SkillStat attackSpeedSlowAmount;
-    public SkillStat movementSpeedSlowAmount;
-    public SkillStat healingEffectivityDecrease;
-    public SkillStat iceResistanceProtectionModifier = new SkillStat(.3f, 0f, 1f);
+    public StatFloat attackSpeedSlowAmount;
+    public StatFloat movementSpeedSlowAmount;
+    public StatFloat healingEffectivityDecrease;
+    public StatFloat iceResistanceProtectionModifier = new StatFloat(.3f, 0f, 1f);
 
 
     public override void AssignReferences() {

@@ -7,7 +7,7 @@ public class CharacterStats : MonoBehaviour {
     //Stat related
     public event Action<float, CharacterStats> CurrentHealthChange;
     public event Action<float, CharacterStats> CurrentManaChange;
-    public delegate void OnStatChange(Stat stat);
+    public delegate void OnStatChange(ChracterStat stat);
     public event OnStatChange OnCharacterStatChange;
     public event Action OnCharacterStatsFullyLoaded;
     public bool CharacterStatsFullyLoaded { get; private set; } = false;
@@ -22,7 +22,7 @@ public class CharacterStats : MonoBehaviour {
     public event Action OnDeathInternal;
 
     //Core stats of the character  
-    [field: SerializeField] public NPCStats CoreStats { get; protected set; }
+    [field: SerializeField] public StatValues CoreStats { get; protected set; }
 
     protected float currentHealth;
     public float CurrentHealth { get => currentHealth; }
@@ -192,7 +192,7 @@ public class CharacterStats : MonoBehaviour {
         return 0;
     }
 
-    public Stat GetStat(StatType statType) {
+    public ChracterStat GetStat(StatType statType) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
             if (CoreStats.Stats[i].statType == statType) {
                 return CoreStats.Stats[i];

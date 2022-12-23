@@ -3,9 +3,9 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Projectile Booster Buff Properties", menuName = "Status Effects/Buff Properties/Projectile Booster Buff Properties")]
 public class ProjectileBoosterBuffProperties : StatusEffectProperties {
-    public SkillStatInt bonusProjectilePerStacks;
-    public SkillStatInt bonusScalePerStacks;
-    public SkillStat bonusScaleValue;
+    public StatInt bonusProjectilePerStacks;
+    public StatInt bonusScalePerStacks;
+    public StatFloat bonusScaleValue;
     [field: SerializeField] public BoolControlComplex RemoveOnSkillFired { get; private set; } = new BoolControlComplex(BoolType.True, BoolCountEqualResult.Default);
 
     [field: SerializeField] public string SkillToBoostId { get; private set; }

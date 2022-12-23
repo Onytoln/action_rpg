@@ -1,17 +1,18 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New NPC Stats", menuName = "NPC/Stats")]
-public class NPCStats : ScriptableObject, ICoreCharacterStatsProvider {
+public class StatValues : ScriptableObject, ICoreCharacterStatsProvider {
     public bool IsCopy { get; set; } = false;
     //!!!!!!!!!!!!!!NEVER RENAME THIS VARIABLE!!!!!!!!!!!!!!! - if it happened, set back to previous name immediately, otherwise set back to previous and restore values
     //from save file of scriptable object, if that's not possible then this is fucked lmao
-    [field: SerializeField] public Stat[] Stats { get; private set; }
+   
+    [field: SerializeField] public ChracterStat[] Stats { get; private set; }
 
-    public NPCStats GetCopy() {
+    public StatValues GetCopy() {
         if (IsCopy) {
             return this;
         } else {
-            NPCStats newNpcStats = Instantiate(this);
+            StatValues newNpcStats = Instantiate(this);
             
             newNpcStats.IsCopy = true;
 
@@ -23,7 +24,7 @@ public class NPCStats : ScriptableObject, ICoreCharacterStatsProvider {
         }
     }
 
-    public void SetStats(Stat[] stats) => Stats = stats;
+    public void SetStats(ChracterStat[] stats) => Stats = stats;
 
     public CoreStatsValuesContainer GetStatsValuesCopy() {
         return new CoreStatsValuesContainer(this);

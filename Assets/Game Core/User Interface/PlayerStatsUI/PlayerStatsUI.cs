@@ -35,7 +35,7 @@ public class PlayerStatsUI : MonoBehaviour, IUiWindow {
     private void Initialize() {
         playerStats = TargetManager.Player.GetComponent<PlayerStats>();
 
-        Stat[] stats = playerStats.CoreStats.Stats;
+        ChracterStat[] stats = playerStats.CoreStats.Stats;
 
         for (int i = 0; i < statElements.Length; i++) {
             for (int j = 0; j < stats.Length; j++) {
@@ -70,7 +70,7 @@ public class PlayerStatsUI : MonoBehaviour, IUiWindow {
         }
     }
 
-    void UpdateStats(Stat stat) {
+    void UpdateStats(ChracterStat stat) {
         for (int i = 0; i < statElements.Length; i++) {
             if (statElements[i].statTypeToAssign == stat.statType) {
                 statElements[i].RefreshStatValue();
