@@ -6,7 +6,7 @@ public class SummonStats : CharacterStats {
 
    public ISummon SummonProperties { get; private set; }
 
-   public void SetSummonStats(NPCStats stats, ISummon summonProperties) {
+   public void SetSummonStats(StatValues stats, ISummon summonProperties) {
         CoreStats = stats;
         base.Awake();
         for (int i = 0; i < summonProperties.SummonStatBoosts.Length; i++) {

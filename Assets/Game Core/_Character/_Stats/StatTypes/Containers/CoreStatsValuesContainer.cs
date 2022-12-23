@@ -2,13 +2,13 @@
 public class CoreStatsValuesContainer : ICoreCharacterStatsProvider {
     public StatInfo[] Stats { get; private set; }
 
-    public CoreStatsValuesContainer(NPCStats npcStats) {
+    public CoreStatsValuesContainer(StatValues npcStats) {
         Stats = new StatInfo[npcStats.Stats.Length];
 
-        Stat[] stats = npcStats.Stats;
+        ChracterStat[] stats = npcStats.Stats;
 
         for (int i = 0; i < stats.Length; i++) {
-            Stats[i] = new StatInfo(stats[i].statType, stats[i].GetValue(), stats[i].GetMinPossibleValue());
+            Stats[i] = new StatInfo(stats[i]);
         }
     }
 
@@ -172,9 +172,9 @@ public class StatInfo : ICoreCharacterStat {
 
     public float MinValue { get; private set; }
 
-    public StatInfo(StatType statType, float value, float minValue) {
-        StatType = statType;
-        Value = value;
-        MinValue = minValue;
+    public StatInfo(ChracterStat stat) {
+        StatType = stat.StatType;
+        Value = stat.Value;
+        MinValue = stat.MinValue;
     }
 }

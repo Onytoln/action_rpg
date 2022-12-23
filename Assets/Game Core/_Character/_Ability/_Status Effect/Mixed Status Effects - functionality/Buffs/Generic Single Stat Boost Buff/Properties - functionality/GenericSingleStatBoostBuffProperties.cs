@@ -3,7 +3,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Generic Single Stat Boost Buff Properties", menuName = "Status Effects/Buff Properties/Generic Single Stat Boost Buff Properties")]
 public class GenericSingleStatBoostBuffProperties : StatusEffectProperties {
-    public SkillStat statBoostValue;
+    public StatFloat statBoostValue;
 
     [SerializeField] private StatType statToBoost;
     public StatType StatToBoost { get => statToBoost; }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Healing Percentage Buff Properties", menuName = "Status Effects/Buff Properties/Healing Percentage Buff Properties")]
 public class HealingPercentageBuffProperties : StatusEffectProperties {
-    public SkillStat percentHealthPerTick;
+    public StatFloat percentHealthPerTick;
     [SerializeField] private bool affectedByHealingEffectivity = true;
     public bool AffectedByHealingEffectivity { get => affectedByHealingEffectivity; }
 

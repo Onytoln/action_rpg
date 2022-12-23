@@ -49,8 +49,8 @@ public class StatusEffect : ScriptableObject {
     protected Character AppliedToCharacterComponent { get; set; }
     protected StatusEffectsManager AppliedToStatusEffectsManager { get; set; }
 
-    protected NPCStats appliedToStats;
-    public NPCStats AppliedToStats { get => appliedToStats; }
+    protected StatValues appliedToStats;
+    public StatValues AppliedToStats { get => appliedToStats; }
     #endregion
 
     #region Applier

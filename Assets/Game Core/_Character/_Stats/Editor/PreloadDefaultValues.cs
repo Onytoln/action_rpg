@@ -4,10 +4,10 @@ using System.IO;
 using System.Collections.Generic;
 using System;
 
-[CustomEditor(typeof(NPCStats))]
+[CustomEditor(typeof(StatValues))]
 public class PreloadDefaultValues : Editor
 {
-    public Stat[] defaultStats;
+    public ChracterStat[] defaultStats;
 
     private readonly StatType[] order = { StatType.Damage, StatType.AttackSpeed, StatType.CriticalStrike, StatType.CriticalDamage, StatType.DebuffStrength,
     StatType.MovementSpeed, StatType.Mana, StatType.ManaRegeneration, StatType.Health, StatType.HealthRegeneration,
@@ -35,15 +35,15 @@ public class PreloadDefaultValues : Editor
 
         string[] assetGUIDs = AssetDatabase.FindAssets("t:Stat", folders);
 
-        List<Stat> stats = new List<Stat>();
+        List<ChracterStat> stats = new List<ChracterStat>();
 
         for (int i = 0; i < assetGUIDs.Length; i++) {
 
             string assetPath = AssetDatabase.GUIDToAssetPath(assetGUIDs[i]);
 
-            var asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Stat));
+            var asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof(ChracterStat));
 
-            if (asset is Stat stat) {
+            if (asset is ChracterStat stat) {
                 stats.Add(stat);
             }
         }
@@ -53,7 +53,7 @@ public class PreloadDefaultValues : Editor
             return;
         }
 
-        Stat[] resultOrdered = new Stat[stats.Count];
+        ChracterStat[] resultOrdered = new ChracterStat[stats.Count];
         for (int i = 0; i < stats.Count; i++) {
             for (int j = 0; j < order.Length; j++) {
                 if(stats[i].statType == order[j]) {
@@ -62,7 +62,7 @@ public class PreloadDefaultValues : Editor
             }
         }
 
-        (target as NPCStats).SetStats(resultOrdered);
+        (target as StatValues).SetStats(resultOrdered);
         EditorUtility.SetDirty(target);
     }
 }

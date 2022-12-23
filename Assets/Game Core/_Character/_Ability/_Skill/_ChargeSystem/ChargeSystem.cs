@@ -6,14 +6,14 @@ public class ChargeSystem {
 
     public event Action<ChargeSystem> OnChargesAmountChanged;
 
-    [field: SerializeField] public SkillStatInt MaxCharges { get; set; }
+    [field: SerializeField] public StatInt MaxCharges { get; set; }
 
     [field: SerializeField] public int CurrentCharges { get; set; }
 
     [field: SerializeField] public ChargeReplenishmentType ChargeReplenishmentType { get; set; }
 
-    [field: SerializeField] public SkillStatInt DefaultChargesUseRate { get; set; }
-    [field: SerializeField] public SkillStatInt DefaultChargesReplenishmentRateOneByOne { get; set; }
+    [field: SerializeField] public StatInt DefaultChargesUseRate { get; set; }
+    [field: SerializeField] public StatInt DefaultChargesReplenishmentRateOneByOne { get; set; }
 
     private bool _initialized = false;
 
@@ -22,10 +22,10 @@ public class ChargeSystem {
         _initialized = true;
 
         if (DefaultChargesUseRate.GetValue() <= 0) {
-            DefaultChargesUseRate = new SkillStatInt(null, 1, 1, int.MaxValue);
+            DefaultChargesUseRate = new StatInt(null, 1, 1, int.MaxValue);
         }
         if (DefaultChargesReplenishmentRateOneByOne.GetValue() == 0) {
-            DefaultChargesReplenishmentRateOneByOne = new SkillStatInt(null, 1, 1, int.MaxValue);
+            DefaultChargesReplenishmentRateOneByOne = new StatInt(null, 1, 1, int.MaxValue);
         }
         CurrentCharges = MaxCharges.GetValue();
     }

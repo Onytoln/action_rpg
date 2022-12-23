@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface ISummon {
-    public SkillStatInt SummonsCount { get; set; }
-    public SkillStat SummonDuration { get; set; }
+    public StatInt SummonsCount { get; set; }
+    public StatFloat SummonDuration { get; set; }
     public bool PermanentSummon { get; set; }
     public SummonStatBoosts[] SummonStatBoosts { get; set; }
     

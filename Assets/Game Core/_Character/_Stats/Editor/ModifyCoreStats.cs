@@ -66,7 +66,7 @@ public class ModifyCoreStats : EditorWindow
 
         if (insertAfter < 0 || statType == StatType.NoType) return;
 
-        List<NPCStats> coreStats = Utils.FindAssetsByType<NPCStats>();
+        List<StatValues> coreStats = Utils.FindAssetsByType<StatValues>();
 
         /*for (int i = 0; i < coreStats.Count; i++) {
             Stat[] newStats = new Stat[coreStats[i].stats.Length + 1];

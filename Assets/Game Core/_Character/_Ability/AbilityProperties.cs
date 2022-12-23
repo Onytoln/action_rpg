@@ -10,6 +10,7 @@ public static class AbilityPropertiesExtensions {
     }
 }
 
+[StatChangeNotifyClassWide(nameof(SetTooltipIsDirty))]
 public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvider {
     public bool IsCopy { get; set; } = false;
     //--------Required-references--------
@@ -22,7 +23,7 @@ public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvide
     new public string name = "new skill";
     public string hitInfoId;
     public Sprite icon;
-    public SkillStat abilityDamage;
+    public StatFloat abilityDamage;
     [SerializeField]
     private List<DamageTypeWeight> damageTypes = new List<DamageTypeWeight>();
     public List<DamageTypeWeight> DamageTypes {
@@ -53,13 +54,13 @@ public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvide
 
     #endregion
 
-    public SkillStat travelSpeed;
-    public SkillStat minCastRange;
-    public SkillStat maxCastRange;
-    public SkillStat hitRange;
-    public SkillStat hitAngle;
+    public StatFloat travelSpeed;
+    public StatFloat minCastRange;
+    public StatFloat maxCastRange;
+    public StatFloat hitRange;
+    public StatFloat hitAngle;
 
-    public SkillStat cooldown;
+    public StatFloat cooldown;
 
     //Tooltip
     protected StringBuilder abilityTooltip;
@@ -114,7 +115,7 @@ public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvide
         }
 
         if (rebuildPene) {
-            List<SkillStat> backup = new List<SkillStat>();
+            List<StatFloat> backup = new List<StatFloat>();
 
             for (int i = 0; i < BenefitFromPenetration?.Length; i++) {
                 backup.Add(BenefitFromPenetration[i].PenetrationBenefit);
@@ -126,9 +127,9 @@ public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvide
 
             for (int i = 0; i < benefitFromPenetration.Length; i++) {
                 if (backup.Count > i) {
-                    BenefitFromPenetration[i] = new PeneBenefit(penetrations[i], new SkillStat(backup[i].GetValue(), backup[i].GetMinValue(), backup[i].GetMaxValue() <= 0f ? 1f : backup[i].GetMaxValue()));
+                    BenefitFromPenetration[i] = new PeneBenefit(penetrations[i], new StatFloat(backup[i].GetValue(), backup[i].GetMinValue(), backup[i].GetMaxValue() <= 0f ? 1f : backup[i].GetMaxValue()));
                 } else {
-                    BenefitFromPenetration[i] = new PeneBenefit(penetrations[i], new SkillStat(0f, 0f, 1f));
+                    BenefitFromPenetration[i] = new PeneBenefit(penetrations[i], new StatFloat(0f, 0f, 1f));
                 }
             }
         }
@@ -139,7 +140,9 @@ public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvide
         AssignReferences();
         CheckProperties();
         SetUpListeners();
+        if (CharacterComponent is Player) StatChangeNotify.ObserveStatChanges(this);
     }
+
 
     public virtual void AssignReferences() {
         abilityDamage.SetTooltipDirtyMethod = SetTooltipIsDirty;
@@ -176,7 +179,7 @@ public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvide
         CharacterComponent.CharacterStats.OnCharacterStatChange += SetTooltipRebuildIfRequired;
     }
 
-    public virtual void SetTooltipRebuildIfRequired(Stat stat) { }
+    public virtual void SetTooltipRebuildIfRequired(ChracterStat stat) { }
 
     public bool CheckDamageTypesIntegrity(List<DamageTypeWeight> damageTypes) {
         if (damageTypes == null || damageTypes.Count == 0) return true;

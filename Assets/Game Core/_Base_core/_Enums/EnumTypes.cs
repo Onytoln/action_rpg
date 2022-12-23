@@ -17,8 +17,6 @@ public enum StatAddType { Absolute, Relative, Total }
 
 public enum StatsCompareType { Offensive, Defensive, All }
 
-public enum CriticalStrikeBenefitType { CritChanceAbsolute = 0, CritChanceRelative = 1, CritDamageAbsolute = 2, CritDamageRelative = 3 }
-
 public enum StatStringType { Absolute, Percentage, MovementSpeed, PerSecond, Seconds, Meters }
 
 #endregion

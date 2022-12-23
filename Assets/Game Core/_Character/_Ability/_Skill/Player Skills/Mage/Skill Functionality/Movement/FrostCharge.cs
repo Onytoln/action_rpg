@@ -31,13 +31,13 @@ public class FrostCharge : PlayerSkillTemplate {
         if (currentShieldVFXHandler == null && shieldVFXHandlerPrefab != null) {
             currentShieldVFXHandler = Instantiate(shieldVFXHandlerPrefab, shieldVFXAttachTransform);
             defaultShieldVFXScale = currentShieldVFXHandler.transform.localScale;
-            frostChargeProperties.Scale.OnStatChanged += ChangeShieldScale;
+            //frostChargeProperties.Scale.OnStatChanged += ChangeShieldScale;
         }
 
         if (currentPostChargeExplosionParticles == null && postChargeExplosionParticlesPrefab != null) {
             currentPostChargeExplosionParticles = Instantiate(postChargeExplosionParticlesPrefab, shieldVFXAttachTransform);
             defaultPostChargeExplosionParticlesScale = currentPostChargeExplosionParticles.transform.localScale;
-            frostChargeProperties.postChargeExplosionRadius.OnStatChanged += ChargeExplosionScale;
+            //frostChargeProperties.postChargeExplosionRadius.OnStatChanged += ChargeExplosionScale;
         }
 
         if (currentChargeParticles == null && chargeParticlesPrefab != null) {
@@ -45,11 +45,11 @@ public class FrostCharge : PlayerSkillTemplate {
         }
     }
 
-    void ChangeShieldScale(SkillStat stat) {
+    void ChangeShieldScale(StatFloat stat) {
         currentShieldVFXHandler.transform.localScale = defaultShieldVFXScale * (stat.GetValue() / stat.GetPrimaryValue());
     }
 
-    void ChargeExplosionScale(SkillStat stat) {
+    void ChargeExplosionScale(StatFloat stat) {
         currentPostChargeExplosionParticles.transform.localScale = defaultPostChargeExplosionParticlesScale * (stat.GetValue() / stat.GetPrimaryValue());
     }
 

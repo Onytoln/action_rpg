@@ -6,8 +6,8 @@ using UnityEngine;
 public class FireballProperties : ProjectileSkillProperties {
     public string explosionHitInforId;
 
-    public SkillStat explosionRadius;
-    public SkillStat explosionDamage;
+    public StatFloat explosionRadius;
+    public StatFloat explosionDamage;
     [SerializeField]
     private List<DamageTypeWeight> explosionDamageTypes = new List<DamageTypeWeight>();
     public List<DamageTypeWeight> ExplosionDamageTypes {

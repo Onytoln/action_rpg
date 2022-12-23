@@ -43,7 +43,7 @@ public class Summon : Character {
         if (Input.GetKeyDown(KeyCode.G)) ProcessRespawn();
     }
 
-    public void ProcessSummon(Character summoner, NPCStats summonerStats, ISummon summonProperties) {
+    public void ProcessSummon(Character summoner, StatValues summonerStats, ISummon summonProperties) {
         if (summonProperties == null || summonerStats == null || summonProperties == null) {
             Destroy(this);
             return;
