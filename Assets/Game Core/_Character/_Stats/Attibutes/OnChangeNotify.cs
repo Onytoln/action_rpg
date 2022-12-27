@@ -6,33 +6,33 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
-public class StatChangeNotifyClassWide : Attribute {
+public class OnChangeNotifyClassWide : Attribute {
     public readonly string[] methodNames;
 
-    public StatChangeNotifyClassWide(string methodName) {
+    public OnChangeNotifyClassWide(string methodName) {
         this.methodNames = new string[] { methodName };
     }
 
-    public StatChangeNotifyClassWide(params string[] methodNames) {
+    public OnChangeNotifyClassWide(params string[] methodNames) {
         this.methodNames = methodNames;
     }
 }
 
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-public class StatChangeNotify : Attribute {
+public class OnChangeNotify : Attribute {
 
     public readonly string[] methodNames;
     public bool NotifyOnChange { get; set; } = true;
 
-    public StatChangeNotify(string methodName) {
+    public OnChangeNotify(string methodName) {
         this.methodNames = new string[] { methodName };
     }
 
-    public StatChangeNotify(params string[] methodNames) {
+    public OnChangeNotify(params string[] methodNames) {
         this.methodNames = methodNames;
     }
 
-    public static void ObserveStatChanges(object statsSource) {
+    public static void ObserveOnChange(object statsSource) {
         _ = Task.Run(() => ObserveStatChangesAsync(statsSource))
             .ContinueWith((x) => { Debug.LogError($"Observing stat changes initialization has failed. Exception: {x.Exception.Message}"); }, TaskContinuationOptions.OnlyOnFaulted);
     }
@@ -41,19 +41,19 @@ public class StatChangeNotify : Attribute {
         var statsSourceType = statsSource.GetType();
 
         var observableProperties = statsSourceType.GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-            .Where(x => x.PropertyType.IsSameOrSubclassOf(typeof(StatBase)));
+            .Where(x => x.PropertyType.IsSameOrSubclassOf(typeof(IOnChange<>)));
 
         var observableFields = statsSourceType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
-            .Where(x => x.FieldType.IsSameOrSubclassOf(typeof(StatBase)))
+            .Where(x => x.FieldType.IsSameOrSubclassOf(typeof(IOnChange<>)))
             .ToList();
 
         if (!observableProperties.Any() && observableFields.Count == 0) return;
 
         Dictionary<string, Action> methods = new Dictionary<string, Action>();
         List<string> defaultMethods = new List<string>();
-        HashSet<StatBase> invokesDefined = new HashSet<StatBase>();
+        HashSet<IOnChange<object>> invokesDefined = new HashSet<IOnChange<object>>();
 
-        var classAttribute = statsSourceType.GetCustomAttribute<StatChangeNotifyClassWide>();
+        var classAttribute = statsSourceType.GetCustomAttribute<OnChangeNotifyClassWide>();
         if (classAttribute != null) {
             for (int i = 0; i < classAttribute.methodNames.Length; i++) {
                 if (methods.TryGetValue(classAttribute.methodNames[i], out var _)) continue;
@@ -61,12 +61,12 @@ public class StatChangeNotify : Attribute {
                 var methodInfo = statsSourceType.GetMethod(classAttribute.methodNames[i]);
 
                 if (methodInfo == null) {
-                    Debug.LogError($"Method of name {classAttribute.methodNames[i]} does not exist for {nameof(StatChangeNotifyClassWide)} attribute.");
+                    Debug.LogError($"Method of name {classAttribute.methodNames[i]} does not exist for {nameof(OnChangeNotifyClassWide)} attribute.");
                     continue;
                 }
 
                 if (methodInfo.GetParameters().Length > 0) {
-                    Debug.LogError($"Cannot use {nameof(StatChangeNotifyClassWide)} attribute to call methods with parameters.");
+                    Debug.LogError($"Cannot use {nameof(OnChangeNotifyClassWide)} attribute to call methods with parameters.");
                     continue;
                 }
 
@@ -86,9 +86,10 @@ public class StatChangeNotify : Attribute {
         }
     }
 
-    private static void Process<T>(T member, Dictionary<string, Action> methods, object statsSource, Type statsSourceType, List<string> defaultMethods, HashSet<StatBase> invokesDefined)
+    private static void Process<T>(T member, Dictionary<string, Action> methods, object statsSource, Type statsSourceType,
+        List<string> defaultMethods, HashSet<IOnChange<object>> invokesDefined)
         where T : MemberInfo {
-        var attribute = member.GetCustomAttribute<StatChangeNotify>();
+        var attribute = member.GetCustomAttribute<OnChangeNotify>();
 
         HashSet<string> toInvoke = new HashSet<string>(defaultMethods);
 
@@ -98,12 +99,12 @@ public class StatChangeNotify : Attribute {
                     var methodInfo = statsSourceType.GetMethod(methodName);
 
                     if (methodInfo == null) {
-                        Debug.LogError($"Method of name {methodName} does not exist for {nameof(StatChangeNotify)} attribute.");
+                        Debug.LogError($"Method of name {methodName} does not exist for {nameof(OnChangeNotify)} attribute.");
                         continue;
                     }
 
                     if (methodInfo.GetParameters().Length > 0) {
-                        Debug.LogError($"Cannot use {nameof(StatChangeNotify)} attribute to call methods with parameters.");
+                        Debug.LogError($"Cannot use {nameof(OnChangeNotify)} attribute to call methods with parameters.");
                         continue;
                     }
 
@@ -117,24 +118,24 @@ public class StatChangeNotify : Attribute {
         DefineInvoke(member, methods, statsSource, toInvoke, invokesDefined);
     }
 
-    private static void DefineInvoke<T>(T member, Dictionary<string, Action> methods, object statsSource, HashSet<string> toInvoke, HashSet<StatBase> invokesDefined)
+    private static void DefineInvoke<T>(T member, Dictionary<string, Action> methods, object statsSource, HashSet<string> toInvoke, HashSet<IOnChange<object>> invokesDefined)
         where T : MemberInfo {
-        StatBase stat = null;
+
+        IOnChange<object> changable = null;
 
         if (member is PropertyInfo property) {
-            stat = property.GetValue(statsSource, null) as StatBase;
+            changable = property.GetValue(statsSource, null) as IOnChange<object>;
         } else if (member is FieldInfo field) {
-            stat = field.GetValue(statsSource) as StatBase;
+            changable = field.GetValue(statsSource) as IOnChange<object>;
         }
 
-        if (stat == null || invokesDefined.Contains(stat)) return;
+        if (changable == null || invokesDefined.Contains(changable)) return;
 
-        Debug.Log("creating invoke");
+        changable.OnChanged += OnChangeAction;
+        invokesDefined.Add(changable);
+        Scheduler.ExecuteOnMainThread(() => OnChangeAction(null));
 
-        stat.OnStatChanged += OnStatChangeAction;
-        invokesDefined.Add(stat);
-
-        void OnStatChangeAction(StatBase statBase) {
+        void OnChangeAction(object obj) {
             foreach (var methodName in toInvoke) {
                 if (methods.TryGetValue(methodName, out var method))
                     method.SafeInvoke();

@@ -10,7 +10,7 @@ public static class AbilityPropertiesExtensions {
     }
 }
 
-[StatChangeNotifyClassWide(nameof(SetTooltipIsDirty))]
+[OnChangeNotifyClassWide(nameof(SetTooltipIsDirty))]
 public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvider {
     public bool IsCopy { get; set; } = false;
     //--------Required-references--------
@@ -140,7 +140,6 @@ public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvide
         AssignReferences();
         CheckProperties();
         SetUpListeners();
-        if (CharacterComponent is Player) StatChangeNotify.ObserveStatChanges(this);
     }
 
 

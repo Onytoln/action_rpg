@@ -16,13 +16,13 @@ public class PreloadDefaultValues : Editor
     StatType.PhysicalPenetration, StatType.FirePenetration, StatType.IcePenetration, StatType.LightningPenetration, StatType.PoisonPenetration,
     StatType.LifeSteal, StatType.HealingEffectivity };
     
-    public override void OnInspectorGUI() {
+    /*public override void OnInspectorGUI() {
         base.OnInspectorGUI();
 
         if (GUILayout.Button("Preload defaults to selected core stats")) {
             PreloadDefaults();
         }
-    }
+    }*/
 
     public void PreloadDefaults() {
         string path = AssetDatabase.GetAssetPath(target);

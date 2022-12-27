@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b16b15f2f7e2b9b47a4c2bb892ba8301, type: 3}
-  m_Name: PlayerStats
+  m_Name: PlayerStatsMage
   m_EditorClassIdentifier: 
   <Stats>k__BackingField:
   - {fileID: 11400000, guid: 483208ebb1e7e9b488aebf442030657b, type: 2}

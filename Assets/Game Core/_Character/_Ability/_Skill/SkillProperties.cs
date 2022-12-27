@@ -198,21 +198,21 @@ public class SkillProperties : AbilityProperties {
 
     private void InitializeCastTimeListeners() {
         if (animationClip != null) {
-            castTime.OnStatChanged += (skillStat) => {
+            castTime.OnChange += (skillStat) => {
                 animationCurrentSpeedModifier = Utils.CalculateDesiredAnimationSpeedModifier(animationClip.length, castTime.GetValue());
                 CalculateAnimationSpeed();
             };
         }
 
         if (animationClipSecond != null) {
-            castTime_second.OnStatChanged += (skillStat) => {
+            castTime_second.OnChange += (skillStat) => {
                 animationDefaultSpeedModifierSecond = Utils.CalculateDesiredAnimationSpeedModifier(animationClipSecond.length, castTime_second.GetValue());
                 CalculateAnimationSpeed();
             };
         }
 
         if (animationClipThird != null) {
-            castTime_third.OnStatChanged += (skillStat) => {
+            castTime_third.OnChange += (skillStat) => {
                 animationDefaultSpeedModifierThird = Utils.CalculateDesiredAnimationSpeedModifier(animationClipThird.length, castTime_third.GetValue());
                 CalculateAnimationSpeed();
             };

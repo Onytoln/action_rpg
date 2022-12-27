@@ -2,8 +2,9 @@ using System;
 using UnityEngine;
 
 [System.Serializable]
-public class ChargeSystem {
+public class ChargeSystem : IOnChange<ChargeSystem> {
 
+    public event Action<ChargeSystem> OnChanged;
     public event Action<ChargeSystem> OnChargesAmountChanged;
 
     [field: SerializeField] public StatInt MaxCharges { get; set; }
@@ -22,12 +23,20 @@ public class ChargeSystem {
         _initialized = true;
 
         if (DefaultChargesUseRate.GetValue() <= 0) {
-            DefaultChargesUseRate = new StatInt(null, 1, 1, int.MaxValue);
+            DefaultChargesUseRate = new StatInt(1, 1, int.MaxValue);
         }
         if (DefaultChargesReplenishmentRateOneByOne.GetValue() == 0) {
-            DefaultChargesReplenishmentRateOneByOne = new StatInt(null, 1, 1, int.MaxValue);
+            DefaultChargesReplenishmentRateOneByOne = new StatInt(1, 1, int.MaxValue);
         }
         CurrentCharges = MaxCharges.GetValue();
+
+        MaxCharges.OnChanged += InvokeChange;
+        DefaultChargesUseRate.OnChanged += InvokeChange;
+        DefaultChargesReplenishmentRateOneByOne.OnChanged += InvokeChange;
+
+        void InvokeChange(StatInt st) {
+            OnChanged?.Invoke(this);
+        }
     }
 
     public bool ChargeSystemBeingUsed() {
