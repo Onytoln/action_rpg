@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Stat", menuName = "NPC/Stat")]
-public class ChracterStat : ScriptableObject, ICoreCharacterStat {
+public class ChracterStat : ICoreCharacterStat {
     public string statName;
 
     [TextArea] public string statDescription;
     public StatType statType;
-    private float defaultPrimaryValue;
+  
     [SerializeField] protected float primaryValue;
     [SerializeField] protected float minStatValue;
     [SerializeField] protected float maxStatValue;

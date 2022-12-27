@@ -160,7 +160,7 @@ public class SkillTemplate : MonoBehaviour, ICooldown, ILoadable {
 
     public void ApplyCooldown() {
         if (skillProperties.chargeSystem.ChargeSystemBeingUsed()) {
-            if (skillProperties.chargeSystem.ConsumeCharges() && CurrentCooldown <= 0) {
+            if (skillProperties.chargeSystem.ConsumeCharges() && CurrentCooldown <= 0f) {
                 ApplyCooldown(skillProperties.cooldown.GetValue());
             }
         } else {
@@ -168,7 +168,7 @@ public class SkillTemplate : MonoBehaviour, ICooldown, ILoadable {
         }
     }
 
-    public virtual void ApplyCooldown(float cooldownTime, float startingCooldown = 0) {
+    public virtual void ApplyCooldown(float cooldownTime, float startingCooldown = 0f) {
         if (cooldownTime <= 0f) {
             skillProperties.chargeSystem.ReplenishCharges();
             return;
