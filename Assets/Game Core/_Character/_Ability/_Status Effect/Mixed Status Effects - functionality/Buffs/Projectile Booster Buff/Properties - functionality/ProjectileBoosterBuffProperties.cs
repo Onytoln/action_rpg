@@ -11,13 +11,6 @@ public class ProjectileBoosterBuffProperties : StatusEffectProperties {
     [field: SerializeField] public string SkillToBoostId { get; private set; }
     public SkillProperties SkillToBoostProperties { private get; set; }
 
-    public override void AssignReferences() {
-        base.AssignReferences();
-        bonusProjectilePerStacks.setTooltipDirtyMethod = SetTooltipIsDirty;
-        bonusScalePerStacks.setTooltipDirtyMethod = SetTooltipIsDirty;
-        bonusScaleValue.SetTooltipDirtyMethod = SetTooltipIsDirty;
-    }
-
     protected override void BuildTooltipText() {
         base.BuildTooltipText();
 

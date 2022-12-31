@@ -11,8 +11,7 @@ public class BuffHolder {
     private Action<AbilityProperties> setTooltipDirtyAction;
 
     public void Initialize(Action setDirtyMethod) {
-        buffToApply.StartupInitialization();
-        stacksToApply.setTooltipDirtyMethod = setDirtyMethod;
+        buffToApply.Initialize();
 
         setTooltipDirtyAction = (a) => setDirtyMethod?.Invoke();
         buffToApply.StatusEffectProperties.OnTooltipDirtied += setTooltipDirtyAction;

@@ -11,12 +11,4 @@ public class ChargeSkillProperties : AoESkillProperties {
     public override AbilityPropertiesValuesContainer GetValuesCopy() {
         return new ChargeSkillPropertiesValuesContainer(this);
     }
-
-    public override void AssignReferences() {
-        base.AssignReferences();
-        ChargeDuration.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        ChargeSpeed.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        MaxPierceCount.setTooltipDirtyMethod = SetTooltipIsDirty;
-        Scale.SetTooltipDirtyMethod = SetTooltipIsDirty;
-    }
 }

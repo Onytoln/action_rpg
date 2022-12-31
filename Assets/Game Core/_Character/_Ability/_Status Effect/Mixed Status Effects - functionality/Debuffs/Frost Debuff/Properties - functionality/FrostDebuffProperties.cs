@@ -8,15 +8,6 @@ public class FrostDebuffProperties : StatusEffectProperties {
     public StatFloat healingEffectivityDecrease;
     public StatFloat iceResistanceProtectionModifier = new StatFloat(.3f, 0f, 1f);
 
-
-    public override void AssignReferences() {
-        base.AssignReferences();
-        attackSpeedSlowAmount.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        movementSpeedSlowAmount.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        healingEffectivityDecrease.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        iceResistanceProtectionModifier.SetTooltipDirtyMethod = SetTooltipIsDirty;
-    }
-
     protected override void BuildTooltipText() {
         base.BuildTooltipText();
 

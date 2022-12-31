@@ -7,11 +7,6 @@ public class HealingPercentageBuffProperties : StatusEffectProperties {
     [SerializeField] private bool affectedByHealingEffectivity = true;
     public bool AffectedByHealingEffectivity { get => affectedByHealingEffectivity; }
 
-    public override void AssignReferences() {
-        base.AssignReferences();
-        percentHealthPerTick.SetTooltipDirtyMethod = SetTooltipIsDirty;
-    }
-
     protected override void BuildTooltipText() {
         base.BuildTooltipText();
 

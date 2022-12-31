@@ -137,25 +137,8 @@ public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvide
 
 
     public virtual void Initialize() {
-        AssignReferences();
         CheckProperties();
         SetUpListeners();
-    }
-
-
-    public virtual void AssignReferences() {
-        abilityDamage.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        for (int i = 0; i < BenefitFromCriticalStrike.Length; i++) {
-            BenefitFromCriticalStrike[i].CriticalStrikeBenefit.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        }
-        for (int i = 0; i < benefitFromPenetration.Length; i++) {
-            benefitFromPenetration[i].PenetrationBenefit.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        }
-        travelSpeed.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        maxCastRange.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        hitRange.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        hitAngle.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        cooldown.SetTooltipDirtyMethod = SetTooltipIsDirty;
     }
 
     public virtual void CheckProperties() {

@@ -14,11 +14,4 @@ public class ProjectileSkillProperties : AoESkillProperties, IProjectile {
     public override AbilityPropertiesValuesContainer GetValuesCopy() {
         return new ProjectileSkillPropertiesValuesContainer(this);
     }
-
-    public override void AssignReferences() {
-        base.AssignReferences();
-        ProjectileCount.setTooltipDirtyMethod = SetTooltipIsDirty;
-        MaxPierceCount.setTooltipDirtyMethod = SetTooltipIsDirty;
-        MaxUniqueTargetHits.setTooltipDirtyMethod = SetTooltipIsDirty;
-    }
 }

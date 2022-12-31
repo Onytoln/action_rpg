@@ -31,13 +31,13 @@ public class FrostCharge : PlayerSkillTemplate {
         if (currentShieldVFXHandler == null && shieldVFXHandlerPrefab != null) {
             currentShieldVFXHandler = Instantiate(shieldVFXHandlerPrefab, shieldVFXAttachTransform);
             defaultShieldVFXScale = currentShieldVFXHandler.transform.localScale;
-            //frostChargeProperties.Scale.OnStatChanged += ChangeShieldScale;
+            frostChargeProperties.Scale.OnChanged += ChangeShieldScale;
         }
 
         if (currentPostChargeExplosionParticles == null && postChargeExplosionParticlesPrefab != null) {
             currentPostChargeExplosionParticles = Instantiate(postChargeExplosionParticlesPrefab, shieldVFXAttachTransform);
             defaultPostChargeExplosionParticlesScale = currentPostChargeExplosionParticles.transform.localScale;
-            //frostChargeProperties.postChargeExplosionRadius.OnStatChanged += ChargeExplosionScale;
+            frostChargeProperties.postChargeExplosionRadius.OnChanged += ChargeExplosionScale;
         }
 
         if (currentChargeParticles == null && chargeParticlesPrefab != null) {
