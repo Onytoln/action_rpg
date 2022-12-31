@@ -127,17 +127,6 @@ public class SkillProperties : AbilityProperties {
         }
     }
 
-    public override void AssignReferences() {
-        base.AssignReferences();
-        manaCost.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        castTime.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        castTime_second.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        castTime_third.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        chargeSystem.MaxCharges.setTooltipDirtyMethod = SetTooltipIsDirty;
-        chargeSystem.DefaultChargesReplenishmentRateOneByOne.setTooltipDirtyMethod = SetTooltipIsDirty;
-        chargeSystem.DefaultChargesUseRate.setTooltipDirtyMethod = SetTooltipIsDirty;
-    }
-
     public override void CheckProperties() {
         base.CheckProperties();
         if(SkillTriggers.Length != HashedSkillTriggers.Length) {
@@ -198,21 +187,21 @@ public class SkillProperties : AbilityProperties {
 
     private void InitializeCastTimeListeners() {
         if (animationClip != null) {
-            castTime.OnChange += (skillStat) => {
+            castTime.OnChanged += (skillStat) => {
                 animationCurrentSpeedModifier = Utils.CalculateDesiredAnimationSpeedModifier(animationClip.length, castTime.GetValue());
                 CalculateAnimationSpeed();
             };
         }
 
         if (animationClipSecond != null) {
-            castTime_second.OnChange += (skillStat) => {
+            castTime_second.OnChanged += (skillStat) => {
                 animationDefaultSpeedModifierSecond = Utils.CalculateDesiredAnimationSpeedModifier(animationClipSecond.length, castTime_second.GetValue());
                 CalculateAnimationSpeed();
             };
         }
 
         if (animationClipThird != null) {
-            castTime_third.OnChange += (skillStat) => {
+            castTime_third.OnChanged += (skillStat) => {
                 animationDefaultSpeedModifierThird = Utils.CalculateDesiredAnimationSpeedModifier(animationClipThird.length, castTime_third.GetValue());
                 CalculateAnimationSpeed();
             };

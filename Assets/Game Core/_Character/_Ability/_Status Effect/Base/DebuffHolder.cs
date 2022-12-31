@@ -12,8 +12,7 @@ public class DebuffHolder {
     private Action<AbilityProperties> setTooltipDirtyAction;
 
     public void Initialize(Action setDirtyMethod) {
-        debuffToApply.StartupInitialization();
-        stacksToApply.setTooltipDirtyMethod = setDirtyMethod;
+        debuffToApply.Initialize();
 
         setTooltipDirtyAction = (a) => setDirtyMethod?.Invoke();
         debuffToApply.StatusEffectProperties.OnTooltipDirtied += setTooltipDirtyAction;

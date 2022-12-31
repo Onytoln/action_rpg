@@ -154,7 +154,7 @@ public class StatusEffect : ScriptableObject {
         return (Refreshable || Stackable) && !HasEnded;
     }
 
-    public virtual void StartupInitialization() {
+    public virtual void Initialize() {
         if (IsInitialized) return;
         IsInitialized = true;
         IsCopy = false;

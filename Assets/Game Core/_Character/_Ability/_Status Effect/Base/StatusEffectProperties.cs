@@ -35,13 +35,6 @@ public class StatusEffectProperties : AbilityProperties {
         base.Initialize();
     }
 
-    public override void AssignReferences() {
-        base.AssignReferences();
-        duration.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        tickRate.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        maxStacks.setTooltipDirtyMethod = SetTooltipIsDirty;
-    }
-
     protected virtual void BuildCombatTooltip(StatusEffect se) { }
 
     public StringBuilder GetCombatTooltip(StatusEffect se, bool rebuild) {

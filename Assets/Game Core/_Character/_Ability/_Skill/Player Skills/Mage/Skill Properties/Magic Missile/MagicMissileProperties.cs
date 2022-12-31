@@ -14,14 +14,6 @@ public class MagicMissileProperties : ProjectileSkillProperties {
         return new MagicMissilePropertiesValuesContainer(this);
     }
 
-    public override void AssignReferences() {
-        base.AssignReferences();
-        cooldownOnHit.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        damageBonusByCooldown.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        cooldownForMaxDamageBonus.SetTooltipDirtyMethod = SetTooltipIsDirty;
-    }
-
-
     protected override void BuildTooltipText() {
         base.BuildTooltipText();
 

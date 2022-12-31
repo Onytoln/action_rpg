@@ -8,8 +8,6 @@ using UnityEngine.AI;
 public class PlayerMotor : MonoBehaviour {
     public NavMeshAgent agent { get; private set; }
     private Transform target;
-    private RaycastHit hit;
-    //public LayerMask interactableMask;
     private CoroutineHandle currentFacePointCoroutine;
     private Animator animator;
     private float defaultAnimationRunSpeed = 0.83f;

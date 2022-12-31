@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Stat", menuName = "NPC/Scalable Stat")]
+
 public class ScalableStat : ChracterStat {
     [Header("Scalable stat properties")]
     [SerializeField] private int defaultScaleValue = 100;

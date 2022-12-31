@@ -5,11 +5,6 @@ using UnityEngine;
 public class FireDOTDebuffProperties : StatusEffectProperties {
     public StatFloat damagePerStack;
 
-    public override void AssignReferences() {
-        base.AssignReferences();
-        damagePerStack.SetTooltipDirtyMethod = SetTooltipIsDirty;
-    }
-
     protected override void BuildTooltipText() {
         base.BuildTooltipText();
 

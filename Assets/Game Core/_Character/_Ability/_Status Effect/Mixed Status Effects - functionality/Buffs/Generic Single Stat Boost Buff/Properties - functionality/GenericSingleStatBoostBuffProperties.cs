@@ -11,11 +11,6 @@ public class GenericSingleStatBoostBuffProperties : StatusEffectProperties {
     [SerializeField] private StatAddType statAddType;
     public StatAddType StatAddType { get => statAddType; }
 
-    public override void AssignReferences() {
-        base.AssignReferences();
-        statBoostValue.SetTooltipDirtyMethod = SetTooltipIsDirty;
-    }
-
     protected override void BuildTooltipText() {
         base.BuildTooltipText();
 

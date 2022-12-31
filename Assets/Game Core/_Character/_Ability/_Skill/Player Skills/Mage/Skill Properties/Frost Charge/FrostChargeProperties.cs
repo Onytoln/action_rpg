@@ -30,12 +30,6 @@ public class FrostChargeProperties : ChargeSkillProperties {
         CalculateRemovedDamageType(PostChargeExplosionDamageTypes, typeToRemove);
     }
 
-    public override void AssignReferences() {
-        base.AssignReferences();
-        postChargeExplosionRadius.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        postChargeExplosionDamage.SetTooltipDirtyMethod = SetTooltipIsDirty;
-    }
-
     public override void CheckProperties() {
         base.CheckProperties();
         if (string.IsNullOrEmpty(postChargeExplosionHitInforId)) {

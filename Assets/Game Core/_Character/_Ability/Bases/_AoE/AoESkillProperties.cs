@@ -8,9 +8,4 @@ public class AoESkillProperties : SkillProperties, IAoE {
     public override AbilityPropertiesValuesContainer GetValuesCopy() {
         return new AoESkillPropertiesValuesContainer(this);
     }
-
-    public override void AssignReferences() {
-        base.AssignReferences();
-        Scale.SetTooltipDirtyMethod = SetTooltipIsDirty;
-    }
 }

@@ -138,7 +138,7 @@ public class StatusEffectsManager : MonoBehaviour {
         }
 
         for (int i = 0; i < initialStatusEffects.Length; i++) {
-            initialStatusEffects[i].StartupInitialization();
+            initialStatusEffects[i].Initialize();
             _ = ApplyStatusEffect(initialStatusEffects[i], character, null, 1, out var _);
         }
     }

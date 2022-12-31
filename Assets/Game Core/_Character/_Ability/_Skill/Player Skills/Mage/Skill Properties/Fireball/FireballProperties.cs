@@ -30,12 +30,6 @@ public class FireballProperties : ProjectileSkillProperties {
         CalculateRemovedDamageType(ExplosionDamageTypes, typeToRemove);
     }
 
-    public override void AssignReferences() {
-        base.AssignReferences();
-        explosionRadius.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        explosionDamage.SetTooltipDirtyMethod = SetTooltipIsDirty;
-    }
-
     public override void CheckProperties() {
         base.CheckProperties();
         if (string.IsNullOrEmpty(explosionHitInforId)) {

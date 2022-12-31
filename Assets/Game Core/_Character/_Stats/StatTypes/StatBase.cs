@@ -1,30 +1,37 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum StatClassType { Float, Int, Character, CharacterScalable, CharacterRange, CharacterOverridablePrimary }
 
 [System.Serializable]
-public abstract class StatBase<T, U> : IOnChange<T>, ISerializationCallbackReceiver 
-    where T : StatBase<T, U>
-    where U : struct, IComparable, IComparable<U>, IConvertible, IEquatable<U>, IFormattable {
+public abstract class StatBase<CallbackReturnType, NumberType> : IOnChange<CallbackReturnType>, ISerializationCallbackReceiver 
+    where CallbackReturnType : StatBase<CallbackReturnType, NumberType>
+    where NumberType : struct, IComparable, IComparable<NumberType>, IConvertible, IEquatable<NumberType>, IFormattable {
 
-    public event Action<T> OnChanged;
+    public event Action<CallbackReturnType> OnChanged;
 
-    [field: SerializeField, Header("Core values")] public U PrimaryValue { get; protected set; }
-    public U DefaultPrimaryValue { get; protected set; }
+    [field: SerializeField] public string StatName { get; private set; } //only for naming array elements
+    [field: SerializeField, Header("Core values")] public NumberType PrimaryValue { get; protected set; }
+    public NumberType DefaultPrimaryValue { get; protected set; }
 
-    [field: SerializeField] public U MinStatValue { get; protected set; }
-    [field: SerializeField] public U MaxStatValue { get; protected set; }
+    [field: SerializeField] public NumberType MinValue { get; protected set; }
+    [field: SerializeField] public NumberType MaxValue { get; protected set; }
 
-    [NonSerialized] protected List<U> absoluteModifiers = new List<U>();
-    [NonSerialized] protected List<float> relativeModifiers = new List<float>();
+    [NonSerialized] protected ModifierHandler<NumberType> _absoluteModifiers;
+    protected abstract Func<IEnumerable<NumberType>, NumberType> AbsoluteModsSumHandler { get; }
+    public NumberType TotalAbsoluteMods => _absoluteModifiers.SumVal;
 
-    [SerializeField, Header("Total value")] private U _value;
-    public U Value {
+    [NonSerialized] protected ModifierHandler<float> _relativeModifiers;
+    protected abstract Func<IEnumerable<float>, float> RelativeModsSumHandler { get; }
+    public float TotalRelativeMods => _relativeModifiers.SumVal;
+
+    [SerializeField, Header("Total value")] private NumberType _value;
+    public NumberType Value {
         get {
-            if (isDirty) {
-                isDirty = false;
+            if (_isDirty) {
+                _isDirty = false;
                 CalculateValue();
             }
 
@@ -35,13 +42,20 @@ public abstract class StatBase<T, U> : IOnChange<T>, ISerializationCallbackRecei
 
     public abstract StatClassType StatClassType { get; }
 
-    [NonSerialized] private bool initialized = false;
-    [NonSerialized] private bool isDirty;
+    [NonSerialized] private bool _initialized;
+    [NonSerialized] private bool _isDirty;
 
-    public StatBase(U primaryValue, U minStatValue, U maxStatValue) {
+    public StatBase(NumberType primaryValue, NumberType minStatValue, NumberType maxStatValue) {
         PrimaryValue = primaryValue;
-        MinStatValue = minStatValue;
-        MaxStatValue = maxStatValue;
+        MinValue = minStatValue;
+        MaxValue = maxStatValue;
+    }
+
+    public StatBase(string statName, NumberType primaryValue, NumberType minStatValue, NumberType maxStatValue) {
+        StatName = statName;
+        PrimaryValue = primaryValue;
+        MinValue = minStatValue;
+        MaxValue = maxStatValue;
     }
 
     public void OnBeforeSerialize() { }
@@ -52,9 +66,21 @@ public abstract class StatBase<T, U> : IOnChange<T>, ISerializationCallbackRecei
 
     protected abstract void CalculateValue();
 
+    [Obsolete("Use Value property.")]
+    public NumberType GetValue() => Value;
+
+    [Obsolete("Use PrimaryValue property.")]
+    public NumberType GetPrimaryValue() => PrimaryValue;
+
+    [Obsolete("Use MinValue property.")]
+    public NumberType GetMinValue() => MinValue;
+
+    [Obsolete("Use MaxValue property.")]
+    public NumberType GetMaxValue() => MaxValue;
+
     protected void TryInitialize() {
-        if (initialized) return;
-        initialized = true;
+        if (_initialized) return;
+        _initialized = true;
 
         Initialize();
     }
@@ -62,21 +88,21 @@ public abstract class StatBase<T, U> : IOnChange<T>, ISerializationCallbackRecei
     protected virtual void Initialize() {
         DefaultPrimaryValue = PrimaryValue;
 
-        absoluteModifiers ??= new List<U>();
-        relativeModifiers ??= new List<float>();
+        _absoluteModifiers ??= new ModifierHandler<NumberType>(AbsoluteModsSumHandler);
+        _relativeModifiers ??= new ModifierHandler<float>(RelativeModsSumHandler);
 
-        isDirty = true;
+        _isDirty = true;
         _ = Value;
     }
 
     protected void StatChanged() {
-        isDirty = true;
-        OnChanged?.Invoke((T)this);
+        _isDirty = true;
+        OnChanged?.Invoke((CallbackReturnType)this);
     }
 
     #region Modifiers operations
 
-    protected void AddModifierInternal(List<int> modifiers, int modifier, int replace) {
+    protected void AddModifierInternal(ModifierHandler<int> modifiers, int modifier, int replace) {
         if (modifier == 0) return;
 
         if (replace != 0) {
@@ -88,7 +114,7 @@ public abstract class StatBase<T, U> : IOnChange<T>, ISerializationCallbackRecei
         StatChanged();
     }
 
-    protected void AddModifierInternal(List<float> modifiers, float modifier, float replace) {
+    protected void AddModifierInternal(ModifierHandler<float> modifiers, float modifier, float replace) {
         if (modifier == 0f) return;
 
         if (replace != 0f) {
@@ -100,37 +126,35 @@ public abstract class StatBase<T, U> : IOnChange<T>, ISerializationCallbackRecei
         StatChanged();
     }
 
-    private void ReplaceModifierInternal<ModifierType>(List<ModifierType> modifiers, ModifierType modifier, ModifierType replace) {
-        int index = modifiers.FindIndex(x => x.Equals(replace));
+    private void ReplaceModifierInternal<ModifierType>(ModifierHandler<ModifierType> modifiers, ModifierType modifier, ModifierType replaceWith) 
+        where ModifierType : struct, IComparable, IComparable<ModifierType>, IConvertible, IEquatable<ModifierType>, IFormattable {
 
-        if (index != -1) {
-            modifiers[index] = modifier;
-        }
+        _ = modifiers.Replace(modifier, replaceWith);
     }
 
-    protected void RemoveModifierInternal(List<int> modifiers, int modifier) {
+    protected void RemoveModifierInternal(ModifierHandler<int> modifiers, int modifier) {
         if (modifier == 0) return;
-        modifiers.Remove(modifier);
+        _ = modifiers.Remove(modifier);
         StatChanged();
     }
 
-    protected void RemoveModifierInternal(List<float> modifiers, float modifier) {
+    protected void RemoveModifierInternal(ModifierHandler<float> modifiers, float modifier) {
         if (modifier == 0f) return;
-        modifiers.Remove(modifier);
+        _ = modifiers.Remove(modifier);
         StatChanged();
     }
 
-    public abstract void SetPrimaryValue(U value);
-    public abstract void SetMinMax(U min, U max);
+    public abstract void SetPrimaryValue(NumberType value);
+    public abstract void SetMinMax(NumberType min, NumberType max);
 
-    protected void SetPrimaryValueInternal(U value) {
+    protected void SetPrimaryValueInternal(NumberType value) {
         PrimaryValue = value;
         StatChanged();
     }
 
-    protected void SetMinMaxInternal(U min, U max) {
-        MinStatValue = min;
-        MaxStatValue = max;
+    protected void SetMinMaxInternal(NumberType min, NumberType max) {
+        MinValue = min;
+        MaxValue = max;
         StatChanged();
     }
 

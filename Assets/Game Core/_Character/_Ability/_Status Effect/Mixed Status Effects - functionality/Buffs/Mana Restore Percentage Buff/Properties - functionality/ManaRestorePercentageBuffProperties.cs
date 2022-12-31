@@ -6,11 +6,6 @@ public class ManaRestorePercentageBuffProperties : StatusEffectProperties
 {
     public StatFloat percentManaPerTick;
 
-    public override void AssignReferences() {
-        base.AssignReferences();
-        percentManaPerTick.SetTooltipDirtyMethod = SetTooltipIsDirty;
-    }
-
     protected override void BuildTooltipText() {
         base.BuildTooltipText();
 
