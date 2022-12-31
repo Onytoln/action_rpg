@@ -161,7 +161,7 @@ public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvide
         CharacterComponent.CharacterStats.OnCharacterStatChange += SetTooltipRebuildIfRequired;
     }
 
-    public virtual void SetTooltipRebuildIfRequired(ChracterStat stat) { }
+    public virtual void SetTooltipRebuildIfRequired(CharacterStat stat) { }
 
     public bool CheckDamageTypesIntegrity(List<DamageTypeWeight> damageTypes) {
         if (damageTypes == null || damageTypes.Count == 0) return true;

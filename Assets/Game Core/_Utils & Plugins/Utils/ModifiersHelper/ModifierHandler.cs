@@ -1,10 +1,12 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class ModifierHandler<T> where T : struct, IComparable, IComparable<T>, IConvertible, IEquatable<T>, IFormattable {
+public class ModifierHandler<T> : IEnumerable<T> where T : struct, IComparable, IComparable<T>, IConvertible, IEquatable<T>, IFormattable {
 
-    [NonSerialized] private readonly List<T> _modifiers = new List<T>();
+    [NonSerialized] private List<T> _modifiers;
+    private List<T> Modifiers => _modifiers ??= new List<T>(); //lazy loading
 
     private readonly Func<IEnumerable<T>, T> _sumHandler;
 
@@ -13,7 +15,7 @@ public class ModifierHandler<T> where T : struct, IComparable, IComparable<T>, I
         get {
             if (_isDirty) {
                 _isDirty = false;
-                _sumVal = _sumHandler(_modifiers);
+                _sumVal = _sumHandler(Modifiers);
             }
 
             return _sumVal;
@@ -28,19 +30,23 @@ public class ModifierHandler<T> where T : struct, IComparable, IComparable<T>, I
 
     public void Add(T modifier) {
         _isDirty = true;
-        _modifiers.Add(modifier);
+        Modifiers.Add(modifier);
     }
 
     public bool Remove(T modifier) {
         _isDirty = true;
-        return _modifiers.Remove(modifier);
+        return Modifiers.Remove(modifier);
     }
 
     public bool Replace(T modifier, T replaceWith) {
-        int index = _modifiers.FindIndex(x => x.Equals(replaceWith));
+        int index = Modifiers.FindIndex(x => x.Equals(replaceWith));
         if (index == -1) return false;
 
-        _modifiers[index] = modifier;
+        Modifiers[index] = modifier;
         return true;
     }
+
+    IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
+    public List<T>.Enumerator GetEnumerator() => Modifiers.GetEnumerator();
 }

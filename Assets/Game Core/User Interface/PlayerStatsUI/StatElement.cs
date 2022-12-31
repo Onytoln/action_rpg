@@ -8,7 +8,7 @@ public class StatElement : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public StatType statTypeToAssign;
     public StatStringType statStringType;
 
-    private ChracterStat assignedStat;
+    private CharacterStat assignedStat;
 
     [SerializeField] private Text statNameText;
     [SerializeField] private Text statValueText;
@@ -17,7 +17,7 @@ public class StatElement : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private bool isDirty = true;
 
-    public void AddStat(ChracterStat stat) {
+    public void AddStat(CharacterStat stat) {
         assignedStat = stat;
         statNameText.text = stat.statName;
         RefreshStatValue();
@@ -26,7 +26,7 @@ public class StatElement : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public void RefreshStatValue() {
         isDirty = true;
 
-        if (!(assignedStat is ScalableStat)) {
+        if (!(assignedStat is ScalableStatBase)) {
             statValueText.text = assignedStat.GetValue().StatValueToStringByStatStringType(statStringType);
         } else {
             statValueText.text = assignedStat.TotalUnscalableValue.StatValueToStringByStatStringType(StatStringType.Absolute)
@@ -44,7 +44,7 @@ public class StatElement : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (isDirty) {
             isDirty = false;
             StringBuilder sb = new StringBuilder();
-            ScalableStat scalableStat = assignedStat as ScalableStat;
+            ScalableStatBase scalableStat = assignedStat as ScalableStatBase;
             Color color = new Color32(215, 58, 29, 255);
             sb.Append($"<size=35><color=#{ColorUtility.ToHtmlStringRGB(color)}>").Append(assignedStat.statName).AppendLine("</color></size>");
             sb.AppendLine();

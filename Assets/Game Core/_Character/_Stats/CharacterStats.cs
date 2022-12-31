@@ -7,7 +7,7 @@ public class CharacterStats : MonoBehaviour {
     //Stat related
     public event Action<float, CharacterStats> CurrentHealthChange;
     public event Action<float, CharacterStats> CurrentManaChange;
-    public delegate void OnStatChange(ChracterStat stat);
+    public delegate void OnStatChange(CharacterStat stat);
     public event OnStatChange OnCharacterStatChange;
     public event Action OnCharacterStatsFullyLoaded;
     public bool CharacterStatsFullyLoaded { get; private set; } = false;
@@ -48,7 +48,6 @@ public class CharacterStats : MonoBehaviour {
         CoreStats = CoreStats.GetCopy();
         CoreStats.IsCopy = false;
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            CoreStats.Stats[i].Initialize();
             OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
         }
 
@@ -185,16 +184,16 @@ public class CharacterStats : MonoBehaviour {
     [Obsolete("Use Properties")]
     public float GetStatValue(StatType statType) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
+            if (CoreStats.Stats[i].StatType == statType) {
                 return CoreStats.Stats[i].GetValue();
             }
         }
         return 0;
     }
 
-    public ChracterStat GetStat(StatType statType) {
+    public CharacterStat GetStat(StatType statType) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
+            if (CoreStats.Stats[i].StatType == statType) {
                 return CoreStats.Stats[i];
             }
         }
@@ -205,7 +204,7 @@ public class CharacterStats : MonoBehaviour {
     //SET PRIMARY VALUE
     public void SetPrimaryValue(StatType statType, float value) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
+            if (CoreStats.Stats[i].StatType == statType) {
                 CoreStats.Stats[i].SetPrimaryValue(value);
                 OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
                 break;
@@ -214,16 +213,16 @@ public class CharacterStats : MonoBehaviour {
     }
 
     //*********************************************************************************************************************//
-    //SET SCALE VALUE FOR SCALABLE STAT
+    /*//SET SCALE VALUE FOR SCALABLE STAT
     public void SetScaleValue(StatType statType, int value) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType && CoreStats.Stats[i] is ScalableStat) {
-                CoreStats.Stats[i].SetScaleValue(value);
+            if (CoreStats.Stats[i].StatType == statType && CoreStats.Stats[i] is ScalableStat scalableStat) {
+                scalableStat.SetScaleValue(value);
                 OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
                 break;
             }
         }
-    }
+    }*/
     //*********************************************************************************************************************//
     //ADD/REPLACE/REMOVE ABSOLUTE/RELATIVE/TOTAL STAT VALUES
     public void AddStat(StatType statType, float modifier, StatAddType statAddType, float replace = 0f) {
@@ -262,7 +261,7 @@ public class CharacterStats : MonoBehaviour {
     //ADD/REPLACE/REMOVE ABSOLUTE STAT VALUES
     public void AddAbsoluteStat(StatType statType, float absoluteModifier, float replace = 0f) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
+            if (CoreStats.Stats[i].StatType == statType) {
                 CoreStats.Stats[i].AddAbsoluteModifier(absoluteModifier, replace);
                 OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
                 break;
@@ -272,7 +271,7 @@ public class CharacterStats : MonoBehaviour {
 
     public void RemoveAbsoluteStat(StatType statType, float absoluteModifier) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
+            if (CoreStats.Stats[i].StatType == statType) {
                 CoreStats.Stats[i].RemoveAbsoluteModifier(absoluteModifier);
                 OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
                 break;
@@ -283,7 +282,7 @@ public class CharacterStats : MonoBehaviour {
     //ADD/REPLACE/REMOVE RELATIVE STAT VALUES
     public void AddRelativeStat(StatType statType, float relativeModifier, float replace = 0f) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
+            if (CoreStats.Stats[i].StatType == statType) {
                 CoreStats.Stats[i].AddRelativeModifier(relativeModifier, replace);
                 OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
                 break;
@@ -293,7 +292,7 @@ public class CharacterStats : MonoBehaviour {
 
     public void RemoveRelativeStat(StatType statType, float relativeModifier) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
+            if (CoreStats.Stats[i].StatType == statType) {
                 CoreStats.Stats[i].RemoveRelativeModifier(relativeModifier);
                 OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
                 break;
@@ -304,8 +303,8 @@ public class CharacterStats : MonoBehaviour {
     //ADD/REPLACE/REMOVE TOTAL STAT VALUES
     public void AddTotalStat(StatType statType, float totalModifier, float replace = 0f) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
-                CoreStats.Stats[i].AddTotalModifier(totalModifier, replace);
+            if (CoreStats.Stats[i].StatType == statType) {
+                CoreStats.Stats[i].AddCollectiveModifier(totalModifier, replace);
                 OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
                 break;
             }
@@ -314,8 +313,8 @@ public class CharacterStats : MonoBehaviour {
 
     public void RemoveTotalStat(StatType statType, float totalModifier) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
-                CoreStats.Stats[i].RemoveTotalModifier(totalModifier);
+            if (CoreStats.Stats[i].StatType == statType) {
+                CoreStats.Stats[i].RemoveCollectiveModifier(totalModifier);
                 OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
                 break;
             }
@@ -325,8 +324,8 @@ public class CharacterStats : MonoBehaviour {
     //UNCAP/CAP STAT VALUES
     public void UncapStat(StatType statType, float uncapValue) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if(CoreStats.Stats[i].statType == statType) {
-                CoreStats.Stats[i].UncapStatValue(uncapValue);
+            if(CoreStats.Stats[i].StatType == statType) {
+                CoreStats.Stats[i].UncapValue(uncapValue);
                 OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
                 break;
             }
@@ -335,8 +334,8 @@ public class CharacterStats : MonoBehaviour {
 
     public void CapStat(StatType statType, float capValue) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
-                CoreStats.Stats[i].CapStatValue(capValue);
+            if (CoreStats.Stats[i].StatType == statType) {
+                CoreStats.Stats[i].RemoveUncapValue(capValue);
                 OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
                 break;
             }
@@ -345,10 +344,10 @@ public class CharacterStats : MonoBehaviour {
 
     //*********************************************************************************************************************//
     //UNCAP/CAP SCALABLE STAT VALUES
-    public void UncapScalableStat(StatType statType, float uncapValue) {
+    /*public void UncapScalableStat(StatType statType, float uncapValue) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType && CoreStats.Stats[i] is ScalableStat) {
-                CoreStats.Stats[i].UncapScalableStatValue(uncapValue);
+            if (CoreStats.Stats[i].StatType == statType && CoreStats.Stats[i] is ScalableStatBase) {
+                CoreStats.Stats[i].(uncapValue);
                 OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
                 break;
             }
@@ -357,14 +356,14 @@ public class CharacterStats : MonoBehaviour {
 
     public void CapScalableStat(StatType statType, float capValue) {
         for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType && CoreStats.Stats[i] is ScalableStat) {
+            if (CoreStats.Stats[i].StatType == statType && CoreStats.Stats[i] is ScalableStatBase) {
                 CoreStats.Stats[i].CapScalableStatValue(capValue);
                 OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
                 break;
             }
             
         }
-    }
+    }*/
     //*********************************************************************************************************************//
 
     IEnumerator<float> HealthRegeneration() {

@@ -5,7 +5,7 @@ public class CoreStatsValuesContainer : ICoreCharacterStatsProvider {
     public CoreStatsValuesContainer(StatValues npcStats) {
         Stats = new StatInfo[npcStats.Stats.Length];
 
-        ChracterStat[] stats = npcStats.Stats;
+        CharacterStat[] stats = npcStats.Stats;
 
         for (int i = 0; i < stats.Length; i++) {
             Stats[i] = new StatInfo(stats[i]);
@@ -172,7 +172,7 @@ public class StatInfo : ICoreCharacterStat {
 
     public float MinValue { get; private set; }
 
-    public StatInfo(ChracterStat stat) {
+    public StatInfo(CharacterStat stat) {
         StatType = stat.StatType;
         Value = stat.Value;
         MinValue = stat.MinValue;

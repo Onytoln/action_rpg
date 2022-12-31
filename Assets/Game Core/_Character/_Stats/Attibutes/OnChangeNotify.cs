@@ -78,7 +78,11 @@ public class OnChangeNotify : Attribute {
 
         foreach (var property in observableProperties) {
             Process(property, methods, statsSource, statsSourceType, defaultMethods, invokesDefined);
-            observableFields.Add(ReflectionExt.GetBackingField(property));
+
+            var backingField = ReflectionExt.GetBackingField(property);
+
+            if (backingField != null)
+                observableFields.Add(backingField);
         }
 
         foreach (var field in observableFields) {

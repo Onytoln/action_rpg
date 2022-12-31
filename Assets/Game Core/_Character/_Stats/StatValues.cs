@@ -1,30 +1,34 @@
 using UnityEngine;
 
+public static class StatValuesExtensions {
+    public static StatValues SetIsCopy(this StatValues statValues) {
+        statValues.IsCopy = true;
+        return statValues;
+    }
+
+    public static StatValues SetIsCopy(this StatValues statValues, bool isCopy) {
+        statValues.IsCopy = isCopy;
+        return statValues;
+    }
+}
+
 [CreateAssetMenu(fileName = "New NPC Stats", menuName = "NPC/Stats")]
 public class StatValues : ScriptableObject, ICoreCharacterStatsProvider {
     public bool IsCopy { get; set; } = false;
+
     //!!!!!!!!!!!!!!NEVER RENAME THIS VARIABLE!!!!!!!!!!!!!!! - if it happened, set back to previous name immediately, otherwise set back to previous and restore values
     //from save file of scriptable object, if that's not possible then this is fucked lmao
-   
-    [field: SerializeField] public ChracterStat[] Stats { get; private set; }
+    [field: SerializeField] public CharacterStat[] Stats { get; private set; }
 
     public StatValues GetCopy() {
         if (IsCopy) {
             return this;
         } else {
-            StatValues newNpcStats = Instantiate(this);
-            
-            newNpcStats.IsCopy = true;
-
-            for (int i = 0; i < Stats.Length; i++) {
-                newNpcStats.Stats[i] = this.Stats[i].GetCopy();
-            }
-
-            return newNpcStats;
+            return Instantiate(this).SetIsCopy();
         }
     }
 
-    public void SetStats(ChracterStat[] stats) => Stats = stats;
+    public void SetStats(CharacterStat[] stats) => Stats = stats;
 
     public CoreStatsValuesContainer GetStatsValuesCopy() {
         return new CoreStatsValuesContainer(this);
@@ -45,12 +49,12 @@ public class StatValues : ScriptableObject, ICoreCharacterStatsProvider {
     };
 
     public (float reduction, float min) GetResistanceValueByDamageType(DamageType damageType) => damageType switch {
-        DamageType.Physical => (ArmorValue, Stats[13].GetMinPossibleValue()),
-        DamageType.Fire => (FireResistanceValue, Stats[14].GetMinPossibleValue()),
-        DamageType.Ice => (IceResistanceValue, Stats[15].GetMinPossibleValue()),
-        DamageType.Lightning => (LightningResistanceValue, Stats[16].GetMinPossibleValue()),
-        DamageType.Poison => (PoisonResistanceValue, Stats[17].GetMinPossibleValue()),
-        DamageType.Magical => (ArmorValue * 0.5f, Stats[13].GetMinPossibleValue()),
+        DamageType.Physical => (ArmorValue, Stats[13].MinValue),
+        DamageType.Fire => (FireResistanceValue, Stats[14].MinValue),
+        DamageType.Ice => (IceResistanceValue, Stats[15].MinValue),
+        DamageType.Lightning => (LightningResistanceValue, Stats[16].MinValue),
+        DamageType.Poison => (PoisonResistanceValue, Stats[17].MinValue),
+        DamageType.Magical => (ArmorValue * 0.5f, Stats[13].MinValue),
         _ => (0f, 0f),
     };
     
