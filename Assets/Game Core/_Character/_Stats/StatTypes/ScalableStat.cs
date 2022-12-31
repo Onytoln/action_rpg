@@ -1,94 +1,95 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class ScalableStat : ScalableStatBase<ScalableStat> {
+    public ScalableStat(float defaultScaleValue, float minScaleValue, float maxScaleValue,
+        StatType statType, float primaryValue, float minStatValue, float maxStatValue)
+        : base(defaultScaleValue, minScaleValue, maxScaleValue, statType, primaryValue, minStatValue, maxStatValue) { }
 
-public class ScalableStat : ChracterStat {
-    [Header("Scalable stat properties")]
-    [SerializeField] private int defaultScaleValue = 100;
-    private int finalScaleValue;
-    [SerializeField] private float minScalableStatValue = -0.2f;
-    [SerializeField] private float maxScalableStatValue = 0.8f;
-    private List<float> maxScaledStatValueModifiers = new List<float>();
-    private float finalMaxScaledStatValue;
-    private bool scaledCapIsDirty = true;
+    public ScalableStat(float defaultScaleValue, float minScaleValue, float maxScaleValue, string statName,
+        StatType statType, float primaryValue, float minStatValue, float maxStatValue)
+        : base(defaultScaleValue, minScaleValue, maxScaleValue, statName, statType, primaryValue, minStatValue, maxStatValue) { }
+}
 
-    [SerializeField] private float totalScaledValue;
+[System.Serializable]
+public class ScalableStatBase<CallBackReturnType> : CharacterStatBase<CallBackReturnType> 
+    where CallBackReturnType : ScalableStatBase<CallBackReturnType> {
 
-    [SerializeField, HideInInspector] private bool scalableIsDirty = true;
+    public override StatClassType StatClassType => StatClassType.CharacterScalable;
 
-    public override void Initialize() {
-        if (minStatValue == 0) minStatValue = float.NegativeInfinity;
-        if (maxStatValue == 0) maxStatValue = float.PositiveInfinity;
-      
-        scalableIsDirty = true;
-        scaledCapIsDirty = true;
-        finalScaleValue = defaultScaleValue;
+    [field: SerializeField, Header("Scalable stat properties")] public float DefaultScaleValue { get; private set; }
+    [field: SerializeField] public float MinScaleValue { get; private set; } 
+    [field: SerializeField] public float MaxScaleValue { get; private set; }
 
+    public float ScaleValue { get; private set; }
+
+    [NonSerialized] private ModifierHandler<float> _scaleUncapModifiers;
+    protected ModifierHandler<float> ScaleUncapModifiers => _scaleUncapModifiers ??= new ModifierHandler<float>(StatDefinitions.floatSumHandler); //lazy loading
+    public float UncappedScaleValue => MaxScaleValue + ScaleUncapModifiers.SumVal;
+
+    [SerializeField, Header("Total scaled value")] private float _totalScaledValue;
+
+    public int ValueForMaxScaledValue => (int)(ScaleValue * UncappedScaleValue);
+
+    public override float Value {
+        get { 
+            _ = base.Value;
+            return _totalScaledValue;
+        }
+    }
+
+    public ScalableStatBase(float defaultScaleValue, float minScaleValue, float maxScaleValue,
+        StatType statType, float primaryValue, float minStatValue, float maxStatValue)
+        : base(statType, primaryValue, minStatValue, maxStatValue) {
+
+        DefaultScaleValue = defaultScaleValue;
+        MinScaleValue = minScaleValue;
+        MaxScaleValue = maxScaleValue;
+    }
+
+    public ScalableStatBase(float defaultScaleValue, float minScaleValue, float maxScaleValue, string statName,
+        StatType statType, float primaryValue, float minStatValue, float maxStatValue)
+        : base(statName, statType, primaryValue, minStatValue, maxStatValue) {
+
+        DefaultScaleValue = defaultScaleValue;
+        MinScaleValue = minScaleValue;
+        MaxScaleValue = maxScaleValue;
+    }
+
+    protected override void Initialize() {
+        SetMinMax(float.NegativeInfinity, float.PositiveInfinity);
+        ScaleValue = DefaultScaleValue;
         base.Initialize();
     }
-
-    public void CalculateScalableValue() {
-        if (scaledCapIsDirty) {
-            scaledCapIsDirty = false;
-
-            float capMods = 0f;
-            maxScaledStatValueModifiers.ForEach(x => capMods += x);
-
-            finalMaxScaledStatValue = maxScalableStatValue + capMods;
-        }
-
-        totalScaledValue = Mathf.Clamp(base.GetValue() / finalScaleValue, minScalableStatValue, finalMaxScaledStatValue);
+    protected override void CalculateValue() {
+        _totalScaledValue = Mathf.Clamp(base.Value / ScaleValue, MinScaleValue, UncappedScaleValue);
     }
 
-    public override float GetValue() {
-        if (scalableIsDirty) {
-            scalableIsDirty = false;
-            CalculateScalableValue();
-        }
-
-        return totalScaledValue;
+    public void SetScaleValue(float scaleValue) {
+        ScaleValue = scaleValue;
+        StatChanged();
     }
 
-    public override void SetScaleValue(int valueMultiplier) {
-        Mathf.Clamp(finalScaleValue = defaultScaleValue * valueMultiplier, minScalableStatValue, 0.99f);
-        SetIsDirty();
-    }
-
-    public override void UncapScalableStatValue(float uncapValue) {
+    public void UncapScalableValue(float uncapValue) {
         if (uncapValue == 0) return;
 
-        maxScaledStatValueModifiers.Add(uncapValue);
+        ScaleUncapModifiers.Add(uncapValue);
 
-        scaledCapIsDirty = true;
-        SetIsDirty();
+        StatChanged();
     }
 
-    public override void CapScalableStatValue(float capValue) {
-        if (capValue == 0) return;
+    public void RemoveScalableUncapValue(float uncapValue) {
+        if (uncapValue == 0) return;
 
-        int index = maxScaledStatValueModifiers.FindIndex(x => x == capValue);
-        if (index == -1) return;
+        ScaleUncapModifiers.Remove(uncapValue);
 
-        maxScaledStatValueModifiers.RemoveAt(index);
-
-        scaledCapIsDirty = true;
-        SetIsDirty();
+        StatChanged();
     }
 
-    public override void SetIsDirty() {
-        base.SetIsDirty();
-        scalableIsDirty = true;
-    }
-
-    public override float GetMinPossibleValue() {
-        return minScalableStatValue;
-    }
-
-    public override float GetMaxPossibleValue() {
-        return finalMaxScaledStatValue;
-    }
-
+    [Obsolete("Use ValueForMaxScaledValue property.")]
     public int GetValueNeededForMaxScaledValue() {
-        return (int)(finalMaxScaledStatValue * finalScaleValue);
+        return ValueForMaxScaledValue;
     }
 }

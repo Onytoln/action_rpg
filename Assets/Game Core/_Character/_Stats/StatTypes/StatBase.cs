@@ -19,16 +19,18 @@ public abstract class StatBase<CallbackReturnType, NumberType> : IOnChange<Callb
     [field: SerializeField] public NumberType MinValue { get; protected set; }
     [field: SerializeField] public NumberType MaxValue { get; protected set; }
 
-    [NonSerialized] protected ModifierHandler<NumberType> _absoluteModifiers;
+    [NonSerialized] private ModifierHandler<NumberType> _absoluteModifiers;
+    protected ModifierHandler<NumberType> AbsoluteModifiers => _absoluteModifiers ??= new ModifierHandler<NumberType>(AbsoluteModsSumHandler); //lazy loading
     protected abstract Func<IEnumerable<NumberType>, NumberType> AbsoluteModsSumHandler { get; }
-    public NumberType TotalAbsoluteMods => _absoluteModifiers.SumVal;
+    public NumberType TotalAbsoluteMods => AbsoluteModifiers.SumVal;
 
-    [NonSerialized] protected ModifierHandler<float> _relativeModifiers;
+    [NonSerialized] private ModifierHandler<float> _relativeModifiers;
+    protected ModifierHandler<float> RelativeModifiers => _relativeModifiers ??= new ModifierHandler<float>(RelativeModsSumHandler); //lazy loading
     protected abstract Func<IEnumerable<float>, float> RelativeModsSumHandler { get; }
-    public float TotalRelativeMods => _relativeModifiers.SumVal;
+    public float TotalRelativeMods => RelativeModifiers.SumVal;
 
     [SerializeField, Header("Total value")] private NumberType _value;
-    public NumberType Value {
+    public virtual NumberType Value {
         get {
             if (_isDirty) {
                 _isDirty = false;
@@ -87,15 +89,10 @@ public abstract class StatBase<CallbackReturnType, NumberType> : IOnChange<Callb
 
     protected virtual void Initialize() {
         DefaultPrimaryValue = PrimaryValue;
-
-        _absoluteModifiers ??= new ModifierHandler<NumberType>(AbsoluteModsSumHandler);
-        _relativeModifiers ??= new ModifierHandler<float>(RelativeModsSumHandler);
-
         _isDirty = true;
-        _ = Value;
     }
 
-    protected void StatChanged() {
+    protected virtual void StatChanged() {
         _isDirty = true;
         OnChanged?.Invoke((CallbackReturnType)this);
     }

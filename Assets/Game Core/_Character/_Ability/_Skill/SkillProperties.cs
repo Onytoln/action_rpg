@@ -156,8 +156,8 @@ public class SkillProperties : AbilityProperties {
         InitializeCastTimeListeners();
     }
 
-    public override void SetTooltipRebuildIfRequired(ChracterStat stat) {
-        if (stat.statType == StatType.Damage) SetTooltipIsDirty();
+    public override void SetTooltipRebuildIfRequired(CharacterStat stat) {
+        if (stat.StatType == StatType.Damage) SetTooltipIsDirty();
     }
 
     private void InitializeAnimations() {
@@ -208,8 +208,8 @@ public class SkillProperties : AbilityProperties {
         }
     }
 
-    public virtual void CalculateAttackSpeedCastTimes(ChracterStat stat) {
-        if (SkillCastSpeedScalingType == SkillCastSpeedScalingType.Scalable && stat.statType == StatType.AttackSpeed) {
+    public virtual void CalculateAttackSpeedCastTimes(CharacterStat stat) {
+        if (SkillCastSpeedScalingType == SkillCastSpeedScalingType.Scalable && stat.StatType == StatType.AttackSpeed) {
             CalculateCastTimeAttackSpeedModifier(castTime, ref castTimeAttackSpeedOldValue);
         }
     }

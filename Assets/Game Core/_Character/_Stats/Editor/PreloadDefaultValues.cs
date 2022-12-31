@@ -7,7 +7,7 @@ using System;
 [CustomEditor(typeof(StatValues))]
 public class PreloadDefaultValues : Editor
 {
-    public ChracterStat[] defaultStats;
+    public CharacterStat[] defaultStats;
 
     private readonly StatType[] order = { StatType.Damage, StatType.AttackSpeed, StatType.CriticalStrike, StatType.CriticalDamage, StatType.DebuffStrength,
     StatType.MovementSpeed, StatType.Mana, StatType.ManaRegeneration, StatType.Health, StatType.HealthRegeneration,
@@ -22,7 +22,7 @@ public class PreloadDefaultValues : Editor
         if (GUILayout.Button("Preload defaults to selected core stats")) {
             PreloadDefaults();
         }
-    }*/
+    }
 
     public void PreloadDefaults() {
         string path = AssetDatabase.GetAssetPath(target);
@@ -35,15 +35,15 @@ public class PreloadDefaultValues : Editor
 
         string[] assetGUIDs = AssetDatabase.FindAssets("t:Stat", folders);
 
-        List<ChracterStat> stats = new List<ChracterStat>();
+        List<CharacterStat> stats = new List<CharacterStat>();
 
         for (int i = 0; i < assetGUIDs.Length; i++) {
 
             string assetPath = AssetDatabase.GUIDToAssetPath(assetGUIDs[i]);
 
-            var asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof(ChracterStat));
+            var asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof(CharacterStat));
 
-            if (asset is ChracterStat stat) {
+            if (asset is CharacterStat stat) {
                 stats.Add(stat);
             }
         }
@@ -53,10 +53,10 @@ public class PreloadDefaultValues : Editor
             return;
         }
 
-        ChracterStat[] resultOrdered = new ChracterStat[stats.Count];
+        CharacterStat[] resultOrdered = new CharacterStat[stats.Count];
         for (int i = 0; i < stats.Count; i++) {
             for (int j = 0; j < order.Length; j++) {
-                if(stats[i].statType == order[j]) {
+                if(stats[i].StatType == order[j]) {
                     resultOrdered[j] = stats[i];
                 }
             }
@@ -64,5 +64,5 @@ public class PreloadDefaultValues : Editor
 
         (target as StatValues).SetStats(resultOrdered);
         EditorUtility.SetDirty(target);
-    }
+    }*/
 }

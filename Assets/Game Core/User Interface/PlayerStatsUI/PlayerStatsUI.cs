@@ -35,11 +35,11 @@ public class PlayerStatsUI : MonoBehaviour, IUiWindow {
     private void Initialize() {
         playerStats = TargetManager.Player.GetComponent<PlayerStats>();
 
-        ChracterStat[] stats = playerStats.CoreStats.Stats;
+        CharacterStat[] stats = playerStats.CoreStats.Stats;
 
         for (int i = 0; i < statElements.Length; i++) {
             for (int j = 0; j < stats.Length; j++) {
-                if (statElements[i].statTypeToAssign == stats[j].statType) {
+                if (statElements[i].statTypeToAssign == stats[j].StatType) {
                     statElements[i].AddStat(stats[j]);
                     break;
                 }
@@ -70,9 +70,9 @@ public class PlayerStatsUI : MonoBehaviour, IUiWindow {
         }
     }
 
-    void UpdateStats(ChracterStat stat) {
+    void UpdateStats(CharacterStat stat) {
         for (int i = 0; i < statElements.Length; i++) {
-            if (statElements[i].statTypeToAssign == stat.statType) {
+            if (statElements[i].statTypeToAssign == stat.StatType) {
                 statElements[i].RefreshStatValue();
                 break;
             }

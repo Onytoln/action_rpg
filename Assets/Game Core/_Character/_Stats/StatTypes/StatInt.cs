@@ -25,25 +25,25 @@ public class StatIntBase<CallbackReturnType> : StatBase<CallbackReturnType, int>
 
     protected override void CalculateValue() {
         int temp = PrimaryValue;
-        temp += _absoluteModifiers.SumVal;
-        temp = (int)(temp * (1f + _relativeModifiers.SumVal));
+        temp += AbsoluteModifiers.SumVal;
+        temp = (int)(temp * (1f + RelativeModifiers.SumVal));
         Value = Mathf.Clamp(temp, MinValue, MaxValue);
     }
 
     public void AddAbsoluteModifier(int absoluteModifier, int replace = 0) {
-        AddModifierInternal(_absoluteModifiers, absoluteModifier, replace);
+        AddModifierInternal(AbsoluteModifiers, absoluteModifier, replace);
     }
 
     public void RemoveAbsoluteModifier(int absoluteModifier) {
-        RemoveModifierInternal(_absoluteModifiers, absoluteModifier);
+        RemoveModifierInternal(AbsoluteModifiers, absoluteModifier);
     }
 
     public void AddRelativeModifier(float relativeModifier, float replace = 0f) {
-        AddModifierInternal(_relativeModifiers, relativeModifier, replace);
+        AddModifierInternal(RelativeModifiers, relativeModifier, replace);
     }
 
     public void RemoveRelativeModifier(float relativeModifier) {
-        RemoveModifierInternal(_relativeModifiers, relativeModifier);
+        RemoveModifierInternal(RelativeModifiers, relativeModifier);
     }
 
     public override void SetPrimaryValue(int value) {
