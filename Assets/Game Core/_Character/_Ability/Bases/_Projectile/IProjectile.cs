@@ -2,9 +2,9 @@ using UnityEngine;
 
 public interface IProjectile : IAoE {
     public ProjectileFireType ProjectileFireType { get; }
-    public SkillStatInt ProjectileCount { get; }
-    public SkillStatInt MaxPierceCount { get; }
-    public SkillStatInt MaxUniqueTargetHits { get; }
+    public StatInt ProjectileCount { get; }
+    public StatInt MaxPierceCount { get; }
+    public StatInt MaxUniqueTargetHits { get; }
     public BoolControlComplex CanPierceTerrain { get; }
     public BoolControlComplex PiercesAllTargets { get; }
     public BoolControlComplex InfiniteUniqueTargetHits { get; }

@@ -15,7 +15,7 @@ public class AbilityObject : MonoBehaviour {
     public IHitLayers HitLayers => CoreAbilityData.CharacterHitLayers;
     public AbilityProperties AbilityProperties => CoreAbilityData.AbilityProperties;
     public AbilityPropertiesValuesContainer APropValues => CoreAbilityData.AbilityPropertiesValuesContainer;
-    public CoreStatsValuesContainer CoreStatsValues => CoreAbilityData.CoreStatsValues;
+    public CharStatsValContainer CoreStatsValues => CoreAbilityData.CoreStatsValues;
     public SkillTemplate SkillLogic => CoreAbilityData.SkillLogic;
     public Vector3 CastPoint => CoreAbilityData.CastPoint;
     public GameObject Target => CoreAbilityData.Target;

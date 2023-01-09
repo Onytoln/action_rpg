@@ -8,7 +8,7 @@ public class ModifyCoreStats : EditorWindow
 {
     int insertAfter = 0;
     string statName;
-    public StatType statType = StatType.NoType;
+    public CharacterStatType statType = CharacterStatType.None;
     float primaryValue = 0;
     float minStatValue = 0;
     float maxStatValue = 0;
@@ -33,7 +33,7 @@ public class ModifyCoreStats : EditorWindow
 
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Stat type: ");
-        statType = (StatType)EditorGUILayout.EnumPopup(statType);
+        statType = (CharacterStatType)EditorGUILayout.EnumPopup(statType);
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
@@ -61,12 +61,12 @@ public class ModifyCoreStats : EditorWindow
         }
     }
 
-    public static void AddStatToCoreStats(string statName, int insertAfter, StatType statType, float primaryValue,
+    public static void AddStatToCoreStats(string statName, int insertAfter, CharacterStatType statType, float primaryValue,
         float minStatValue, float maxStatValue, float defaultUncappedMax) {
 
-        if (insertAfter < 0 || statType == StatType.NoType) return;
+        if (insertAfter < 0 || statType == CharacterStatType.None) return;
 
-        List<NPCStats> coreStats = Utils.FindAssetsByType<NPCStats>();
+        List<StatValues> coreStats = Utils.FindAssetsByType<StatValues>();
 
         /*for (int i = 0; i < coreStats.Count; i++) {
             Stat[] newStats = new Stat[coreStats[i].stats.Length + 1];

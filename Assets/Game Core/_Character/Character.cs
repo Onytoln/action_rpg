@@ -74,7 +74,7 @@ public class Character : MonoBehaviour, IHitLayers, ISelected {
         get => characterLevel;
     }
 
-    [SerializeField] protected StatType[] otherStatsToScaleWithLevel;
+    [SerializeField] protected CharacterStatType[] otherStatsToScaleWithLevel;
 
     [field: SerializeField, TextArea]
     public string[] AdditionalInfo { get; protected set; }
@@ -167,8 +167,8 @@ public class Character : MonoBehaviour, IHitLayers, ISelected {
     protected virtual void ApplyLevelStatModifier(int level) {
         DataStorage dataStorage = DataStorage.Instance;
 
-        CharacterStats.SetPrimaryValue(StatType.Damage, dataStorage.GetLevelStatMultiplier(StatType.Damage, level));
-        CharacterStats.SetPrimaryValue(StatType.Health, dataStorage.GetLevelStatMultiplier(StatType.Health, level));
+        CharacterStats.SetPrimaryValue(CharacterStatType.Damage, dataStorage.GetLevelStatMultiplier(CharacterStatType.Damage, level));
+        CharacterStats.SetPrimaryValue(CharacterStatType.Health, dataStorage.GetLevelStatMultiplier(CharacterStatType.Health, level));
         CharacterStats.SetCurrentHealthToMax();
 
         if (otherStatsToScaleWithLevel == null || otherStatsToScaleWithLevel.Length == 0) return;
@@ -261,7 +261,7 @@ public class Character : MonoBehaviour, IHitLayers, ISelected {
         CharacterStats.RunHealthRegenerationCoroutine();
 
         CharacterStatusEffectsManager.SetIsUntargetable(false);
-        CharacterStats.SetCurrentHealth(CharacterStats.CoreStats.Stats[8].GetValue());
+        CharacterStats.SetCurrentHealth(CharacterStats.CoreStats.HealthValue);
         CharacterStatusEffectsManager.IsRespawning = false;
         CharacterStats.OnDeathInternal += ProcessDeath;
         eventManager.OnNpcRespawn?.Invoke(this);

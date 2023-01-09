@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour {
     //Stat related
-    public event Action<float, CharacterStats> CurrentHealthChange;
-    public event Action<float, CharacterStats> CurrentManaChange;
-    public delegate void OnStatChange(Stat stat);
-    public event OnStatChange OnCharacterStatChange;
+    public event Action<float, CharacterStats> OnCurrentHealthChange;
+    public event Action<float, CharacterStats> OnCurrentManaChange;
+    public event Action<ICharacterStatReadonly> OnCharacterStatChange;
     public event Action OnCharacterStatsFullyLoaded;
     public bool CharacterStatsFullyLoaded { get; private set; } = false;
 
@@ -19,15 +18,30 @@ public class CharacterStats : MonoBehaviour {
     /// before npc tied to this character takes damage
     /// </summary>
     public event PreDamageTaken PreCharacterDamageTaken;
+    public event Action<CharacterStats> OnPreDeath;
     public event Action OnDeathInternal;
 
     //Core stats of the character  
-    [field: SerializeField] public NPCStats CoreStats { get; protected set; }
+    [field: SerializeField] public StatValues CoreStats { get; protected set; }
 
-    protected float currentHealth;
-    public float CurrentHealth { get => currentHealth; }
-    protected float currentMana;
-    public float CurrentMana { get => currentMana; }
+    protected float _currentHealth;
+    public float CurrentHealth { 
+        get => _currentHealth;
+        private set {
+            _currentHealth = value;
+            if (_currentHealth <= 0f) Die();
+            OnCurrentHealthChange?.Invoke(CurrentHealth, this);
+        }
+    }
+
+    protected float _currentMana;
+    public float CurrentMana { 
+        get => _currentMana;
+        private set {
+            _currentMana = value;
+            OnCurrentManaChange?.Invoke(CurrentMana, this);
+        }
+    }
 
     [field: SerializeField] public StatusEffectsManager StatusEffectsManager { get; private set; }
 
@@ -39,21 +53,22 @@ public class CharacterStats : MonoBehaviour {
 
     public virtual void Awake() {
         if (CoreStats == null) return;
+
         if(StatusEffectsManager == null) StatusEffectsManager = GetComponent<StatusEffectsManager>();
+
         healthRegenerationCoroutine = HealthRegeneration();
-        manaRegenerationCoroutine = ManaRegeneration();
         StatusEffectsManager.OnCanRegenerateChanged += ChangeHealthRegenerationState;
+        manaRegenerationCoroutine = ManaRegeneration();
 
-        CoreStats.IsCopy = false;
-        CoreStats = CoreStats.GetCopy();
-        CoreStats.IsCopy = false;
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            CoreStats.Stats[i].Initialize();
-            OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
-        }
+        CoreStats = CoreStats
+            .SetIsCopy(false)
+            .GetCopy()
+            .SetIsCopy(false)
+            .SetOnStatChangeCallback(OnCharacterStatChange)
+            .RaiseStatChangedCallbackForEveryStat();
 
-        currentHealth = CoreStats.HealthValue;
-        currentMana = CoreStats.ManaValue;
+        CurrentHealth = CoreStats.HealthValue;
+        CurrentMana = CoreStats.ManaValue;
 
         CharacterStatsFullyLoaded = true;
         OnCharacterStatsFullyLoaded?.Invoke();
@@ -86,6 +101,10 @@ public class CharacterStats : MonoBehaviour {
 
     public virtual void Die() {
         if (StatusEffectsManager.IsDead) return;
+        OnPreDeath?.Invoke(this);
+
+        if (CurrentHealth > 0f) return;
+
         OnDeathInternal?.Invoke();
         OnDeathInternal = null;
     }
@@ -120,252 +139,70 @@ public class CharacterStats : MonoBehaviour {
         Timing.KillCoroutines(manaRegenerationCoroutineHandle);
     }
 
+    #region Current health operations
+
     public void SetCurrentHealthToMax() {
         AddCurrentHealth(float.MaxValue, false);
     }
 
-    //*********************************************************************************************************************//
-    /// <summary>
-    /// Sets health to value
-    /// </summary>
-    /// <param name="value">Value to which health will be set</param>
     public void SetCurrentHealth(float value) {
-        currentHealth = Mathf.Clamp(value, 0, CoreStats.HealthValue);
-        if (currentHealth <= 0) Die();
-        CurrentHealthChange?.Invoke(CurrentHealth, this);
+        CurrentHealth = Mathf.Clamp(value, 0f, CoreStats.HealthValue);
     }
 
-    /// <summary>
-    /// Adds value to current health negative/positive
-    /// </summary>
-    /// <param name="value">Value which will be added to current health</param>
     public float AddCurrentHealth(float value, bool affectedByHealingEffectivity) {
-        if (value > 0 && affectedByHealingEffectivity) { value *= 1 + CoreStats.HealingEffectivityValue; }
-        currentHealth = Mathf.Clamp(currentHealth + value, 0, CoreStats.HealthValue);
-        if (currentHealth <= 0) Die();
-        CurrentHealthChange?.Invoke(CurrentHealth, this);
+        if (value > 0f && affectedByHealingEffectivity) { value *= 1f + CoreStats.HealingEffectivityValue; }
+        CurrentHealth = Mathf.Clamp(CurrentHealth + value, 0f, CoreStats.HealthValue);
         return value;
     }
 
     [Obsolete("Use CurrentHealth property")]
     public float GetCurrentHealth() {
-        return currentHealth;
+        return CurrentHealth;
     }
 
-    public float CurrentHealthPercentage => currentHealth / CoreStats.HealthValue;
-    //*********************************************************************************************************************//
+    public float CurrentHealthPercentage => CurrentHealth / CoreStats.HealthValue;
 
-    /// <summary>
-    /// Sets mana to value
-    /// </summary>
-    /// <param name="value">Value to which mana will be set</param>
+    #endregion
+
+    #region Current mana operations
+
     public void SetCurrentMana(float value) {
-        currentMana = Mathf.Clamp(value, 0, CoreStats.ManaValue);
-        CurrentManaChange?.Invoke(CurrentMana, this);
+        CurrentMana = Mathf.Clamp(value, 0, CoreStats.ManaValue);
+        
     }
 
-    /// <summary>
-    /// Adds value to current health negative/positive
-    /// </summary>
-    /// <param name="value">Value which will be added to current mana</param>
     public void AddCurrentMana(float value) {
-        currentMana = Mathf.Clamp(currentMana + value, 0, CoreStats.ManaValue);
-        CurrentManaChange?.Invoke(CurrentMana, this);
+        CurrentMana = Mathf.Clamp(CurrentMana + value, 0, CoreStats.ManaValue);
     }
 
     [Obsolete("Use CurrentMana property")]
     public float GetCurrentMana() {
-        return currentMana;
+        return CurrentMana;
     }
 
-    public float CurrentManaPercentage => currentMana / CoreStats.ManaValue;
+    public float CurrentManaPercentage => CurrentMana / CoreStats.ManaValue;
 
-    //*********************************************************************************************************************//
-    //GET STAT VALUE BY STAT TYPE
-    [Obsolete("Use Properties")]
-    public float GetStatValue(StatType statType) {
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
-                return CoreStats.Stats[i].GetValue();
-            }
-        }
-        return 0;
-    }
+    #endregion
 
-    public Stat GetStat(StatType statType) {
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
-                return CoreStats.Stats[i];
-            }
-        }
+    #region Add/Remove stat values operations
 
-        return null;
-    }
-    //*********************************************************************************************************************//
-    //SET PRIMARY VALUE
-    public void SetPrimaryValue(StatType statType, float value) {
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
-                CoreStats.Stats[i].SetPrimaryValue(value);
-                OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
-                break;
-            }
-        }
-    }
+    public ICharacterStatReadonly GetStat(CharacterStatType statType) => CoreStats.GetStat(statType);
 
-    //*********************************************************************************************************************//
-    //SET SCALE VALUE FOR SCALABLE STAT
-    public void SetScaleValue(StatType statType, int value) {
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType && CoreStats.Stats[i] is ScalableStat) {
-                CoreStats.Stats[i].SetScaleValue(value);
-                OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
-                break;
-            }
-        }
-    }
-    //*********************************************************************************************************************//
-    //ADD/REPLACE/REMOVE ABSOLUTE/RELATIVE/TOTAL STAT VALUES
-    public void AddStat(StatType statType, float modifier, StatAddType statAddType, float replace = 0f) {
-        switch (statAddType) {
-            case StatAddType.Absolute:
-                AddAbsoluteStat(statType, modifier, replace);
-                break;
-            case StatAddType.Relative:
-                AddRelativeStat(statType, modifier, replace);
-                break;
-            case StatAddType.Total:
-                AddTotalStat(statType, modifier, replace);
-                break;
-            default:
-                throw new Exception("Stat Add Type when adding stat not recognized, must be Absolute/Relative/Total.");
-        }
-    }
+    public void SetPrimaryValue(CharacterStatType statType, float value) => CoreStats.SetPrimaryValue(statType, value);
 
-    public void RemoveStat(StatType statType, float modifier, StatAddType statAddType) {
-        switch (statAddType) {
-            case StatAddType.Absolute:
-                RemoveAbsoluteStat(statType, modifier);
-                break;
-            case StatAddType.Relative:
-                RemoveRelativeStat(statType, modifier);
-                break;
-            case StatAddType.Total:
-                RemoveTotalStat(statType, modifier);
-                break;
-            default:
-                throw new Exception("Stat Add Type when removing stat not recognized, must be Absolute/Relative/Total.");
-        }
-    }
+    public void SetScaleValue(ScalableCharacterStatType statType, float value) => CoreStats.SetScaleValue(statType, value);
 
-    //*********************************************************************************************************************//
-    //ADD/REPLACE/REMOVE ABSOLUTE STAT VALUES
-    public void AddAbsoluteStat(StatType statType, float absoluteModifier, float replace = 0f) {
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
-                CoreStats.Stats[i].AddAbsoluteModifier(absoluteModifier, replace);
-                OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
-                break;
-            }
-        }
-    }
+    public void AddStatModifier(CharacterStatType statType, float modifier, StatValueType statValueType, float replace = 0f)
+        => CoreStats.AddStatModifier(statType, modifier, statValueType, replace);
 
-    public void RemoveAbsoluteStat(StatType statType, float absoluteModifier) {
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
-                CoreStats.Stats[i].RemoveAbsoluteModifier(absoluteModifier);
-                OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
-                break;
-            }
-        }
-    }
-    //*********************************************************************************************************************//
-    //ADD/REPLACE/REMOVE RELATIVE STAT VALUES
-    public void AddRelativeStat(StatType statType, float relativeModifier, float replace = 0f) {
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
-                CoreStats.Stats[i].AddRelativeModifier(relativeModifier, replace);
-                OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
-                break;
-            }
-        }
-    }
+    public void RemoveStatModifier(CharacterStatType statType, float modifier, StatValueType statValueType)
+        => CoreStats.RemoveStatModifier(statType, modifier, statValueType); 
 
-    public void RemoveRelativeStat(StatType statType, float relativeModifier) {
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
-                CoreStats.Stats[i].RemoveRelativeModifier(relativeModifier);
-                OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
-                break;
-            }
-        }
-    }
-    //*********************************************************************************************************************//
-    //ADD/REPLACE/REMOVE TOTAL STAT VALUES
-    public void AddTotalStat(StatType statType, float totalModifier, float replace = 0f) {
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
-                CoreStats.Stats[i].AddTotalModifier(totalModifier, replace);
-                OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
-                break;
-            }
-        }
-    }
+    public void UncapStatValue(CharacterStatType statType, float uncapValue, float replace = 0f) => CoreStats.UncapStatValue(statType, uncapValue, replace);
 
-    public void RemoveTotalStat(StatType statType, float totalModifier) {
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
-                CoreStats.Stats[i].RemoveTotalModifier(totalModifier);
-                OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
-                break;
-            }
-        }
-    }
-    //*********************************************************************************************************************//
-    //UNCAP/CAP STAT VALUES
-    public void UncapStat(StatType statType, float uncapValue) {
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if(CoreStats.Stats[i].statType == statType) {
-                CoreStats.Stats[i].UncapStatValue(uncapValue);
-                OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
-                break;
-            }
-        }
-    }
+    public void RemoveStatUncapValue(CharacterStatType statType, float capValue) => CoreStats.RemoveStatUncap(statType, capValue);
 
-    public void CapStat(StatType statType, float capValue) {
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType) {
-                CoreStats.Stats[i].CapStatValue(capValue);
-                OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
-                break;
-            }
-        }
-    }
-
-    //*********************************************************************************************************************//
-    //UNCAP/CAP SCALABLE STAT VALUES
-    public void UncapScalableStat(StatType statType, float uncapValue) {
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType && CoreStats.Stats[i] is ScalableStat) {
-                CoreStats.Stats[i].UncapScalableStatValue(uncapValue);
-                OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
-                break;
-            }
-        }
-    }
-
-    public void CapScalableStat(StatType statType, float capValue) {
-        for (int i = 0; i < CoreStats.Stats.Length; i++) {
-            if (CoreStats.Stats[i].statType == statType && CoreStats.Stats[i] is ScalableStat) {
-                CoreStats.Stats[i].CapScalableStatValue(capValue);
-                OnCharacterStatChange?.Invoke(CoreStats.Stats[i]);
-                break;
-            }
-            
-        }
-    }
-    //*********************************************************************************************************************//
+    #endregion
 
     IEnumerator<float> HealthRegeneration() {
         while (true) {

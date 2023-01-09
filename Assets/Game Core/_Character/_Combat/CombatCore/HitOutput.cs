@@ -24,7 +24,7 @@ public class HitOutput
     public AbilityProperties HitSourceAbilityProperties => hitInput.CoreAbilityData.AbilityProperties;
     public AbilityPropertiesValuesContainer HitSourceAbilityPropertiesValuesContainer => hitInput.CoreAbilityData.AbilityPropertiesValuesContainer;
     public Character HitSourceCharacterComponent => hitInput.CoreAbilityData.CharacterComponent;
-    public CoreStatsValuesContainer HitSourceCoreStatsValues => hitInput.CoreAbilityData.CoreStatsValues;
+    public CharStatsValContainer HitSourceCoreStatsValues => hitInput.CoreAbilityData.CoreStatsValues;
     public Combat HitSourceCombat => hitInput.CoreAbilityData.Combat;
     public string CurrentHitInforId => hitInput.CurrentHitInfoId;
 }

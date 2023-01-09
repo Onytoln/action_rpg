@@ -26,9 +26,9 @@ public class CooldownManager : MonoBehaviour {
 
         if (toRemove.Count > 0) {
             for (int i = 0; i < toRemove.Count; i++) {
-                objectsInCooldown.Remove(toRemove[i]);
+                _ = objectsInCooldown.Remove(toRemove[i]);
             }
-            objectsInCooldown.Remove(null);
+            _ = objectsInCooldown.Remove(null);
 
             toRemove.Clear();
         }
@@ -37,7 +37,8 @@ public class CooldownManager : MonoBehaviour {
     public void ProcessCooldown<T>(T cooldownObject) {
         ICooldown obj = cooldownObject as ICooldown;
         if (obj == null) return;
-        if (objectsInCooldown.Contains(obj)) return;
-        objectsInCooldown.Add(obj);
+
+        _ = objectsInCooldown.Add(obj);
+        _ = toRemove.Remove(obj);
     }
 }

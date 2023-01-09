@@ -4,12 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Mana Percentage Restoration Buff Properties", menuName = "Status Effects/Buff Properties/Mana Percentage Restoration Buff Properties")]
 public class ManaRestorePercentageBuffProperties : StatusEffectProperties
 {
-    public SkillStat percentManaPerTick;
-
-    public override void AssignReferences() {
-        base.AssignReferences();
-        percentManaPerTick.SetTooltipDirtyMethod = SetTooltipIsDirty;
-    }
+    public StatFloat percentManaPerTick;
 
     protected override void BuildTooltipText() {
         base.BuildTooltipText();

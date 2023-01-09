@@ -491,7 +491,7 @@ public class NPCBehavior : MonoBehaviour {
         CharacterComponent.CharacterStatusEffectsManager.EndSkillCasts();
         CharacterComponent.CharacterStatusEffectsManager.SetIsUntargetable(true);
 
-        CharacterComponent.CharacterStats.AddAbsoluteStat(StatType.MovementSpeed, 6f);
+        CharacterComponent.CharacterStats.AddAbsoluteStat(CharacterStatType.MovementSpeed, 6f);
         NpcController.agent.obstacleAvoidanceType = UnityEngine.AI.ObstacleAvoidanceType.NoObstacleAvoidance;
         NPCState = NpcState.WalkingBackToSpawnPoint;
         while (!NpcController.AgentEnabled) {
@@ -518,7 +518,7 @@ public class NPCBehavior : MonoBehaviour {
         NpcController.SetMovingAnim(false);
 
         CharacterComponent.CharacterStats.SetCurrentHealth(CharacterComponent.CharacterStats.CoreStats.HealthValue);
-        CharacterComponent.CharacterStats.RemoveAbsoluteStat(StatType.MovementSpeed, 6f);
+        CharacterComponent.CharacterStats.RemoveAbsoluteStat(CharacterStatType.MovementSpeed, 6f);
 
         CharacterComponent.CharacterStatusEffectsManager.SetIsUntargetable(false);
 

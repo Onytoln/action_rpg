@@ -49,7 +49,7 @@ public class FrostDebuff : Debuff {
         HandleDebuffApplication();
     }
 
-    public override void Refresh(CoreStatsValuesContainer _applierStatsContainer, int stacksCount, HitOutput hitOutput) {
+    public override void Refresh(CharStatsValContainer _applierStatsContainer, int stacksCount, HitOutput hitOutput) {
         base.Refresh(_applierStatsContainer, stacksCount, hitOutput);
 
         UpdateDebuffStrengthModifiers(_applierStatsContainer);
@@ -60,23 +60,28 @@ public class FrostDebuff : Debuff {
     }
 
     private void HandleDebuffApplication() {
-        float attackSpeedSlowValue = -(frostDebuffProperties.attackSpeedSlowAmount.GetValue() * CurrentStacks) *
-            (DebuffStrenghtModifier - (frostDebuffProperties.iceResistanceProtectionModifier.GetValue() * AppliedToStats.IceResistanceValue));
+        float attackSpeedSlowValue = -(frostDebuffProperties.attackSpeedSlowAmount.Value * CurrentStacks) *
+            (DebuffStrenghtModifier - (frostDebuffProperties.iceResistanceProtectionModifier.Value * AppliedToStats.IceResistanceValue));
 
         if (attackSpeedSlowValue > 0f) attackSpeedSlowValue = 0f;
 
-        float movementSpeedSlowValue = -(frostDebuffProperties.movementSpeedSlowAmount.GetValue() * CurrentStacks) *
-            (DebuffStrenghtModifier - (frostDebuffProperties.iceResistanceProtectionModifier.GetValue() * AppliedToStats.IceResistanceValue));
+        float movementSpeedSlowValue = -(frostDebuffProperties.movementSpeedSlowAmount.Value * CurrentStacks) *
+            (DebuffStrenghtModifier - (frostDebuffProperties.iceResistanceProtectionModifier.Value * AppliedToStats.IceResistanceValue));
 
         if (movementSpeedSlowValue > 0f) movementSpeedSlowValue = 0f;
 
-        float healingEffectivityReduction = -(frostDebuffProperties.healingEffectivityDecrease.GetValue() * CurrentStacks) * DebuffStrenghtModifier;
+        float healingEffectivityReduction = -(frostDebuffProperties.healingEffectivityDecrease.Value * CurrentStacks) * DebuffStrenghtModifier;
 
         if (healingEffectivityReduction > 0f) healingEffectivityReduction = 0f;
 
-        AppliedToCharacterComponent.CharacterStats.AddRelativeStat(StatType.AttackSpeed, attackSpeedSlowValue, addedAttackSpeedSlow);
-        AppliedToCharacterComponent.CharacterStats.AddRelativeStat(StatType.MovementSpeed, movementSpeedSlowValue, addedMovementSpeedSlow);
-        AppliedToCharacterComponent.CharacterStats.AddAbsoluteStat(StatType.HealingEffectivity, healingEffectivityReduction, addedHealingEffectivityReduction);
+        AppliedToCharacterComponent.CharacterStats.AddStatModifier(CharacterStatType.AttackSpeed, attackSpeedSlowValue,
+            StatValueType.Relative, addedAttackSpeedSlow);
+
+        AppliedToCharacterComponent.CharacterStats.AddStatModifier(CharacterStatType.MovementSpeed, movementSpeedSlowValue, 
+            StatValueType.Relative, addedMovementSpeedSlow);
+
+        AppliedToCharacterComponent.CharacterStats.AddStatModifier(CharacterStatType.HealingEffectivity, healingEffectivityReduction,
+            StatValueType.Absolute, addedHealingEffectivityReduction);
 
         addedAttackSpeedSlow = attackSpeedSlowValue;
         addedMovementSpeedSlow = movementSpeedSlowValue;
@@ -86,9 +91,9 @@ public class FrostDebuff : Debuff {
     public override void End() {
         base.End();
 
-        AppliedToCharacterComponent.CharacterStats.RemoveRelativeStat(StatType.AttackSpeed, addedAttackSpeedSlow);
-        AppliedToCharacterComponent.CharacterStats.RemoveRelativeStat(StatType.MovementSpeed, addedMovementSpeedSlow);
-        AppliedToCharacterComponent.CharacterStats.RemoveAbsoluteStat(StatType.HealingEffectivity, addedHealingEffectivityReduction);
+        AppliedToCharacterComponent.CharacterStats.RemoveStatModifier(CharacterStatType.AttackSpeed, addedAttackSpeedSlow, StatValueType.Relative);
+        AppliedToCharacterComponent.CharacterStats.RemoveStatModifier(CharacterStatType.MovementSpeed, addedMovementSpeedSlow, StatValueType.Relative);
+        AppliedToCharacterComponent.CharacterStats.RemoveStatModifier(CharacterStatType.HealingEffectivity, addedHealingEffectivityReduction, StatValueType.Relative);
 
         AppliedToStatusEffectsManager.SetIsSlowed(false);
     }
@@ -115,7 +120,7 @@ public class FrostDebuff : Debuff {
         materialsLerpCoroutine = Utils.LerpMaterials(
             materialsLerpCoroutine,
             materials,
-            (byte)(maxMaterialAlpha - ((maxMaterialAlpha - minMaterialAlpha) * (1f - (CurrentStacks / statusEffectProperties.maxStacks.GetValue())))),
+            (byte)(maxMaterialAlpha - ((maxMaterialAlpha - minMaterialAlpha) * (1f - (CurrentStacks / statusEffectProperties.maxStacks.Value)))),
             materialLerpSpeed);
     }
 

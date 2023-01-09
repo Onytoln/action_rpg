@@ -13,7 +13,7 @@ public class ModifyCoreStatUncaps : EditorWindow
     }
 
     private void OnGUI() {
-        List<NPCStats> coreStats = Utils.FindAssetsByType<NPCStats>();
+        List<StatValues> coreStats = Utils.FindAssetsByType<StatValues>();
 
         if (coreStats.Count < 1) return;
 
@@ -23,7 +23,7 @@ public class ModifyCoreStatUncaps : EditorWindow
 
         for (int i = 0; i < coreStats[0].Stats.Length; i++) {
             GUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField(coreStats[0].Stats[i].statType.ToString());
+            EditorGUILayout.LabelField(coreStats[0].Stats[i].StatType.ToString());
             coreStatUncaps[i] = EditorGUILayout.FloatField(coreStatUncaps[i]);
             GUILayout.EndHorizontal();
         }
@@ -34,7 +34,7 @@ public class ModifyCoreStatUncaps : EditorWindow
     }
     public static void ModifyCoreStasUncapValue(float[] uncapValues) {
 
-        List<NPCStats> coreStats = Utils.FindAssetsByType<NPCStats>();
+        List<StatValues> coreStats = Utils.FindAssetsByType<StatValues>();
 
         if (uncapValues.Length != coreStats[0].Stats.Length) return;
 

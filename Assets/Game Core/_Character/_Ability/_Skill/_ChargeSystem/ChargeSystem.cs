@@ -2,18 +2,19 @@ using System;
 using UnityEngine;
 
 [System.Serializable]
-public class ChargeSystem {
+public class ChargeSystem : IOnChange<ChargeSystem> {
 
+    public event Action<ChargeSystem> OnChanged;
     public event Action<ChargeSystem> OnChargesAmountChanged;
 
-    [field: SerializeField] public SkillStatInt MaxCharges { get; set; }
+    [field: SerializeField] public StatInt MaxCharges { get; set; }
 
     [field: SerializeField] public int CurrentCharges { get; set; }
 
     [field: SerializeField] public ChargeReplenishmentType ChargeReplenishmentType { get; set; }
 
-    [field: SerializeField] public SkillStatInt DefaultChargesUseRate { get; set; }
-    [field: SerializeField] public SkillStatInt DefaultChargesReplenishmentRateOneByOne { get; set; }
+    [field: SerializeField] public StatInt DefaultChargesUseRate { get; set; }
+    [field: SerializeField] public StatInt DefaultChargesReplenishmentRateOneByOne { get; set; }
 
     private bool _initialized = false;
 
@@ -21,19 +22,27 @@ public class ChargeSystem {
         if (_initialized) return;
         _initialized = true;
 
-        if (DefaultChargesUseRate.GetValue() <= 0) {
-            DefaultChargesUseRate = new SkillStatInt(null, 1, 1, int.MaxValue);
+        if (DefaultChargesUseRate.Value <= 0) {
+            DefaultChargesUseRate = new StatInt(1, 1, int.MaxValue);
         }
-        if (DefaultChargesReplenishmentRateOneByOne.GetValue() == 0) {
-            DefaultChargesReplenishmentRateOneByOne = new SkillStatInt(null, 1, 1, int.MaxValue);
+        if (DefaultChargesReplenishmentRateOneByOne.Value == 0) {
+            DefaultChargesReplenishmentRateOneByOne = new StatInt(1, 1, int.MaxValue);
         }
-        CurrentCharges = MaxCharges.GetValue();
+        CurrentCharges = MaxCharges.Value;
+
+        MaxCharges.OnChanged += InvokeChange;
+        DefaultChargesUseRate.OnChanged += InvokeChange;
+        DefaultChargesReplenishmentRateOneByOne.OnChanged += InvokeChange;
+
+        void InvokeChange(IStatIntReadonly st) {
+            OnChanged?.Invoke(this);
+        }
     }
 
     public bool ChargeSystemBeingUsed() {
         Initialize();
 
-        if (MaxCharges.GetValue() > 1) {
+        if (MaxCharges.Value > 1) {
             return true;
         }
 
@@ -44,7 +53,7 @@ public class ChargeSystem {
         if (!ChargeSystemBeingUsed()) return false;
 
         if (chargesRequired <= 0) {
-            chargesRequired = DefaultChargesUseRate.GetValue();
+            chargesRequired = DefaultChargesUseRate.Value;
         }
 
         if (CurrentCharges >= chargesRequired) return true;
@@ -61,12 +70,12 @@ public class ChargeSystem {
     public bool ReplenishCharges(int chargesToReplenish = 0) {
         if (!ChargeSystemBeingUsed()) return true;
 
-        int maxChargesValue = MaxCharges.GetValue();
+        int maxChargesValue = MaxCharges.Value;
 
         if (chargesToReplenish == 0) {
             if (CurrentCharges < maxChargesValue) {
                 if (ChargeReplenishmentType == ChargeReplenishmentType.OneByOne) {
-                    CurrentCharges += DefaultChargesReplenishmentRateOneByOne.GetValue();
+                    CurrentCharges += DefaultChargesReplenishmentRateOneByOne.Value;
                 } else if (ChargeReplenishmentType == ChargeReplenishmentType.AllAtOnce) {
                     CurrentCharges = maxChargesValue;
                 }
@@ -95,7 +104,7 @@ public class ChargeSystem {
         Initialize();
 
         if (chargesToConsume == 0) {
-            chargesToConsume = DefaultChargesUseRate.GetValue();
+            chargesToConsume = DefaultChargesUseRate.Value;
         }
 
         if (!HasCharges(chargesToConsume)) return false;
@@ -106,7 +115,7 @@ public class ChargeSystem {
 
         OnChargesAmountChanged?.Invoke(this);
 
-        if (((MaxCharges.GetValue() - DefaultChargesUseRate.GetValue()) >= CurrentCharges && ChargeReplenishmentType == ChargeReplenishmentType.OneByOne)
+        if (((MaxCharges.Value - DefaultChargesUseRate.Value) >= CurrentCharges && ChargeReplenishmentType == ChargeReplenishmentType.OneByOne)
             || (CurrentCharges == 0 && ChargeReplenishmentType == ChargeReplenishmentType.AllAtOnce)) {
             return true;
         }

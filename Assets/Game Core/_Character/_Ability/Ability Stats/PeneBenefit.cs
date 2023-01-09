@@ -4,17 +4,17 @@ using UnityEngine;
 
 [System.Serializable]
 public class PeneBenefit {
-    [field: SerializeField] public StatType PenetrationBenefitType { get; private set; }
-    [field: SerializeField] public SkillStat PenetrationBenefit { get; private set; }
+    [field: SerializeField] public CharacterStatType PenetrationBenefitType { get; private set; }
+    [field: SerializeField] public StatFloat PenetrationBenefit { get; private set; }
 
-    public PeneBenefit(StatType penetrationBenefitType, SkillStat penetrationBenefit) {
+    public PeneBenefit(CharacterStatType penetrationBenefitType, StatFloat penetrationBenefit) {
         PenetrationBenefitType = penetrationBenefitType;
         PenetrationBenefit = penetrationBenefit;
     }
 }
 
 public class PeneBenefitContainer {
-    public StatType PenetrationBenefitType { get; private set; }
+    public CharacterStatType PenetrationBenefitType { get; private set; }
     public SkillStatContainer PenetrationBenefit { get; private set; }
 
     public PeneBenefitContainer(PeneBenefit peneBenefit) {

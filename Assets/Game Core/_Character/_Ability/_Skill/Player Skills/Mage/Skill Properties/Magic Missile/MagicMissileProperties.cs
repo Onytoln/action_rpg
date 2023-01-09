@@ -5,22 +5,14 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Magic Missile Properties", menuName = "Skill/Magic Missile Properties")]
 public class MagicMissileProperties : ProjectileSkillProperties {
-    public SkillStat cooldownOnHit;
+    public StatFloat cooldownOnHit;
 
-    public SkillStat damageBonusByCooldown;
-    public SkillStat cooldownForMaxDamageBonus;
+    public StatFloat damageBonusByCooldown;
+    public StatFloat cooldownForMaxDamageBonus;
 
     public override AbilityPropertiesValuesContainer GetValuesCopy() {
         return new MagicMissilePropertiesValuesContainer(this);
     }
-
-    public override void AssignReferences() {
-        base.AssignReferences();
-        cooldownOnHit.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        damageBonusByCooldown.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        cooldownForMaxDamageBonus.SetTooltipDirtyMethod = SetTooltipIsDirty;
-    }
-
 
     protected override void BuildTooltipText() {
         base.BuildTooltipText();

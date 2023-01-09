@@ -27,13 +27,12 @@ public class HitInput {
     [SerializeField]
     private HitStat[] totalPenetration;
 
-    private readonly ICoreCharacterStatsProvider coreCharacterStatsProvider;
     private readonly ICoreAbilityPropertiesProvider coreAbilityPropertiesProvider;
 
     #region Static Hit/Damage Enemy methods
 
     public static HitOutput HitEnemy(Collider other, float damageValue, string currentHitInfoId, Character attackerCharacterComponent,
-       AbilityProperties abilityProperties, AbilityPropertiesValuesContainer abilityPropertiesValuesContainer, CoreStatsValuesContainer coreStats,
+       AbilityProperties abilityProperties, AbilityPropertiesValuesContainer abilityPropertiesValuesContainer, CharStatsValContainer coreStats,
        AbilityObject abilityObject, SkillTemplate skillLogic, Vector3 castPoint, GameObject target, List<DamageTypeWeight> damageTypes = null) {
 
         HitInput hitInput = new HitInput(
@@ -60,7 +59,7 @@ public class HitInput {
     }
 
     public static HitOutput HitEnemy(Combat targetCombatComponent, float damageValue, string currentHitInfoId, Character attackerCharacterComponent,
-        AbilityProperties abilityProperties, AbilityPropertiesValuesContainer abilityPropertiesValuesContainer, CoreStatsValuesContainer coreStats,
+        AbilityProperties abilityProperties, AbilityPropertiesValuesContainer abilityPropertiesValuesContainer, CharStatsValContainer coreStats,
         AbilityObject abilityObject, SkillTemplate skillLogic, Vector3 castPoint, GameObject target, List<DamageTypeWeight> preferedDamageTypes = null) {
 
         HitInput hitInput = new HitInput(
@@ -87,7 +86,7 @@ public class HitInput {
     }
 
     public static HitOutput HitEnemyExactDamage(Collider other, float exactDamage, string currentHitInfoId, Character attackerCharacterComponent,
-       AbilityProperties abilityProperties, AbilityPropertiesValuesContainer abilityPropertiesValuesContainer, CoreStatsValuesContainer coreStats,
+       AbilityProperties abilityProperties, AbilityPropertiesValuesContainer abilityPropertiesValuesContainer, CharStatsValContainer coreStats,
        AbilityObject abilityObject, SkillTemplate skillLogic, Vector3 castPoint, GameObject target, List<DamageTypeWeight> damageTypes = null) {
 
         HitInput hitInput = new HitInput(
@@ -114,7 +113,7 @@ public class HitInput {
     }
 
     public static HitOutput HitEnemyExactDamage(Combat targetCombatComponent, float exactDamage, string currentHitInfoId, Character attackerCharacterComponent,
-        AbilityProperties abilityProperties, AbilityPropertiesValuesContainer abilityPropertiesValuesContainer, CoreStatsValuesContainer coreStats,
+        AbilityProperties abilityProperties, AbilityPropertiesValuesContainer abilityPropertiesValuesContainer, CharStatsValContainer coreStats,
         AbilityObject abilityObject, SkillTemplate skillLogic, Vector3 castPoint, GameObject target, List<DamageTypeWeight> preferedDamageTypes = null) {
 
         HitInput hitInput = new HitInput(

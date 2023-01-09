@@ -6,7 +6,7 @@ using System.Linq;
 public class SkillProperties : AbilityProperties {
     [Header("Skill Properties")]
     //--------Skill-stats--------
-    public SkillStat manaCost;
+    public StatFloat manaCost;
     [field: SerializeField] public SkillCastType SkillCastType { get; private set; }
     [field: SerializeField] public SkillCastSpeedScalingType SkillCastSpeedScalingType { get; private set; }
     [field: SerializeField] public SkillType[] SkillTypes { get; private set; }
@@ -19,7 +19,7 @@ public class SkillProperties : AbilityProperties {
     //***************************************************************************************//
     //first anim - scaling with attack speed is based on skill cast type (must be spammable)
     [Header("Animation duration settings")]
-    public SkillStat castTime;
+    public StatFloat castTime;
     [SerializeField] private AnimationClip animationClip;
     protected float animationDefaultSpeedModifier;
 
@@ -31,7 +31,7 @@ public class SkillProperties : AbilityProperties {
     //second anim - usually for spammable abilities - must set if scales with attack speed - !!!use only animationDurationDefaultValue if spammable!!!
     [Header("Second anim settings")]
     [Header("Animation duration settings - only for skills that use multiple animations")]
-    public SkillStat castTime_second;
+    public StatFloat castTime_second;
     [SerializeField] private AnimationClip animationClipSecond;
     protected float animationDefaultSpeedModifierSecond;
 
@@ -42,7 +42,7 @@ public class SkillProperties : AbilityProperties {
     //***************************************************************************************//
     //third anim - usually for spammable abilities - must set if scales with attack speed - !!!use only animationDurationDefaultValue if spammable!!!
     [Header("Third anim settings")]
-    public SkillStat castTime_third;
+    public StatFloat castTime_third;
     [SerializeField] private AnimationClip animationClipThird;
     protected float animationDefaultSpeedModifierThird;
 
@@ -127,17 +127,6 @@ public class SkillProperties : AbilityProperties {
         }
     }
 
-    public override void AssignReferences() {
-        base.AssignReferences();
-        manaCost.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        castTime.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        castTime_second.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        castTime_third.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        chargeSystem.MaxCharges.setTooltipDirtyMethod = SetTooltipIsDirty;
-        chargeSystem.DefaultChargesReplenishmentRateOneByOne.setTooltipDirtyMethod = SetTooltipIsDirty;
-        chargeSystem.DefaultChargesUseRate.setTooltipDirtyMethod = SetTooltipIsDirty;
-    }
-
     public override void CheckProperties() {
         base.CheckProperties();
         if(SkillTriggers.Length != HashedSkillTriggers.Length) {
@@ -159,7 +148,7 @@ public class SkillProperties : AbilityProperties {
         base.SetUpListeners();
         if (CharacterComponent.CharacterStats.CoreStats == null) return;
         InitializeAnimations();
-        CalculateAttackSpeedCastTimes(CharacterComponent.CharacterStats.GetStat(StatType.AttackSpeed));
+        CalculateAttackSpeedCastTimes(CharacterComponent.CharacterStats.GetStat(CharacterStatType.AttackSpeed));
         CalculateAnimationSpeed();
 
         CharacterComponent.CharacterStats.OnCharacterStatChange += CalculateAttackSpeedCastTimes;
@@ -167,8 +156,8 @@ public class SkillProperties : AbilityProperties {
         InitializeCastTimeListeners();
     }
 
-    public override void SetTooltipRebuildIfRequired(Stat stat) {
-        if (stat.statType == StatType.Damage) SetTooltipIsDirty();
+    public override void SetTooltipRebuildIfRequired(ICharacterStatReadonly stat) {
+        if (stat.StatType == CharacterStatType.Damage) SetTooltipIsDirty();
     }
 
     private void InitializeAnimations() {
@@ -198,34 +187,34 @@ public class SkillProperties : AbilityProperties {
 
     private void InitializeCastTimeListeners() {
         if (animationClip != null) {
-            castTime.OnStatChanged += (skillStat) => {
+            castTime.OnChanged += (skillStat) => {
                 animationCurrentSpeedModifier = Utils.CalculateDesiredAnimationSpeedModifier(animationClip.length, castTime.GetValue());
                 CalculateAnimationSpeed();
             };
         }
 
         if (animationClipSecond != null) {
-            castTime_second.OnStatChanged += (skillStat) => {
+            castTime_second.OnChanged += (skillStat) => {
                 animationDefaultSpeedModifierSecond = Utils.CalculateDesiredAnimationSpeedModifier(animationClipSecond.length, castTime_second.GetValue());
                 CalculateAnimationSpeed();
             };
         }
 
         if (animationClipThird != null) {
-            castTime_third.OnStatChanged += (skillStat) => {
+            castTime_third.OnChanged += (skillStat) => {
                 animationDefaultSpeedModifierThird = Utils.CalculateDesiredAnimationSpeedModifier(animationClipThird.length, castTime_third.GetValue());
                 CalculateAnimationSpeed();
             };
         }
     }
 
-    public virtual void CalculateAttackSpeedCastTimes(Stat stat) {
-        if (SkillCastSpeedScalingType == SkillCastSpeedScalingType.Scalable && stat.statType == StatType.AttackSpeed) {
+    public virtual void CalculateAttackSpeedCastTimes(ICharacterStatReadonly stat) {
+        if (SkillCastSpeedScalingType == SkillCastSpeedScalingType.Scalable && stat.StatType == CharacterStatType.AttackSpeed) {
             CalculateCastTimeAttackSpeedModifier(castTime, ref castTimeAttackSpeedOldValue);
         }
     }
 
-    protected void CalculateCastTimeAttackSpeedModifier(SkillStat castTime, ref float castTimeOldModifier) {
+    protected void CalculateCastTimeAttackSpeedModifier(StatFloat castTime, ref float castTimeOldModifier) {
         //calculate cast time absolute modifier to increase attacks per second accordingly
         float modifier = -(castTime.GetPrimaryValue() -
                castTime.GetPrimaryValue() / CharacterComponent.CharacterStats.CoreStats.AttackSpeedValue);
@@ -252,7 +241,7 @@ public class SkillProperties : AbilityProperties {
         }
     }
 
-    protected void CalculateFinalAnimationSpeed(ref float animationResultvalue, float animationDefaultValue, SkillStat castTime) {
+    protected void CalculateFinalAnimationSpeed(ref float animationResultvalue, float animationDefaultValue, StatFloat castTime) {
         //calculate new animation speed
         animationResultvalue = animationDefaultValue * (castTime.GetPrimaryValue() / castTime.GetValue());
     }

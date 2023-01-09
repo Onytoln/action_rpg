@@ -4,19 +4,19 @@ using System.IO;
 using System.Collections.Generic;
 using System;
 
-[CustomEditor(typeof(NPCStats))]
+[CustomEditor(typeof(StatValues))]
 public class PreloadDefaultValues : Editor
 {
-    public Stat[] defaultStats;
+    public CharacterStat[] defaultStats;
 
-    private readonly StatType[] order = { StatType.Damage, StatType.AttackSpeed, StatType.CriticalStrike, StatType.CriticalDamage, StatType.DebuffStrength,
-    StatType.MovementSpeed, StatType.Mana, StatType.ManaRegeneration, StatType.Health, StatType.HealthRegeneration,
-    StatType.BlockChance, StatType.BlockStrength, StatType.EvasionChance,
-    StatType.Armor, StatType.FireResistance, StatType.IceResistance, StatType.LightningResistance, StatType.PoisonResistance, StatType.DebuffProtection,
-    StatType.PhysicalPenetration, StatType.FirePenetration, StatType.IcePenetration, StatType.LightningPenetration, StatType.PoisonPenetration,
-    StatType.LifeSteal, StatType.HealingEffectivity };
+    private readonly CharacterStatType[] order = { CharacterStatType.Damage, CharacterStatType.AttackSpeed, CharacterStatType.CriticalStrike, CharacterStatType.CriticalDamage, CharacterStatType.DebuffStrength,
+    CharacterStatType.MovementSpeed, CharacterStatType.Mana, CharacterStatType.ManaRegeneration, CharacterStatType.Health, CharacterStatType.HealthRegeneration,
+    CharacterStatType.BlockChance, CharacterStatType.BlockStrength, CharacterStatType.EvasionChance,
+    CharacterStatType.PhysicalResistance, CharacterStatType.FireResistance, CharacterStatType.IceResistance, CharacterStatType.LightningResistance, CharacterStatType.PoisonResistance, CharacterStatType.DebuffProtection,
+    CharacterStatType.PhysicalPenetration, CharacterStatType.FirePenetration, CharacterStatType.IcePenetration, CharacterStatType.LightningPenetration, CharacterStatType.PoisonPenetration,
+    CharacterStatType.LifeSteal, CharacterStatType.HealingEffectivity };
     
-    public override void OnInspectorGUI() {
+    /*public override void OnInspectorGUI() {
         base.OnInspectorGUI();
 
         if (GUILayout.Button("Preload defaults to selected core stats")) {
@@ -35,15 +35,15 @@ public class PreloadDefaultValues : Editor
 
         string[] assetGUIDs = AssetDatabase.FindAssets("t:Stat", folders);
 
-        List<Stat> stats = new List<Stat>();
+        List<CharacterStat> stats = new List<CharacterStat>();
 
         for (int i = 0; i < assetGUIDs.Length; i++) {
 
             string assetPath = AssetDatabase.GUIDToAssetPath(assetGUIDs[i]);
 
-            var asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof(Stat));
+            var asset = AssetDatabase.LoadAssetAtPath(assetPath, typeof(CharacterStat));
 
-            if (asset is Stat stat) {
+            if (asset is CharacterStat stat) {
                 stats.Add(stat);
             }
         }
@@ -53,16 +53,16 @@ public class PreloadDefaultValues : Editor
             return;
         }
 
-        Stat[] resultOrdered = new Stat[stats.Count];
+        CharacterStat[] resultOrdered = new CharacterStat[stats.Count];
         for (int i = 0; i < stats.Count; i++) {
             for (int j = 0; j < order.Length; j++) {
-                if(stats[i].statType == order[j]) {
+                if(stats[i].StatType == order[j]) {
                     resultOrdered[j] = stats[i];
                 }
             }
         }
 
-        (target as NPCStats).SetStats(resultOrdered);
+        (target as StatValues).SetStats(resultOrdered);
         EditorUtility.SetDirty(target);
-    }
+    }*/
 }

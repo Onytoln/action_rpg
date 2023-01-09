@@ -6,8 +6,8 @@ using UnityEngine;
 public class FrostChargeProperties : ChargeSkillProperties {
     public string postChargeExplosionHitInforId;
 
-    public SkillStat postChargeExplosionRadius;
-    public SkillStat postChargeExplosionDamage;
+    public StatFloat postChargeExplosionRadius;
+    public StatFloat postChargeExplosionDamage;
     [SerializeField]
     private List<DamageTypeWeight> postChargeExplosionDamageTypes = new List<DamageTypeWeight>();
     public List<DamageTypeWeight> PostChargeExplosionDamageTypes {
@@ -28,12 +28,6 @@ public class FrostChargeProperties : ChargeSkillProperties {
         base.RemoveDamageType(typeToRemove);
 
         CalculateRemovedDamageType(PostChargeExplosionDamageTypes, typeToRemove);
-    }
-
-    public override void AssignReferences() {
-        base.AssignReferences();
-        postChargeExplosionRadius.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        postChargeExplosionDamage.SetTooltipDirtyMethod = SetTooltipIsDirty;
     }
 
     public override void CheckProperties() {

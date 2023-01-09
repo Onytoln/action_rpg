@@ -8,8 +8,6 @@ using UnityEngine.AI;
 public class PlayerMotor : MonoBehaviour {
     public NavMeshAgent agent { get; private set; }
     private Transform target;
-    private RaycastHit hit;
-    //public LayerMask interactableMask;
     private CoroutineHandle currentFacePointCoroutine;
     private Animator animator;
     private float defaultAnimationRunSpeed = 0.83f;
@@ -25,9 +23,9 @@ public class PlayerMotor : MonoBehaviour {
         animator = GetComponent<Animator>();
         PlayerStats playerStats = GetComponent<PlayerStats>();
         playerStats.OnCharacterStatChange += UpdateAgentSpeed;
-        Stat movementSpeedStat = playerStats.GetStat(StatType.MovementSpeed);
-        characterMovementSpeedDefault = movementSpeedStat.GetPrimaryValue();
-        characterMovementSpeedMax = movementSpeedStat.GetMaxPossibleValue();
+        CharacterStat movementSpeedStat = playerStats.GetStat(CharacterStatType.MovementSpeed);
+        characterMovementSpeedDefault = movementSpeedStat.PrimaryValue;
+        characterMovementSpeedMax = movementSpeedStat.MaxValue;
         UpdateAgentSpeed(movementSpeedStat);
     }
 
@@ -76,8 +74,8 @@ public class PlayerMotor : MonoBehaviour {
         }
     }
 
-    private void UpdateAgentSpeed(Stat stat) {
-        if (stat.statType != StatType.MovementSpeed) return;
+    private void UpdateAgentSpeed(CharacterStat stat) {
+        if (stat.StatType != CharacterStatType.MovementSpeed) return;
 
         agent.speed = stat.GetValue();
 

@@ -14,11 +14,11 @@ public class PlayerStats : CharacterStats {
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
-            AddRelativeStat(StatType.MovementSpeed, 0.3f, 0);
+            AddRelativeStat(CharacterStatType.MovementSpeed, 0.3f, 0);
         }
 
         if (Input.GetKeyDown(KeyCode.DownArrow)) {
-            RemoveRelativeStat(StatType.MovementSpeed, 0.30f);
+            RemoveRelativeStat(CharacterStatType.MovementSpeed, 0.30f);
         }
 
         if (Input.GetKeyDown(KeyCode.H)) {

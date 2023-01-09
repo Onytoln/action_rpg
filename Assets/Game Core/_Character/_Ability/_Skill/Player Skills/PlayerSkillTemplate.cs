@@ -43,6 +43,11 @@ public class PlayerSkillTemplate : SkillTemplate, IActionBarSlottable {
         skillProperties.chargeSystem.OnChargesAmountChanged += UseAmountChanged;
     }
 
+    protected override void PrepareProperties() {
+        base.PrepareProperties();
+        OnChangeNotify.ObserveOnChange(skillProperties);
+    }
+
     #region Standalone Cast
 
     public void StandaloneCast(Vector3 position, GameObject target, params StandaloneCastParameter[] standaloneCastParameters) {
@@ -81,7 +86,7 @@ public class PlayerSkillTemplate : SkillTemplate, IActionBarSlottable {
     }
 
     protected virtual void StandaloneCast(Transform releasePoint) {
-        throw new NotImplementedException("This skill does not support standalone cast.");
+        Debug.LogError("This skill does not support standalone cast.");
     }
 
     #endregion

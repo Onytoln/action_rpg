@@ -6,8 +6,8 @@ using UnityEngine;
 public class FireballProperties : ProjectileSkillProperties {
     public string explosionHitInforId;
 
-    public SkillStat explosionRadius;
-    public SkillStat explosionDamage;
+    public StatFloat explosionRadius;
+    public StatFloat explosionDamage;
     [SerializeField]
     private List<DamageTypeWeight> explosionDamageTypes = new List<DamageTypeWeight>();
     public List<DamageTypeWeight> ExplosionDamageTypes {
@@ -28,12 +28,6 @@ public class FireballProperties : ProjectileSkillProperties {
         base.RemoveDamageType(typeToRemove);
 
         CalculateRemovedDamageType(ExplosionDamageTypes, typeToRemove);
-    }
-
-    public override void AssignReferences() {
-        base.AssignReferences();
-        explosionRadius.SetTooltipDirtyMethod = SetTooltipIsDirty;
-        explosionDamage.SetTooltipDirtyMethod = SetTooltipIsDirty;
     }
 
     public override void CheckProperties() {

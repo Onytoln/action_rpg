@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface ICharge : IAoE {
-    public SkillStat ChargeDuration { get; }
-    public SkillStat ChargeSpeed { get; }
-    public SkillStatInt MaxPierceCount { get; }
+    public StatFloat ChargeDuration { get; }
+    public StatFloat ChargeSpeed { get; }
+    public StatInt MaxPierceCount { get; }
     public BoolControlComplex PiercesAllTargets { get; }
 }
 

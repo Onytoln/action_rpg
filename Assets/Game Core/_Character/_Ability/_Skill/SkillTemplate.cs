@@ -133,11 +133,15 @@ public class SkillTemplate : MonoBehaviour, ICooldown, ILoadable {
     /// Sets up properties in scriptable object to recalculate, assign references to skill property object and setup listener to rebuild strings when stats change
     /// </summary>
     private void InitializeSkillProperties() {
+        PrepareProperties();
+        skillProperties.Initialize();
+    }
+
+    protected virtual void PrepareProperties() {
         skillProperties.IsCopy = false;
         skillProperties = skillProperties.GetCopy<SkillProperties>();
         skillProperties.IsCopy = false;
         skillProperties.CharacterComponent = CharacterComponent;
-        skillProperties.Initialize();
     }
 
     private void InitializeSkillPropertiesFunctions() {
@@ -156,7 +160,7 @@ public class SkillTemplate : MonoBehaviour, ICooldown, ILoadable {
 
     public void ApplyCooldown() {
         if (skillProperties.chargeSystem.ChargeSystemBeingUsed()) {
-            if (skillProperties.chargeSystem.ConsumeCharges() && CurrentCooldown <= 0) {
+            if (skillProperties.chargeSystem.ConsumeCharges() && CurrentCooldown <= 0f) {
                 ApplyCooldown(skillProperties.cooldown.GetValue());
             }
         } else {
@@ -164,7 +168,7 @@ public class SkillTemplate : MonoBehaviour, ICooldown, ILoadable {
         }
     }
 
-    public virtual void ApplyCooldown(float cooldownTime, float startingCooldown = 0) {
+    public virtual void ApplyCooldown(float cooldownTime, float startingCooldown = 0f) {
         if (cooldownTime <= 0f) {
             skillProperties.chargeSystem.ReplenishCharges();
             return;

@@ -19,15 +19,15 @@ public class DefaultNPCFireProjectile : NpcSkillTemplate {
             defaultParticleSpeed = instantiatedParticle.main.simulationSpeed;
         }
 
-        skillProperties.castTime.OnStatChanged += RecalculateParticleSpeed;
+        skillProperties.castTime.OnChanged += RecalculateParticleSpeed;
 
         SetPooling(skillProperties.abilityPrefab, 1);
     }
 
-    private void RecalculateParticleSpeed(SkillStat skillStat) {
+    private void RecalculateParticleSpeed(IStatFloatReadonly skillStat) {
         if(instantiatedParticle == null) return;
 
-        Utils.SetParticleSimulationSpeed(skillStat.GetPrimaryValue(), skillStat.GetValue(), instantiatedParticle, defaultParticleSpeed);
+        Utils.SetParticleSimulationSpeed(skillStat.PrimaryValue, skillStat.Value, instantiatedParticle, defaultParticleSpeed);
     }
 
     public override bool CastSkill() {

@@ -49,8 +49,8 @@ public class StatusEffect : ScriptableObject {
     protected Character AppliedToCharacterComponent { get; set; }
     protected StatusEffectsManager AppliedToStatusEffectsManager { get; set; }
 
-    protected NPCStats appliedToStats;
-    public NPCStats AppliedToStats { get => appliedToStats; }
+    protected StatValues appliedToStats;
+    public StatValues AppliedToStats { get => appliedToStats; }
     #endregion
 
     #region Applier
@@ -60,9 +60,9 @@ public class StatusEffect : ScriptableObject {
     private IHitLayers applierHitLayers;
     public IHitLayers ApplierHitLayers { get => applierHitLayers; private set => applierHitLayers = value; }
 
-    private CoreStatsValuesContainer applierStatsContainer;
-    public CoreStatsValuesContainer ApplierStatsContainer { get => applierStatsContainer; set => applierStatsContainer = value; }
-    protected CoreStatsValuesContainer prevAppliedStatsContainer;
+    private CharStatsValContainer applierStatsContainer;
+    public CharStatsValContainer ApplierStatsContainer { get => applierStatsContainer; set => applierStatsContainer = value; }
+    protected CharStatsValContainer prevAppliedStatsContainer;
 
     #endregion
 
@@ -154,14 +154,14 @@ public class StatusEffect : ScriptableObject {
         return (Refreshable || Stackable) && !HasEnded;
     }
 
-    public virtual void StartupInitialization() {
+    public virtual void Initialize() {
         if (IsInitialized) return;
         IsInitialized = true;
         IsCopy = false;
         statusEffectProperties.Initialize();
     }
 
-    public virtual void PreApply(Character appliedTo, StatusEffectsManager appliedToStatusEffectsManager, Character applier, CoreStatsValuesContainer applierStatsContainer) {
+    public virtual void PreApply(Character appliedTo, StatusEffectsManager appliedToStatusEffectsManager, Character applier, CharStatsValContainer applierStatsContainer) {
         AppliedToCharacterComponent = appliedTo;
         AppliedToStatusEffectsManager = appliedToStatusEffectsManager;
         ApplierCharacterComponent = applier;
@@ -191,7 +191,7 @@ public class StatusEffect : ScriptableObject {
         DirtiedCombatTooltip = true;
     }
 
-    public virtual void Refresh(CoreStatsValuesContainer applierStatsContainer, int stacksCount, HitOutput hitOutput) {
+    public virtual void Refresh(CharStatsValContainer applierStatsContainer, int stacksCount, HitOutput hitOutput) {
         if (Refreshable) {
             currentDuration = statusEffectProperties.duration.GetValue();
             if (applierStatsContainer != null) {
@@ -234,7 +234,7 @@ public class StatusEffect : ScriptableObject {
         }
     }
 
-    protected void CompareAndSetStats(CoreStatsValuesContainer coreStatsValuesContainer, StatsCompareType statsCompareType) {
+    protected void CompareAndSetStats(CharStatsValContainer coreStatsValuesContainer, StatsCompareType statsCompareType) {
         ApplierStatsContainer = statsCompareType switch {
             StatsCompareType.Offensive => prevAppliedStatsContainer.CompareStatsByOffensiveValues(coreStatsValuesContainer),
             StatsCompareType.Defensive => prevAppliedStatsContainer.CompareStatsDefensiveValues(coreStatsValuesContainer),

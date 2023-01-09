@@ -23,6 +23,12 @@ public class FireProjectilesDefault : PlayerSkillTemplate {
         SetPooling(skillProperties.abilityPrefab, 5);
     }
 
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Keypad5)) {
+            skillProperties.travelSpeed.AddAbsoluteModifier(1);
+        }
+    }
+
     public override bool CastSkill() {
         if (!CanCast()) {
             return false;

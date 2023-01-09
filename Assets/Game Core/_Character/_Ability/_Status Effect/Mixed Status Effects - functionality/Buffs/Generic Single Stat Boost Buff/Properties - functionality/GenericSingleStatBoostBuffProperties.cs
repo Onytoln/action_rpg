@@ -3,18 +3,13 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Generic Single Stat Boost Buff Properties", menuName = "Status Effects/Buff Properties/Generic Single Stat Boost Buff Properties")]
 public class GenericSingleStatBoostBuffProperties : StatusEffectProperties {
-    public SkillStat statBoostValue;
+    public StatFloat statBoostValue;
 
-    [SerializeField] private StatType statToBoost;
-    public StatType StatToBoost { get => statToBoost; }
+    [SerializeField] private CharacterStatType statToBoost;
+    public CharacterStatType StatToBoost { get => statToBoost; }
 
-    [SerializeField] private StatAddType statAddType;
-    public StatAddType StatAddType { get => statAddType; }
-
-    public override void AssignReferences() {
-        base.AssignReferences();
-        statBoostValue.SetTooltipDirtyMethod = SetTooltipIsDirty;
-    }
+    [SerializeField] private StatValueType statAddType;
+    public StatValueType StatAddType { get => statAddType; }
 
     protected override void BuildTooltipText() {
         base.BuildTooltipText();
@@ -24,13 +19,13 @@ public class GenericSingleStatBoostBuffProperties : StatusEffectProperties {
         sb.AppendLine($"<size={DataStorage.DefaultStatusEffectDescriptionFontSize}>");
         sb.Append($"Increases your {statToBoost.StatTypeToReadableString()} by ");
         switch (statAddType) {
-            case StatAddType.Absolute:
+            case StatValueType.Absolute:
                 sb.Append($"{statBoostValue.GetValue().StatValueToStringByStatStringTypeNoSpace(statToBoost.StatTypeToStatStringType())} (Absolute)");
                 break;
-            case StatAddType.Relative:
+            case StatValueType.Relative:
                 sb.Append($"{(statBoostValue.GetValue() * 100f).StatValueToStringByStatStringTypeNoSpace(StatStringType.Absolute)}% (Relative)");
                 break;
-            case StatAddType.Total:
+            case StatValueType.Collective:
                 sb.Append($"{(statBoostValue.GetValue() * 100f).StatValueToStringByStatStringTypeNoSpace(StatStringType.Absolute)}% (Total)");
                 break;
         }

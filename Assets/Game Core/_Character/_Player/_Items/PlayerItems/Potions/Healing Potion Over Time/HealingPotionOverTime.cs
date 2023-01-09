@@ -24,7 +24,7 @@ public class HealingPotionOverTime : Potion {
         if (characterCombat.MyCharacterStats.CurrentHealth < characterCombat.MyCharacterStats.CoreStats.HealthValue * (1 - potionHealthRestoration)) {
             characterCombat.RestoreHealthPercentage(potionHealthRestoration, true);
             _ = characterCombat.GetStatusEffectApplied(healingBuffHolder.buffToApply, TargetManager.PlayerComponent, 
-                TargetManager.PlayerComponent.CharacterStats.CoreStats.GetStatsValuesCopy(), healingBuffHolder.stacksToApply.GetValue());
+                TargetManager.PlayerComponent.CharacterStats.CoreStats.GetCurrentStatsValuesCopy(), healingBuffHolder.stacksToApply.GetValue());
             _ = base.Use();
             _ = RemoveFromInventoryOrDestack();
             return true;
