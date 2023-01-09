@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public interface IStatBaseReadonly<NumberType> {
+public interface IStatBaseReadonly<out CallbackReturnType, NumberType> : IOnChange<CallbackReturnType> {
     public StatClassType StatClassType { get; }
 
     public NumberType PrimaryValue { get; }
@@ -30,16 +30,4 @@ public interface IStatBaseReadonly<NumberType> {
 
     [Obsolete("Use MaxValue property.")]
     public NumberType GetMaxValue();
-
-    public void SubscribeToOnChange<T>(Action<T> actionDelegate) where T : Delegate;
-    public void UnsubscribeFromOnChange<T>(Action<T> actionDelegate) where T : Delegate;
-}
-
-public interface IStatBase<CallbackReturnType, NumberType> : IStatBaseReadonly<NumberType>, IOnChange<CallbackReturnType> {
-    public void AddAbsoluteModifier(NumberType absoluteModifier, NumberType replace);
-    public void RemoveAbsoluteModifier(NumberType absoluteModifier);
-    public void AddRelativeModifier(float relativeModifier, float replace);
-    public void RemoveRelativeModifier(float relativeModifier);
-    public void SetPrimaryValue(NumberType value);
-    public void SetMinMax(NumberType min, NumberType max);
 }

@@ -3,19 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class ScalableStat : ScalableStatBase<IScalableStatReadonly>, IScalableStat, IScalableStatReadonly {
-    public ScalableStat(float defaultScaleValue, float minScaleValue, float maxScaleValue,
-        CharacterStatType statType, float primaryValue, float minStatValue, float maxStatValue)
-        : base(defaultScaleValue, minScaleValue, maxScaleValue, statType, primaryValue, minStatValue, maxStatValue) { }
-
-    public ScalableStat(float defaultScaleValue, float minScaleValue, float maxScaleValue, string statName,
-        CharacterStatType statType, float primaryValue, float minStatValue, float maxStatValue)
-        : base(defaultScaleValue, minScaleValue, maxScaleValue, statName, statType, primaryValue, minStatValue, maxStatValue) { }
-}
-
-[System.Serializable]
-public class ScalableStatBase<CallbackReturnType> : CharacterStatBase<CallbackReturnType> 
-    where CallbackReturnType : IStatBaseReadonly<float> {
+public class ScalableStat : CharacterStat, IScalableStatReadonly {
 
     public override StatClassType StatClassType => StatClassType.CharacterScalable;
 
@@ -43,7 +31,7 @@ public class ScalableStatBase<CallbackReturnType> : CharacterStatBase<CallbackRe
         }
     }
 
-    public ScalableStatBase(float defaultScaleValue, float minScaleValue, float maxScaleValue,
+    public ScalableStat(float defaultScaleValue, float minScaleValue, float maxScaleValue,
         CharacterStatType statType, float primaryValue, float minStatValue, float maxStatValue)
         : base(statType, primaryValue, minStatValue, maxStatValue) {
 
@@ -52,7 +40,7 @@ public class ScalableStatBase<CallbackReturnType> : CharacterStatBase<CallbackRe
         MaxScaleValue = maxScaleValue;
     }
 
-    public ScalableStatBase(float defaultScaleValue, float minScaleValue, float maxScaleValue, string statName,
+    public ScalableStat(float defaultScaleValue, float minScaleValue, float maxScaleValue, string statName,
         CharacterStatType statType, float primaryValue, float minStatValue, float maxStatValue)
         : base(statName, statType, primaryValue, minStatValue, maxStatValue) {
 

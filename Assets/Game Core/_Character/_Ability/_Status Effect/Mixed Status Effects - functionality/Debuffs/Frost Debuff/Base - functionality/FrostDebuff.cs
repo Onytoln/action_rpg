@@ -60,23 +60,28 @@ public class FrostDebuff : Debuff {
     }
 
     private void HandleDebuffApplication() {
-        float attackSpeedSlowValue = -(frostDebuffProperties.attackSpeedSlowAmount.GetValue() * CurrentStacks) *
-            (DebuffStrenghtModifier - (frostDebuffProperties.iceResistanceProtectionModifier.GetValue() * AppliedToStats.IceResistanceValue));
+        float attackSpeedSlowValue = -(frostDebuffProperties.attackSpeedSlowAmount.Value * CurrentStacks) *
+            (DebuffStrenghtModifier - (frostDebuffProperties.iceResistanceProtectionModifier.Value * AppliedToStats.IceResistanceValue));
 
         if (attackSpeedSlowValue > 0f) attackSpeedSlowValue = 0f;
 
-        float movementSpeedSlowValue = -(frostDebuffProperties.movementSpeedSlowAmount.GetValue() * CurrentStacks) *
-            (DebuffStrenghtModifier - (frostDebuffProperties.iceResistanceProtectionModifier.GetValue() * AppliedToStats.IceResistanceValue));
+        float movementSpeedSlowValue = -(frostDebuffProperties.movementSpeedSlowAmount.Value * CurrentStacks) *
+            (DebuffStrenghtModifier - (frostDebuffProperties.iceResistanceProtectionModifier.Value * AppliedToStats.IceResistanceValue));
 
         if (movementSpeedSlowValue > 0f) movementSpeedSlowValue = 0f;
 
-        float healingEffectivityReduction = -(frostDebuffProperties.healingEffectivityDecrease.GetValue() * CurrentStacks) * DebuffStrenghtModifier;
+        float healingEffectivityReduction = -(frostDebuffProperties.healingEffectivityDecrease.Value * CurrentStacks) * DebuffStrenghtModifier;
 
         if (healingEffectivityReduction > 0f) healingEffectivityReduction = 0f;
 
-        AppliedToCharacterComponent.CharacterStats.AddRelativeStat(CharacterStatType.AttackSpeed, attackSpeedSlowValue, addedAttackSpeedSlow);
-        AppliedToCharacterComponent.CharacterStats.AddRelativeStat(CharacterStatType.MovementSpeed, movementSpeedSlowValue, addedMovementSpeedSlow);
-        AppliedToCharacterComponent.CharacterStats.AddAbsoluteStat(CharacterStatType.HealingEffectivity, healingEffectivityReduction, addedHealingEffectivityReduction);
+        AppliedToCharacterComponent.CharacterStats.AddStatModifier(CharacterStatType.AttackSpeed, attackSpeedSlowValue,
+            StatValueType.Relative, addedAttackSpeedSlow);
+
+        AppliedToCharacterComponent.CharacterStats.AddStatModifier(CharacterStatType.MovementSpeed, movementSpeedSlowValue, 
+            StatValueType.Relative, addedMovementSpeedSlow);
+
+        AppliedToCharacterComponent.CharacterStats.AddStatModifier(CharacterStatType.HealingEffectivity, healingEffectivityReduction,
+            StatValueType.Absolute, addedHealingEffectivityReduction);
 
         addedAttackSpeedSlow = attackSpeedSlowValue;
         addedMovementSpeedSlow = movementSpeedSlowValue;
@@ -86,9 +91,9 @@ public class FrostDebuff : Debuff {
     public override void End() {
         base.End();
 
-        AppliedToCharacterComponent.CharacterStats.RemoveRelativeStat(CharacterStatType.AttackSpeed, addedAttackSpeedSlow);
-        AppliedToCharacterComponent.CharacterStats.RemoveRelativeStat(CharacterStatType.MovementSpeed, addedMovementSpeedSlow);
-        AppliedToCharacterComponent.CharacterStats.RemoveAbsoluteStat(CharacterStatType.HealingEffectivity, addedHealingEffectivityReduction);
+        AppliedToCharacterComponent.CharacterStats.RemoveStatModifier(CharacterStatType.AttackSpeed, addedAttackSpeedSlow, StatValueType.Relative);
+        AppliedToCharacterComponent.CharacterStats.RemoveStatModifier(CharacterStatType.MovementSpeed, addedMovementSpeedSlow, StatValueType.Relative);
+        AppliedToCharacterComponent.CharacterStats.RemoveStatModifier(CharacterStatType.HealingEffectivity, addedHealingEffectivityReduction, StatValueType.Relative);
 
         AppliedToStatusEffectsManager.SetIsSlowed(false);
     }
@@ -115,7 +120,7 @@ public class FrostDebuff : Debuff {
         materialsLerpCoroutine = Utils.LerpMaterials(
             materialsLerpCoroutine,
             materials,
-            (byte)(maxMaterialAlpha - ((maxMaterialAlpha - minMaterialAlpha) * (1f - (CurrentStacks / statusEffectProperties.maxStacks.GetValue())))),
+            (byte)(maxMaterialAlpha - ((maxMaterialAlpha - minMaterialAlpha) * (1f - (CurrentStacks / statusEffectProperties.maxStacks.Value)))),
             materialLerpSpeed);
     }
 

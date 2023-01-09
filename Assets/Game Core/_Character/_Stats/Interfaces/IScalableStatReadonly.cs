@@ -16,8 +16,3 @@ public interface IScalableStatReadonly : ICharacterStatReadonly {
     [Obsolete("Use ValueForMaxScaledValue property.")]
     public int GetValueNeededForMaxScaledValue();
 }
-
-public interface IScalableStat : IScalableStatReadonly
-{
-    public void SetScaleValue(float scaleValue);
-}

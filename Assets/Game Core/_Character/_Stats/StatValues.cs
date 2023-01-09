@@ -15,8 +15,8 @@ public class StatValues : ScriptableObject, ISerializationCallbackReceiver {
 
     //!!!!!!!!!!!!!!NEVER RENAME THIS VARIABLE!!!!!!!!!!!!!!! - if it happened, set back to previous name immediately, otherwise set back to previous and restore values
     //from save file of scriptable object, if that's not possible then this is fucked lmao
-    [field: SerializeReference] private ICharacterStat[] _stats;
-    private Dictionary<CharacterStatType, ICharacterStat> _statsDict;
+    [field: SerializeReference] private CharacterStat[] _stats;
+    private Dictionary<CharacterStatType, CharacterStat> _statsDict;
 
     private Action<ICharacterStatReadonly> _onStatChangedCallback;
 
@@ -56,7 +56,7 @@ public class StatValues : ScriptableObject, ISerializationCallbackReceiver {
     public void OnAfterDeserialize() {
         if (_stats == null) return;
 
-        _statsDict = new Dictionary<CharacterStatType, ICharacterStat>();
+        _statsDict = new Dictionary<CharacterStatType, CharacterStat>();
 
         for (int i = 0; i < _stats.Length; i++) {
             _statsDict.Add(_stats[i].StatType, _stats[i]);
@@ -78,28 +78,28 @@ public class StatValues : ScriptableObject, ISerializationCallbackReceiver {
     public void SetPrimaryValue(CharacterStatType statType, float value) {
         Validate(statType);
 
-        ICharacterStat stat = _statsDict[statType];
+        CharacterStat stat = _statsDict[statType];
         stat.SetPrimaryValue(value);
     }
 
-    public void SetScaleValue(ScalableCharacterStatType statType, float value) {
-        Validate(statType);
+    public void SetScaleValue(ScalableCharacterStatType scalableCharacterStatType, float value) {
+        Validate(scalableCharacterStatType);
 
-        IScalableStat stat = (IScalableStat)_statsDict[statType.ToCharacterStatType()];
+        ScalableStat stat = (ScalableStat)_statsDict[scalableCharacterStatType.ToCharacterStatType()];
         stat.SetScaleValue(value);
     }
 
     public void UncapStatValue(CharacterStatType statType, float uncapValue, float replace = 0f) {
         Validate(statType);
 
-        ICharacterStat stat = _statsDict[statType];
+        CharacterStat stat = _statsDict[statType];
         stat.UncapValue(uncapValue);
     }
 
     public void RemoveStatUncap(CharacterStatType statType, float capValue) {
         Validate(statType);
 
-        ICharacterStat stat = _statsDict[statType];
+        CharacterStat stat = _statsDict[statType];
         stat.RemoveUncapValue(capValue);
     }
 
@@ -135,46 +135,45 @@ public class StatValues : ScriptableObject, ISerializationCallbackReceiver {
         }
     }
 
-
     private void AddAbsoluteStatInternal(CharacterStatType statType, float absoluteModifier, float replace = 0f) {
         Validate(statType);
 
-        ICharacterStat stat = _statsDict[statType];
+        CharacterStat stat = _statsDict[statType];
         stat.AddAbsoluteModifier(absoluteModifier, replace);
     }
 
     private void RemoveAbsoluteStatInternal(CharacterStatType statType, float absoluteModifier) {
         Validate(statType);
 
-        ICharacterStat stat = _statsDict[statType];
+        CharacterStat stat = _statsDict[statType];
         stat.RemoveAbsoluteModifier(absoluteModifier);
     }
 
     private void AddRelativeStatInternal(CharacterStatType statType, float relativeModifier, float replace = 0f) {
         Validate(statType);
 
-        ICharacterStat stat = _statsDict[statType];
+        CharacterStat stat = _statsDict[statType];
         stat.AddRelativeModifier(relativeModifier, replace);
     }
 
     private void RemoveRelativeStatInternal(CharacterStatType statType, float relativeModifier) {
         Validate(statType);
 
-        ICharacterStat stat = _statsDict[statType];
+        CharacterStat stat = _statsDict[statType];
         stat.RemoveRelativeModifier(relativeModifier);
     }
 
     private void AddCollectiveStatInternal(CharacterStatType statType, float collectiveModifier, float replace = 0f) {
         Validate(statType);
 
-        ICharacterStat stat = _statsDict[statType];
+        CharacterStat stat = _statsDict[statType];
         stat.AddCollectiveModifier(collectiveModifier, replace);
     }
 
     private void RemoveCollectiveStatInternal(CharacterStatType statType, float totalModifier) {
         Validate(statType);
 
-        ICharacterStat stat = _statsDict[statType];
+        CharacterStat stat = _statsDict[statType];
         stat.RemoveCollectiveModifier(totalModifier);
     }
 
@@ -193,7 +192,8 @@ public class StatValues : ScriptableObject, ISerializationCallbackReceiver {
     }
 
     private void Validate(StatValueType statValueType, [CallerMemberName] string methodName = "") {
-        throw new Exception($"{nameof(StatValueType)} cannot send value of {statValueType} into {methodName}.");
+        if (statValueType == StatValueType.None)
+            throw new Exception($"{nameof(StatValueType)} cannot send value of {statValueType} into {methodName}.");
     }
 
     #endregion
