@@ -2,7 +2,7 @@ using UnityEngine;
 
 [System.Serializable]
 public class ItemBaseStat {
-    [SerializeField] public StatType baseStat;
+    [SerializeField] public CharacterStatType baseStat;
     public bool isResistance;
     private float absoluteBaseValue;
     private float statPercantageValue;
@@ -56,7 +56,7 @@ public class ItemBaseStat {
         FinalDecrementalPercentage = value;
     }
 
-    public StatType GetStatType() {
+    public CharacterStatType GetStatType() {
         return baseStat;
     }
 }

@@ -54,7 +54,7 @@ public class ProjectileBoosterBuff : Buff {
         HandleBoosts();
     }
 
-    public override void Refresh(CoreStatsValuesContainer applierStatsContainer, int stacksCount, HitOutput hitOutput) {
+    public override void Refresh(CharStatsValContainer applierStatsContainer, int stacksCount, HitOutput hitOutput) {
         base.Refresh(applierStatsContainer, stacksCount, hitOutput);
 
         HandleBoosts();

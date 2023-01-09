@@ -123,7 +123,7 @@ public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvide
 
             BenefitFromPenetration = new PeneBenefit[5];
 
-            List<StatType> penetrations = BasicMyEnumExtensions.GetPenetrationsList();
+            List<CharacterStatType> penetrations = BasicMyEnumExtensions.GetPenetrationsList();
 
             for (int i = 0; i < benefitFromPenetration.Length; i++) {
                 if (backup.Count > i) {
@@ -161,7 +161,7 @@ public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvide
         CharacterComponent.CharacterStats.OnCharacterStatChange += SetTooltipRebuildIfRequired;
     }
 
-    public virtual void SetTooltipRebuildIfRequired(CharacterStat stat) { }
+    public virtual void SetTooltipRebuildIfRequired(ICharacterStatReadonly stat) { }
 
     public bool CheckDamageTypesIntegrity(List<DamageTypeWeight> damageTypes) {
         if (damageTypes == null || damageTypes.Count == 0) return true;
@@ -262,7 +262,7 @@ public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvide
         }
     }
 
-    public void ModifyAbsolutePenetrationBenefit(StatType penetrationType, float value, float replace, bool remove) {
+    public void ModifyAbsolutePenetrationBenefit(CharacterStatType penetrationType, float value, float replace, bool remove) {
         if (!penetrationType.IsPenetration()) {
             Debug.LogError("You just tried to modify penetration, but sent enum does not describe penetration.");
             return;
@@ -281,7 +281,7 @@ public class AbilityProperties : ScriptableObject, ICoreAbilityPropertiesProvide
         }
     }
 
-    public void ModifyRelativePenetrationBenefit(StatType penetrationType, float value, float replace, bool remove) {
+    public void ModifyRelativePenetrationBenefit(CharacterStatType penetrationType, float value, float replace, bool remove) {
         if (!penetrationType.IsPenetration()) {
             Debug.LogError("You just tried to modify penetration, but sent enum does not describe penetration.");
             return;

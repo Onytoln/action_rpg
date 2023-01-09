@@ -69,7 +69,7 @@ public class NPCController : MonoBehaviour, ICharacterControllerKeyFunc {
     void Start() {
         CharacterStats npcStats = GetComponent<CharacterStats>();
         npcStats.OnCharacterStatChange += UpdateAgentSpeed;
-        CharacterStat movementSpeedStat = npcStats.GetStat(StatType.MovementSpeed);
+        CharacterStat movementSpeedStat = npcStats.GetStat(CharacterStatType.MovementSpeed);
         characterMovementSpeedDefault = movementSpeedStat.PrimaryValue;
         characterMovementSpeedMax = movementSpeedStat.MaxValue;
         UpdateAgentSpeed(movementSpeedStat);
@@ -241,7 +241,7 @@ public class NPCController : MonoBehaviour, ICharacterControllerKeyFunc {
     }
 
     void UpdateAgentSpeed(CharacterStat stat) {
-        if (stat.StatType != StatType.MovementSpeed) return;
+        if (stat.StatType != CharacterStatType.MovementSpeed) return;
 
         agent.speed = stat.GetValue();
 

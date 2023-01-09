@@ -1,7 +1,7 @@
 
 [System.Serializable]
 public class BaseStatsValues {
-    public StatType statType;
+    public CharacterStatType statType;
     public float min;
     public float max;    
 }

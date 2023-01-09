@@ -9,12 +9,12 @@ public class PreloadDefaultValues : Editor
 {
     public CharacterStat[] defaultStats;
 
-    private readonly StatType[] order = { StatType.Damage, StatType.AttackSpeed, StatType.CriticalStrike, StatType.CriticalDamage, StatType.DebuffStrength,
-    StatType.MovementSpeed, StatType.Mana, StatType.ManaRegeneration, StatType.Health, StatType.HealthRegeneration,
-    StatType.BlockChance, StatType.BlockStrength, StatType.EvasionChance,
-    StatType.Armor, StatType.FireResistance, StatType.IceResistance, StatType.LightningResistance, StatType.PoisonResistance, StatType.DebuffProtection,
-    StatType.PhysicalPenetration, StatType.FirePenetration, StatType.IcePenetration, StatType.LightningPenetration, StatType.PoisonPenetration,
-    StatType.LifeSteal, StatType.HealingEffectivity };
+    private readonly CharacterStatType[] order = { CharacterStatType.Damage, CharacterStatType.AttackSpeed, CharacterStatType.CriticalStrike, CharacterStatType.CriticalDamage, CharacterStatType.DebuffStrength,
+    CharacterStatType.MovementSpeed, CharacterStatType.Mana, CharacterStatType.ManaRegeneration, CharacterStatType.Health, CharacterStatType.HealthRegeneration,
+    CharacterStatType.BlockChance, CharacterStatType.BlockStrength, CharacterStatType.EvasionChance,
+    CharacterStatType.PhysicalResistance, CharacterStatType.FireResistance, CharacterStatType.IceResistance, CharacterStatType.LightningResistance, CharacterStatType.PoisonResistance, CharacterStatType.DebuffProtection,
+    CharacterStatType.PhysicalPenetration, CharacterStatType.FirePenetration, CharacterStatType.IcePenetration, CharacterStatType.LightningPenetration, CharacterStatType.PoisonPenetration,
+    CharacterStatType.LifeSteal, CharacterStatType.HealingEffectivity };
     
     /*public override void OnInspectorGUI() {
         base.OnInspectorGUI();

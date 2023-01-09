@@ -12,7 +12,7 @@ public class SummonStats : CharacterStats {
         for (int i = 0; i < summonProperties.SummonStatBoosts.Length; i++) {
             AddRelativeStat(summonProperties.SummonStatBoosts[i].statType, summonProperties.SummonStatBoosts[i].boostValue);
         }
-        currentHealth = CoreStats.HealthValue;
-        currentMana = CoreStats.ManaValue;
+        _currentHealth = CoreStats.HealthValue;
+        _currentMana = CoreStats.ManaValue;
     }
 }

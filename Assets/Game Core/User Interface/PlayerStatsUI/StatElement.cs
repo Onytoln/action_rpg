@@ -5,7 +5,7 @@ using System.Text;
 
 public class StatElement : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public StatType statTypeToAssign;
+    public CharacterStatType statTypeToAssign;
     public StatStringType statStringType;
 
     private CharacterStat assignedStat;
@@ -19,7 +19,7 @@ public class StatElement : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     public void AddStat(CharacterStat stat) {
         assignedStat = stat;
-        statNameText.text = stat.statName;
+        statNameText.text = stat.StatName;
         RefreshStatValue();
     }
 

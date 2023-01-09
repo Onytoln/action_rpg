@@ -4,15 +4,15 @@ using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
-public class StatFloat : StatFloatBase<StatFloat> {
+public class StatFloat : StatFloatBase<IStatFloatReadonly>, IStatFloatReadonly {
     public StatFloat(float primaryValue, float minStatValue, float maxStatValue) : base(primaryValue, minStatValue, maxStatValue) { }
 
     public StatFloat(string statName, float primaryValue, float minStatValue, float maxStatValue) : base(statName, primaryValue, minStatValue, maxStatValue) { }
 }
 
 [System.Serializable]
-public class StatFloatBase<CallBackReturnType> : StatBase<CallBackReturnType, float> 
-    where CallBackReturnType : StatFloatBase<CallBackReturnType> {
+public class StatFloatBase<CallbackReturnType> : StatBase<CallbackReturnType, float> 
+    where CallbackReturnType : IStatBaseReadonly<float> {
 
     public override StatClassType StatClassType => StatClassType.Float;
 
@@ -22,26 +22,26 @@ public class StatFloatBase<CallBackReturnType> : StatBase<CallBackReturnType, fl
     public StatFloatBase(float primaryValue, float minStatValue, float maxStatValue) : base(primaryValue, minStatValue, maxStatValue) { }
     public StatFloatBase(string statName, float primaryValue, float minStatValue, float maxStatValue) : base(statName, primaryValue, minStatValue, maxStatValue) { }
 
-    protected override void CalculateValue() {
+    protected override float CalculateValue() {
         float temp = PrimaryValue;
         temp += AbsoluteModifiers.SumVal;
         temp *= 1f + RelativeModifiers.SumVal;
-        Value = Mathf.Clamp(temp, MinValue, MaxValue);
+        return Mathf.Clamp(temp, MinValue, MaxValue);
     }
 
-    public void AddAbsoluteModifier(float absoluteModifier, float replace = 0f) {
+    public override void AddAbsoluteModifier(float absoluteModifier, float replace = 0f) {
         AddModifierInternal(AbsoluteModifiers, absoluteModifier, replace);
     }
 
-    public void RemoveAbsoluteModifier(float absoluteModifier) {
+    public override void RemoveAbsoluteModifier(float absoluteModifier) {
         RemoveModifierInternal(AbsoluteModifiers, absoluteModifier);
     }
 
-    public void AddRelativeModifier(float relativeModifier, float replace = 0f) {
+    public override void AddRelativeModifier(float relativeModifier, float replace = 0f) {
         AddModifierInternal(RelativeModifiers, relativeModifier, replace);
     }
 
-    public void RemoveRelativeModifier(float relativeModifier) {
+    public override void RemoveRelativeModifier(float relativeModifier) {
         RemoveModifierInternal(RelativeModifiers, relativeModifier);
     }
 

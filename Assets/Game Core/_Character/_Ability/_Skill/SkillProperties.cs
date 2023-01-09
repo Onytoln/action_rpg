@@ -148,7 +148,7 @@ public class SkillProperties : AbilityProperties {
         base.SetUpListeners();
         if (CharacterComponent.CharacterStats.CoreStats == null) return;
         InitializeAnimations();
-        CalculateAttackSpeedCastTimes(CharacterComponent.CharacterStats.GetStat(StatType.AttackSpeed));
+        CalculateAttackSpeedCastTimes(CharacterComponent.CharacterStats.GetStat(CharacterStatType.AttackSpeed));
         CalculateAnimationSpeed();
 
         CharacterComponent.CharacterStats.OnCharacterStatChange += CalculateAttackSpeedCastTimes;
@@ -156,8 +156,8 @@ public class SkillProperties : AbilityProperties {
         InitializeCastTimeListeners();
     }
 
-    public override void SetTooltipRebuildIfRequired(CharacterStat stat) {
-        if (stat.StatType == StatType.Damage) SetTooltipIsDirty();
+    public override void SetTooltipRebuildIfRequired(ICharacterStatReadonly stat) {
+        if (stat.StatType == CharacterStatType.Damage) SetTooltipIsDirty();
     }
 
     private void InitializeAnimations() {
@@ -208,8 +208,8 @@ public class SkillProperties : AbilityProperties {
         }
     }
 
-    public virtual void CalculateAttackSpeedCastTimes(CharacterStat stat) {
-        if (SkillCastSpeedScalingType == SkillCastSpeedScalingType.Scalable && stat.StatType == StatType.AttackSpeed) {
+    public virtual void CalculateAttackSpeedCastTimes(ICharacterStatReadonly stat) {
+        if (SkillCastSpeedScalingType == SkillCastSpeedScalingType.Scalable && stat.StatType == CharacterStatType.AttackSpeed) {
             CalculateCastTimeAttackSpeedModifier(castTime, ref castTimeAttackSpeedOldValue);
         }
     }

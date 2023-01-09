@@ -23,7 +23,7 @@ public class ManaPotionOverTime : Potion
         if (characterCombat.MyCharacterStats.CurrentMana < characterCombat.MyCharacterStats.CoreStats.ManaValue * (1 - potionManaRestoration)) {
             characterCombat.RestoreManaPercetage(potionManaRestoration);
             _ = characterCombat.GetStatusEffectApplied(manaRestorationBuffHolder.buffToApply,
-                TargetManager.PlayerComponent, TargetManager.PlayerComponent.CharacterStats.CoreStats.GetStatsValuesCopy(), manaRestorationBuffHolder.stacksToApply.GetValue());
+                TargetManager.PlayerComponent, TargetManager.PlayerComponent.CharacterStats.CoreStats.GetCurrentStatsValuesCopy(), manaRestorationBuffHolder.stacksToApply.GetValue());
             _ = base.Use();
             _ = RemoveFromInventoryOrDestack();
             return true;

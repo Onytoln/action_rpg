@@ -6,7 +6,7 @@ public class ConvertStatToScalable : EditorWindow {
     int scaleValue = 0;
     float minScalableStatValue, maxScalableStatValue, defaultScalableUncappedMax = 0;
     string statName;
-    public StatType statType = StatType.NoType;
+    public CharacterStatType statType = CharacterStatType.None;
     float primaryValue = 0;
     float minStatValue = 0;
     float maxStatValue = 0;
@@ -46,7 +46,7 @@ public class ConvertStatToScalable : EditorWindow {
 
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Stat type: ");
-        statType = (StatType)EditorGUILayout.EnumPopup(statType);
+        statType = (CharacterStatType)EditorGUILayout.EnumPopup(statType);
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
@@ -77,7 +77,7 @@ public class ConvertStatToScalable : EditorWindow {
     }
 
     public static void ConvertStat(int scaleValue, float minScalableStatValue, float maxScalableStatValue, float defaultScalableUncappedMax,
-        string statName, StatType statType, float primaryValue, float minStatValue, float maxStatValue, float defaultUncappedMax) { 
+        string statName, CharacterStatType statType, float primaryValue, float minStatValue, float maxStatValue, float defaultUncappedMax) { 
 
         /*
         if (scaleValue <= 0 || statType == StatType.NoType) return;

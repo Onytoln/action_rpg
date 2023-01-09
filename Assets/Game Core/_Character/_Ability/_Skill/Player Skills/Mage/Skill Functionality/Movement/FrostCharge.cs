@@ -45,12 +45,12 @@ public class FrostCharge : PlayerSkillTemplate {
         }
     }
 
-    void ChangeShieldScale(StatFloat stat) {
-        currentShieldVFXHandler.transform.localScale = defaultShieldVFXScale * (stat.GetValue() / stat.GetPrimaryValue());
+    void ChangeShieldScale(IStatFloatReadonly stat) {
+        currentShieldVFXHandler.transform.localScale = defaultShieldVFXScale * (stat.Value / stat.PrimaryValue);
     }
 
-    void ChargeExplosionScale(StatFloat stat) {
-        currentPostChargeExplosionParticles.transform.localScale = defaultPostChargeExplosionParticlesScale * (stat.GetValue() / stat.GetPrimaryValue());
+    void ChargeExplosionScale(IStatFloatReadonly stat) {
+        currentPostChargeExplosionParticles.transform.localScale = defaultPostChargeExplosionParticlesScale * (stat.Value / stat.PrimaryValue);
     }
 
     public override bool CastSkill() {

@@ -23,7 +23,7 @@ public class PlayerMotor : MonoBehaviour {
         animator = GetComponent<Animator>();
         PlayerStats playerStats = GetComponent<PlayerStats>();
         playerStats.OnCharacterStatChange += UpdateAgentSpeed;
-        CharacterStat movementSpeedStat = playerStats.GetStat(StatType.MovementSpeed);
+        CharacterStat movementSpeedStat = playerStats.GetStat(CharacterStatType.MovementSpeed);
         characterMovementSpeedDefault = movementSpeedStat.PrimaryValue;
         characterMovementSpeedMax = movementSpeedStat.MaxValue;
         UpdateAgentSpeed(movementSpeedStat);
@@ -75,7 +75,7 @@ public class PlayerMotor : MonoBehaviour {
     }
 
     private void UpdateAgentSpeed(CharacterStat stat) {
-        if (stat.StatType != StatType.MovementSpeed) return;
+        if (stat.StatType != CharacterStatType.MovementSpeed) return;
 
         agent.speed = stat.GetValue();
 

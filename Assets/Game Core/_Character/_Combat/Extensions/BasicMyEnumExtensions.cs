@@ -15,57 +15,58 @@ public static class BasicMyEnumExtensions {
         };
     }
 
-    public static string StatTypeToReadableString(this StatType st) {
+    public static string StatTypeToReadableString(this CharacterStatType st) {
         return st switch {
-            StatType.AttackSpeed => "Attack speed",
-            StatType.BlockChance => "Block chance",
-            StatType.BlockStrength => "Block stength",
-            StatType.CriticalDamage => "Critical damage",
-            StatType.CriticalStrike => "Critical strike chance",
-            StatType.DebuffProtection => "Debuff protection",
-            StatType.DebuffStrength => "Debuff strength",
-            StatType.EvasionChance => "Evasion chance",
-            StatType.PhysicalPenetration => "Physical penetration",
-            StatType.FirePenetration => "Fire penetration",
-            StatType.IcePenetration => "Ice penetration",
-            StatType.LightningPenetration => "Lightning penetration",
-            StatType.PoisonPenetration => "Poison penetration",
-            StatType.FireResistance => "Fire resistance",
-            StatType.IceResistance => "Ice resistance",
-            StatType.LightningResistance => "Lightning resistance",
-            StatType.PoisonResistance => "Poison resistance",
-            StatType.MovementSpeed => "Movement speed",
-            StatType.ManaRegeneration => "Mana regeneration",
-            StatType.HealthRegeneration => "Health regeneration",
-            StatType.LifeSteal => "Life steal",
-            StatType.HealingEffectivity => "Healing effectivity",
+            CharacterStatType.AttackSpeed => "Attack speed",
+            CharacterStatType.BlockChance => "Block chance",
+            CharacterStatType.BlockStrength => "Block stength",
+            CharacterStatType.CriticalDamage => "Critical damage",
+            CharacterStatType.CriticalStrike => "Critical strike chance",
+            CharacterStatType.DebuffProtection => "Debuff protection",
+            CharacterStatType.DebuffStrength => "Debuff strength",
+            CharacterStatType.EvasionChance => "Evasion chance",
+            CharacterStatType.PhysicalPenetration => "Physical penetration",
+            CharacterStatType.FirePenetration => "Fire penetration",
+            CharacterStatType.IcePenetration => "Ice penetration",
+            CharacterStatType.LightningPenetration => "Lightning penetration",
+            CharacterStatType.PoisonPenetration => "Poison penetration",
+            CharacterStatType.PhysicalResistance => "Physical resistance",
+            CharacterStatType.FireResistance => "Fire resistance",
+            CharacterStatType.IceResistance => "Ice resistance",
+            CharacterStatType.LightningResistance => "Lightning resistance",
+            CharacterStatType.PoisonResistance => "Poison resistance",
+            CharacterStatType.MovementSpeed => "Movement speed",
+            CharacterStatType.ManaRegeneration => "Mana regeneration",
+            CharacterStatType.HealthRegeneration => "Health regeneration",
+            CharacterStatType.LifeSteal => "Life steal",
+            CharacterStatType.HealingEffectivity => "Healing effectivity",
             _ => st.ToString()
         };
     }
 
-    public static StatStringType StatTypeToStatStringType(this StatType st) {
+    public static StatStringType StatTypeToStatStringType(this CharacterStatType st) {
         return st switch {
-            StatType.AttackSpeed => StatStringType.Percentage,
-            StatType.BlockChance => StatStringType.Percentage,
-            StatType.BlockStrength => StatStringType.Percentage,
-            StatType.CriticalDamage => StatStringType.Percentage,
-            StatType.CriticalStrike => StatStringType.Percentage,
-            StatType.DebuffProtection => StatStringType.Percentage,
-            StatType.DebuffStrength => StatStringType.Percentage,
-            StatType.EvasionChance => StatStringType.Percentage,
-            StatType.FirePenetration => StatStringType.Percentage,
-            StatType.IcePenetration => StatStringType.Percentage,
-            StatType.LightningPenetration => StatStringType.Percentage,
-            StatType.PoisonPenetration => StatStringType.Percentage,
-            StatType.FireResistance => StatStringType.Percentage,
-            StatType.IceResistance => StatStringType.Percentage,
-            StatType.LightningResistance => StatStringType.Percentage,
-            StatType.PoisonResistance => StatStringType.Percentage,
-            StatType.MovementSpeed => StatStringType.MovementSpeed,
-            StatType.ManaRegeneration => StatStringType.PerSecond,
-            StatType.HealthRegeneration => StatStringType.PerSecond,
-            StatType.LifeSteal => StatStringType.Percentage,
-            StatType.HealingEffectivity => StatStringType.Percentage,
+            CharacterStatType.AttackSpeed => StatStringType.Percentage,
+            CharacterStatType.BlockChance => StatStringType.Percentage,
+            CharacterStatType.BlockStrength => StatStringType.Percentage,
+            CharacterStatType.CriticalDamage => StatStringType.Percentage,
+            CharacterStatType.CriticalStrike => StatStringType.Percentage,
+            CharacterStatType.DebuffProtection => StatStringType.Percentage,
+            CharacterStatType.DebuffStrength => StatStringType.Percentage,
+            CharacterStatType.EvasionChance => StatStringType.Percentage,
+            CharacterStatType.FirePenetration => StatStringType.Percentage,
+            CharacterStatType.IcePenetration => StatStringType.Percentage,
+            CharacterStatType.LightningPenetration => StatStringType.Percentage,
+            CharacterStatType.PoisonPenetration => StatStringType.Percentage,
+            CharacterStatType.FireResistance => StatStringType.Percentage,
+            CharacterStatType.IceResistance => StatStringType.Percentage,
+            CharacterStatType.LightningResistance => StatStringType.Percentage,
+            CharacterStatType.PoisonResistance => StatStringType.Percentage,
+            CharacterStatType.MovementSpeed => StatStringType.MovementSpeed,
+            CharacterStatType.ManaRegeneration => StatStringType.PerSecond,
+            CharacterStatType.HealthRegeneration => StatStringType.PerSecond,
+            CharacterStatType.LifeSteal => StatStringType.Percentage,
+            CharacterStatType.HealingEffectivity => StatStringType.Percentage,
             _ => StatStringType.Absolute
         };
     }
@@ -81,19 +82,19 @@ public static class BasicMyEnumExtensions {
         return Utils.DictTryGetOrDefault(critBenefitCustomStringDict, cb, throwErrorIfNotPresent: true);
     }
 
-    private static readonly HashSet<StatType> isPenetrationHashSet = new HashSet<StatType>() {
-        StatType.PhysicalPenetration, StatType.FirePenetration, StatType.IcePenetration, StatType.LightningPenetration, StatType.PoisonPenetration
+    private static readonly HashSet<CharacterStatType> isPenetrationHashSet = new HashSet<CharacterStatType>() {
+        CharacterStatType.PhysicalPenetration, CharacterStatType.FirePenetration, CharacterStatType.IcePenetration, CharacterStatType.LightningPenetration, CharacterStatType.PoisonPenetration
     };
 
-    public static bool IsPenetration(this StatType statType) {
+    public static bool IsPenetration(this CharacterStatType statType) {
         return isPenetrationHashSet.Contains(statType);
     }
 
-    public static List<StatType> GetPenetrationsList() {
-        StatType[] statTypes = (StatType[])Enum.GetValues(typeof(StatType));
+    public static List<CharacterStatType> GetPenetrationsList() {
+        CharacterStatType[] statTypes = (CharacterStatType[])Enum.GetValues(typeof(CharacterStatType));
 
         int penetrations = 0;
-        List<StatType> penetrationsResult = new List<StatType>();
+        List<CharacterStatType> penetrationsResult = new List<CharacterStatType>();
 
         for (int i = 0; i < statTypes.Length; i++) {
             if (!statTypes[i].IsPenetration()) continue;
@@ -105,22 +106,22 @@ public static class BasicMyEnumExtensions {
         return penetrationsResult;
     }
 
-    public static Color32 ResistanceStatToColor32(this StatType st) {
+    public static Color32 ResistanceStatToColor32(this CharacterStatType st) {
         return st switch {
-            StatType.FireResistance => DataStorage.FireResistanceColor,
-            StatType.IceResistance => DataStorage.IceResistanceColor,
-            StatType.LightningResistance => DataStorage.LightningResistanceColor,
-            StatType.PoisonResistance => DataStorage.PoisonResistanceColor,
+            CharacterStatType.FireResistance => DataStorage.FireResistanceColor,
+            CharacterStatType.IceResistance => DataStorage.IceResistanceColor,
+            CharacterStatType.LightningResistance => DataStorage.LightningResistanceColor,
+            CharacterStatType.PoisonResistance => DataStorage.PoisonResistanceColor,
             _ => DataStorage.DefaultResistanceColor
         };
     }
 
-    public static string ResistanceStatToColorRGB(this StatType st) {
+    public static string ResistanceStatToColorRGB(this CharacterStatType st) {
         return st switch {
-            StatType.FireResistance => ColorUtility.ToHtmlStringRGB(DataStorage.FireResistanceColor),
-            StatType.IceResistance => ColorUtility.ToHtmlStringRGB(DataStorage.IceResistanceColor),
-            StatType.LightningResistance => ColorUtility.ToHtmlStringRGB(DataStorage.LightningResistanceColor),
-            StatType.PoisonResistance => ColorUtility.ToHtmlStringRGB(DataStorage.PoisonResistanceColor),
+            CharacterStatType.FireResistance => ColorUtility.ToHtmlStringRGB(DataStorage.FireResistanceColor),
+            CharacterStatType.IceResistance => ColorUtility.ToHtmlStringRGB(DataStorage.IceResistanceColor),
+            CharacterStatType.LightningResistance => ColorUtility.ToHtmlStringRGB(DataStorage.LightningResistanceColor),
+            CharacterStatType.PoisonResistance => ColorUtility.ToHtmlStringRGB(DataStorage.PoisonResistanceColor),
             _ => ColorUtility.ToHtmlStringRGB(DataStorage.DefaultResistanceColor)
         };
     }

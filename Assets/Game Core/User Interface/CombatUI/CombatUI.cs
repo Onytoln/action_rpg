@@ -27,10 +27,10 @@ public class CombatUI : MonoBehaviour, IDisableUntilGameLoaded {
         healthBarUpdateHandle = Timing.RunCoroutine(UpdateHealthBarCoroutine());
         manaBarUpdateHandle = Timing.RunCoroutine(UpdateManaBarCoroutine());
 
-        playerStats.CurrentHealthChange += UpdateHealthBar;
+        playerStats.OnCurrentHealthChange += UpdateHealthBar;
         UpdateHealthBar(0f, null);
 
-        playerStats.CurrentManaChange += UpdateManaBar;
+        playerStats.OnCurrentManaChange += UpdateManaBar;
         UpdateManaBar(0f, null);
     }
 

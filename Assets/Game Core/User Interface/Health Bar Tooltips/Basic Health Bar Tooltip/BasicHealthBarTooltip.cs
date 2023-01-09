@@ -68,7 +68,7 @@ public class BasicHealthBarTooltip : MonoBehaviour
         healthText.text = $"{characterComponent.CharacterStats.CurrentHealth.ToString(Format)}/" +
             $"{characterComponent.CharacterStats.CoreStats.HealthValue.ToString(Format)}";
 
-        characterComponent.CharacterStats.CurrentHealthChange += UpdateHealthBar;
+        characterComponent.CharacterStats.OnCurrentHealthChange += UpdateHealthBar;
 
         if (characterComponent.AdditionalInfo.Length != 0) {
 
@@ -97,7 +97,7 @@ public class BasicHealthBarTooltip : MonoBehaviour
         canvasGroup.alpha = 0;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
-        characterComponent.CharacterStats.CurrentHealthChange -= UpdateHealthBar;
+        characterComponent.CharacterStats.OnCurrentHealthChange -= UpdateHealthBar;
         for (int i = 0; i < instantiatedTextPrefabs?.Length; i++) {
             objectPoolManager.PoolObjectBack(instantiatedTextPrefabs[i].gameObject.name, instantiatedTextPrefabs[i].gameObject);
         }
