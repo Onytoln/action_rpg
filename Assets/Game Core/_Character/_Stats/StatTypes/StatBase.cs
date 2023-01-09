@@ -1,45 +1,60 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public enum StatClassType { Float, Int, Character, CharacterScalable, CharacterRange, CharacterOverridablePrimary }
 
 [System.Serializable]
-public abstract class StatBase<CallbackReturnType, NumberType> : IOnChange<CallbackReturnType>, ISerializationCallbackReceiver 
-    where CallbackReturnType : StatBase<CallbackReturnType, NumberType>
+public abstract class StatBase<CallbackReturnType, NumberType> : IStatBase<CallbackReturnType, NumberType>, ISerializationCallbackReceiver 
+    where CallbackReturnType : IStatBaseReadonly<NumberType>
     where NumberType : struct, IComparable, IComparable<NumberType>, IConvertible, IEquatable<NumberType>, IFormattable {
 
     public event Action<CallbackReturnType> OnChanged;
 
     [field: SerializeField] public string StatName { get; private set; } //only for naming array elements
-    [field: SerializeField, Header("Core values")] public NumberType PrimaryValue { get; protected set; }
-    public NumberType DefaultPrimaryValue { get; protected set; }
+    [field: SerializeField, Header("Core values")] public NumberType PrimaryValue { get; private set; }
+    public NumberType DefaultPrimaryValue { get; private set; }
 
-    [field: SerializeField] public NumberType MinValue { get; protected set; }
-    [field: SerializeField] public NumberType MaxValue { get; protected set; }
+    [field: SerializeField] public NumberType MinValue { get; private set; }
+    [field: SerializeField] public NumberType MaxValue { get; private set; }
+
+    #region Absolute Modifiers
 
     [NonSerialized] private ModifierHandler<NumberType> _absoluteModifiers;
     protected ModifierHandler<NumberType> AbsoluteModifiers => _absoluteModifiers ??= new ModifierHandler<NumberType>(AbsoluteModsSumHandler); //lazy loading
     protected abstract Func<IEnumerable<NumberType>, NumberType> AbsoluteModsSumHandler { get; }
     public NumberType TotalAbsoluteMods => AbsoluteModifiers.SumVal;
 
+    #endregion
+
+    #region Relative Modifiers
+
     [NonSerialized] private ModifierHandler<float> _relativeModifiers;
     protected ModifierHandler<float> RelativeModifiers => _relativeModifiers ??= new ModifierHandler<float>(RelativeModsSumHandler); //lazy loading
     protected abstract Func<IEnumerable<float>, float> RelativeModsSumHandler { get; }
     public float TotalRelativeMods => RelativeModifiers.SumVal;
+
+    #endregion
 
     [SerializeField, Header("Total value")] private NumberType _value;
     public virtual NumberType Value {
         get {
             if (_isDirty) {
                 _isDirty = false;
-                CalculateValue();
+                _value = CalculateValue();
             }
 
             return _value;
         }
-        protected set => _value = value;
+    }
+
+    public virtual NumberType UnmodifiedValue {
+        get {
+            _ = Value;
+            return _value;
+        }
     }
 
     public abstract StatClassType StatClassType { get; }
@@ -66,7 +81,30 @@ public abstract class StatBase<CallbackReturnType, NumberType> : IOnChange<Callb
         TryInitialize();
     }
 
-    protected abstract void CalculateValue();
+    #region Subscription to OnChanged
+
+    public void SubscribeToOnChange<T>(Action<T> actionDelegate) where T : Delegate {
+        if(actionDelegate.GetType() == typeof(Action<CallbackReturnType>)) {
+            OnChanged += (Action<CallbackReturnType>)(object)actionDelegate;
+        } else {
+            HandleSubscribeError();
+        }
+    }
+
+    public void UnsubscribeFromOnChange<T>(Action<T> actionDelegate) where T : Delegate {
+        if (actionDelegate.GetType() == typeof(Action<CallbackReturnType>)) {
+            OnChanged -= (Action<CallbackReturnType>)(object)actionDelegate;
+        } else {
+            HandleSubscribeError();
+        }
+    }
+
+    private void HandleSubscribeError([CallerMemberName] string methodName = "") {
+        Debug.LogError($"Incorrect delegate type sent to {nameof(SubscribeToOnChange)} method. Expected delegate type of {typeof(Action<CallbackReturnType>)}.");
+    }
+
+    #endregion
+    protected abstract NumberType CalculateValue();
 
     [Obsolete("Use Value property.")]
     public NumberType GetValue() => Value;
@@ -94,8 +132,19 @@ public abstract class StatBase<CallbackReturnType, NumberType> : IOnChange<Callb
 
     protected virtual void StatChanged() {
         _isDirty = true;
-        OnChanged?.Invoke((CallbackReturnType)this);
+        OnChanged?.Invoke((CallbackReturnType)(object)this);
     }
+
+    #region Base modifiers add/remove
+
+    public abstract void AddAbsoluteModifier(NumberType absoluteModifier, NumberType replace);
+    public abstract void RemoveAbsoluteModifier(NumberType absoluteModifier);
+    public abstract void AddRelativeModifier(float relativeModifier, float replace);
+    public abstract void RemoveRelativeModifier(float relativeModifier);
+    public abstract void SetPrimaryValue(NumberType value);
+    public abstract void SetMinMax(NumberType min, NumberType max);
+
+    #endregion
 
     #region Modifiers operations
 
@@ -140,9 +189,6 @@ public abstract class StatBase<CallbackReturnType, NumberType> : IOnChange<Callb
         _ = modifiers.Remove(modifier);
         StatChanged();
     }
-
-    public abstract void SetPrimaryValue(NumberType value);
-    public abstract void SetMinMax(NumberType min, NumberType max);
 
     protected void SetPrimaryValueInternal(NumberType value) {
         PrimaryValue = value;

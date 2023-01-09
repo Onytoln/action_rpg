@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Enchantment", menuName = "Enchantments/Base Stat Enchantment")]
 public class BaseStatEnchantment : Enchantment {
-    [SerializeField] private StatType statType;
+    [SerializeField] private CharacterStatType statType;
 
-    public StatType GetStatType() => statType;
+    public CharacterStatType GetStatType() => statType;
 }

@@ -40,11 +40,11 @@ public class PreloadDefaultAbilityPropertiesValues : Editor
 
         if (abilityProperties.BenefitFromPenetration == null || abilityProperties.BenefitFromPenetration.Length == 0) {
             abilityProperties.BenefitFromPenetration = new PeneBenefit[5];
-            abilityProperties.BenefitFromPenetration[0] = new PeneBenefit(StatType.PhysicalPenetration, new StatFloat(0, 0, 1f));
-            abilityProperties.BenefitFromPenetration[1] = new PeneBenefit(StatType.FirePenetration, new StatFloat(0, 0, 1f));
-            abilityProperties.BenefitFromPenetration[2] = new PeneBenefit(StatType.IcePenetration, new StatFloat(0, 0, 1f));
-            abilityProperties.BenefitFromPenetration[3] = new PeneBenefit(StatType.LightningPenetration, new StatFloat(0, 0, 1f));
-            abilityProperties.BenefitFromPenetration[4] = new PeneBenefit(StatType.PoisonPenetration, new StatFloat(0, 0, 1f));
+            abilityProperties.BenefitFromPenetration[0] = new PeneBenefit(CharacterStatType.PhysicalPenetration, new StatFloat(0, 0, 1f));
+            abilityProperties.BenefitFromPenetration[1] = new PeneBenefit(CharacterStatType.FirePenetration, new StatFloat(0, 0, 1f));
+            abilityProperties.BenefitFromPenetration[2] = new PeneBenefit(CharacterStatType.IcePenetration, new StatFloat(0, 0, 1f));
+            abilityProperties.BenefitFromPenetration[3] = new PeneBenefit(CharacterStatType.LightningPenetration, new StatFloat(0, 0, 1f));
+            abilityProperties.BenefitFromPenetration[4] = new PeneBenefit(CharacterStatType.PoisonPenetration, new StatFloat(0, 0, 1f));
         }
 
 

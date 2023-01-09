@@ -204,7 +204,7 @@ public class Combat : MonoBehaviour {
 
         if (skillProperties.debuffHolder == null) return;
 
-        CoreStatsValuesContainer coreStats = hitOutput.HitSourceCoreStatsValues ?? hitOutput.HitSourceCharacterComponent.CharacterStats.CoreStats.GetStatsValuesCopy();
+        CharStatsValContainer coreStats = hitOutput.HitSourceCoreStatsValues ?? hitOutput.HitSourceCharacterComponent.CharacterStats.CoreStats.GetCurrentStatsValuesCopy();
 
         for (int i = 0; i < skillProperties.debuffHolder.Length; i++) {
             if (skillProperties.debuffHolder[i].ApplyManually) continue;
@@ -216,25 +216,25 @@ public class Combat : MonoBehaviour {
         }
     }
 
-    public virtual bool ApplyStatusEffectToTarget(Combat enemyCombat, StatusEffect statusEffect, Character applier, CoreStatsValuesContainer applierStats,
+    public virtual bool ApplyStatusEffectToTarget(Combat enemyCombat, StatusEffect statusEffect, Character applier, CharStatsValContainer applierStats,
         int stackCount, HitOutput hitOutput = null) {
 
         return enemyCombat.GetStatusEffectApplied(statusEffect, applier, applierStats, stackCount, hitOutput);
     }
 
-    public virtual bool ApplyStatusEffectToTarget(Combat enemyCombat, StatusEffect statusEffect, Character applier, CoreStatsValuesContainer applierStats,
+    public virtual bool ApplyStatusEffectToTarget(Combat enemyCombat, StatusEffect statusEffect, Character applier, CharStatsValContainer applierStats,
         int stackCount, out StatusEffect appliedEffect, HitOutput hitOutput = null) {
 
         return enemyCombat.GetStatusEffectApplied(statusEffect, applier, applierStats, stackCount, out appliedEffect, hitOutput);
     }
 
-    public virtual bool GetStatusEffectApplied(StatusEffect statusEffect, Character applier, CoreStatsValuesContainer applierStats,
+    public virtual bool GetStatusEffectApplied(StatusEffect statusEffect, Character applier, CharStatsValContainer applierStats,
         int stackCount, HitOutput hitOutput = null) {
 
         return StatusEffectsManager.ApplyStatusEffect(statusEffect, applier, applierStats, stackCount, out var _, hitOutput);
     }
 
-    public virtual bool GetStatusEffectApplied(StatusEffect statusEffect, Character applier, CoreStatsValuesContainer applierStats,
+    public virtual bool GetStatusEffectApplied(StatusEffect statusEffect, Character applier, CharStatsValContainer applierStats,
         int stackCount, out StatusEffect appliedEffect, HitOutput hitOutput = null) {
 
         return StatusEffectsManager.ApplyStatusEffect(statusEffect, applier, applierStats, stackCount, out appliedEffect, hitOutput);

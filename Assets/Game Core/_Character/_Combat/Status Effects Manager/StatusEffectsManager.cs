@@ -175,7 +175,7 @@ public class StatusEffectsManager : MonoBehaviour {
 
     #region Buff/Debuffs
 
-    public bool ApplyStatusEffect(StatusEffect statusEffect, Character applier, CoreStatsValuesContainer applierStatsContainer, int stacksCount,
+    public bool ApplyStatusEffect(StatusEffect statusEffect, Character applier, CharStatsValContainer applierStatsContainer, int stacksCount,
         out StatusEffect appliedEffect, HitOutput hitOutput = null) {
 
         if (stacksCount <= 0) { appliedEffect = null; return false; }

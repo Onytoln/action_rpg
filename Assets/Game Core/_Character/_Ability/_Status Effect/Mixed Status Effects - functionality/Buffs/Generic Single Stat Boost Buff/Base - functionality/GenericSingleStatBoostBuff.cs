@@ -19,15 +19,15 @@ public class GenericSingleStatBoostBuff : Buff {
         genericSingleStatBoostBuffProperties = statusEffectProperties as GenericSingleStatBoostBuffProperties;
 
         switch (genericSingleStatBoostBuffProperties.StatAddType) {
-            case StatAddType.Absolute:
+            case StatValueType.Absolute:
                 AppliedToCharacterComponent.CharacterStats.AddAbsoluteStat(genericSingleStatBoostBuffProperties.StatToBoost,
                     genericSingleStatBoostBuffProperties.statBoostValue.GetValue());
                 break;
-            case StatAddType.Relative:
+            case StatValueType.Relative:
                 AppliedToCharacterComponent.CharacterStats.AddRelativeStat(genericSingleStatBoostBuffProperties.StatToBoost,
                  genericSingleStatBoostBuffProperties.statBoostValue.GetValue());
                 break;
-            case StatAddType.Total:
+            case StatValueType.Collective:
                 AppliedToCharacterComponent.CharacterStats.AddTotalStat(genericSingleStatBoostBuffProperties.StatToBoost,
                  genericSingleStatBoostBuffProperties.statBoostValue.GetValue());
                 break;
@@ -37,15 +37,15 @@ public class GenericSingleStatBoostBuff : Buff {
     public override void End() {
         base.End();
         switch (genericSingleStatBoostBuffProperties.StatAddType) {
-            case StatAddType.Absolute:
+            case StatValueType.Absolute:
                 AppliedToCharacterComponent.CharacterStats.RemoveAbsoluteStat(genericSingleStatBoostBuffProperties.StatToBoost,
                     genericSingleStatBoostBuffProperties.statBoostValue.GetValue());
                 break;
-            case StatAddType.Relative:
+            case StatValueType.Relative:
                 AppliedToCharacterComponent.CharacterStats.RemoveRelativeStat(genericSingleStatBoostBuffProperties.StatToBoost,
                  genericSingleStatBoostBuffProperties.statBoostValue.GetValue());
                 break;
-            case StatAddType.Total:
+            case StatValueType.Collective:
                 AppliedToCharacterComponent.CharacterStats.RemoveTotalStat(genericSingleStatBoostBuffProperties.StatToBoost,
                  genericSingleStatBoostBuffProperties.statBoostValue.GetValue());
                 break;

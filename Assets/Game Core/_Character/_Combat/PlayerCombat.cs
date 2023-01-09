@@ -45,7 +45,7 @@ public class PlayerCombat : Combat {
 
     #region Status Effect related
 
-    public override bool ApplyStatusEffectToTarget(Combat enemyCombat, StatusEffect statusEffect, Character applier, CoreStatsValuesContainer applierStats,
+    public override bool ApplyStatusEffectToTarget(Combat enemyCombat, StatusEffect statusEffect, Character applier, CharStatsValContainer applierStats,
         int stackCount, HitOutput hitOutput = null) {
 
         bool result = base.ApplyStatusEffectToTarget(enemyCombat, statusEffect, applier, applierStats, stackCount, out StatusEffect appliedEffect, hitOutput);
@@ -55,7 +55,7 @@ public class PlayerCombat : Combat {
         return result;
     }
 
-    public override bool ApplyStatusEffectToTarget(Combat enemyCombat, StatusEffect statusEffect, Character applier, CoreStatsValuesContainer applierStats,
+    public override bool ApplyStatusEffectToTarget(Combat enemyCombat, StatusEffect statusEffect, Character applier, CharStatsValContainer applierStats,
         int stackCount, out StatusEffect appliedEffect, HitOutput hitOutput = null) {
 
         bool result = base.ApplyStatusEffectToTarget(enemyCombat, statusEffect, applier, applierStats, stackCount, out appliedEffect, hitOutput);
@@ -65,7 +65,7 @@ public class PlayerCombat : Combat {
         return result;
     }
 
-    public override bool GetStatusEffectApplied(StatusEffect statusEffect, Character applier, CoreStatsValuesContainer applierStats,
+    public override bool GetStatusEffectApplied(StatusEffect statusEffect, Character applier, CharStatsValContainer applierStats,
         int stackCount, HitOutput hitOutput = null) {
 
         bool result = base.GetStatusEffectApplied(statusEffect, applier, applierStats, stackCount, out StatusEffect appliedEffect, hitOutput);
@@ -75,7 +75,7 @@ public class PlayerCombat : Combat {
         return result;
     }
 
-    public override bool GetStatusEffectApplied(StatusEffect statusEffect, Character applier, CoreStatsValuesContainer applierStats,
+    public override bool GetStatusEffectApplied(StatusEffect statusEffect, Character applier, CharStatsValContainer applierStats,
         int stackCount, out StatusEffect appliedEffect, HitOutput hitOutput = null) {
 
         bool result = base.GetStatusEffectApplied(statusEffect, applier, applierStats, stackCount, out appliedEffect, hitOutput);

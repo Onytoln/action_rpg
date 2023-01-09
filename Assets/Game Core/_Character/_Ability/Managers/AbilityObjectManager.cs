@@ -29,7 +29,7 @@ public class AbilityObjectManager : MonoBehaviour {
 
         //Profiler.BeginSample("Instantiate ability object data");
         CoreAbilityData coreAbilityData = new CoreAbilityData(character, abilityProperties, abilityProperties.GetValuesCopy(),
-            character.CharacterStats.CoreStats.GetStatsValuesCopy(), character.CharacterCombat, null, skillLogic, castPoint, target);
+            character.CharacterStats.CoreStats.GetCurrentStatsValuesCopy(), character.CharacterCombat, null, skillLogic, castPoint, target);
         //Profiler.EndSample();
         ProjectilesFireInstanceMaster projectilesFireInstanceMaster = new ProjectilesFireInstanceMaster(
             projectile,
@@ -191,7 +191,7 @@ public class AbilityObjectManager : MonoBehaviour {
             new CoreAbilityData(character,
             abilityProp,
             abilityProp.GetValuesCopy(),
-            character.CharacterStats.CoreStats.GetStatsValuesCopy(),
+            character.CharacterStats.CoreStats.GetCurrentStatsValuesCopy(),
             character.CharacterCombat,
             obj,
             skillLogic,
@@ -216,7 +216,7 @@ public class AbilityObjectManager : MonoBehaviour {
             new CoreAbilityData(character,
             abilityProp,
             abilityProp.GetValuesCopy(),
-            character.CharacterStats.CoreStats.GetStatsValuesCopy(),
+            character.CharacterStats.CoreStats.GetCurrentStatsValuesCopy(),
             character.CharacterCombat,
             obj,
             skillLogic,
@@ -233,7 +233,7 @@ public class AbilityObjectManager : MonoBehaviour {
     }
 
     //no params
-    public static AbilityObject ProcessSpawnedAbilityObject(GameObject gameObj, AbilityProperties abilityProp, CoreStatsValuesContainer stats,
+    public static AbilityObject ProcessSpawnedAbilityObject(GameObject gameObj, AbilityProperties abilityProp, CharStatsValContainer stats,
         Character character, SkillTemplate skillLogic = null, Vector3 castPoint = default, GameObject target = null, bool activateObject = true) {
         if (gameObj == null) return null;
 
@@ -258,7 +258,7 @@ public class AbilityObjectManager : MonoBehaviour {
     }
 
     //params
-    public static AbilityObject ProcessSpawnedAbilityObject(GameObject gameObj, AbilityProperties abilityProp, CoreStatsValuesContainer stats,
+    public static AbilityObject ProcessSpawnedAbilityObject(GameObject gameObj, AbilityProperties abilityProp, CharStatsValContainer stats,
         Character character, SkillTemplate skillLogic = null, Vector3 castPoint = default, GameObject target = null, bool activateObject = true, params object[] parameters) {
         if (gameObj == null) return null;
 

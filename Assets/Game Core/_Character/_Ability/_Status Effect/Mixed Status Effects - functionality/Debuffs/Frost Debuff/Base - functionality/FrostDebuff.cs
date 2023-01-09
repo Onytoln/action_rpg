@@ -49,7 +49,7 @@ public class FrostDebuff : Debuff {
         HandleDebuffApplication();
     }
 
-    public override void Refresh(CoreStatsValuesContainer _applierStatsContainer, int stacksCount, HitOutput hitOutput) {
+    public override void Refresh(CharStatsValContainer _applierStatsContainer, int stacksCount, HitOutput hitOutput) {
         base.Refresh(_applierStatsContainer, stacksCount, hitOutput);
 
         UpdateDebuffStrengthModifiers(_applierStatsContainer);
@@ -74,9 +74,9 @@ public class FrostDebuff : Debuff {
 
         if (healingEffectivityReduction > 0f) healingEffectivityReduction = 0f;
 
-        AppliedToCharacterComponent.CharacterStats.AddRelativeStat(StatType.AttackSpeed, attackSpeedSlowValue, addedAttackSpeedSlow);
-        AppliedToCharacterComponent.CharacterStats.AddRelativeStat(StatType.MovementSpeed, movementSpeedSlowValue, addedMovementSpeedSlow);
-        AppliedToCharacterComponent.CharacterStats.AddAbsoluteStat(StatType.HealingEffectivity, healingEffectivityReduction, addedHealingEffectivityReduction);
+        AppliedToCharacterComponent.CharacterStats.AddRelativeStat(CharacterStatType.AttackSpeed, attackSpeedSlowValue, addedAttackSpeedSlow);
+        AppliedToCharacterComponent.CharacterStats.AddRelativeStat(CharacterStatType.MovementSpeed, movementSpeedSlowValue, addedMovementSpeedSlow);
+        AppliedToCharacterComponent.CharacterStats.AddAbsoluteStat(CharacterStatType.HealingEffectivity, healingEffectivityReduction, addedHealingEffectivityReduction);
 
         addedAttackSpeedSlow = attackSpeedSlowValue;
         addedMovementSpeedSlow = movementSpeedSlowValue;
@@ -86,9 +86,9 @@ public class FrostDebuff : Debuff {
     public override void End() {
         base.End();
 
-        AppliedToCharacterComponent.CharacterStats.RemoveRelativeStat(StatType.AttackSpeed, addedAttackSpeedSlow);
-        AppliedToCharacterComponent.CharacterStats.RemoveRelativeStat(StatType.MovementSpeed, addedMovementSpeedSlow);
-        AppliedToCharacterComponent.CharacterStats.RemoveAbsoluteStat(StatType.HealingEffectivity, addedHealingEffectivityReduction);
+        AppliedToCharacterComponent.CharacterStats.RemoveRelativeStat(CharacterStatType.AttackSpeed, addedAttackSpeedSlow);
+        AppliedToCharacterComponent.CharacterStats.RemoveRelativeStat(CharacterStatType.MovementSpeed, addedMovementSpeedSlow);
+        AppliedToCharacterComponent.CharacterStats.RemoveAbsoluteStat(CharacterStatType.HealingEffectivity, addedHealingEffectivityReduction);
 
         AppliedToStatusEffectsManager.SetIsSlowed(false);
     }

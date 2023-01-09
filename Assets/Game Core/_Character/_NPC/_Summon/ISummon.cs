@@ -12,7 +12,7 @@ public interface ISummon {
 
 [System.Serializable]
 public class SummonStatBoosts {
-    public StatType statType;
+    public CharacterStatType statType;
     [Tooltip("Boost value is relative"), Range(-1f, 4f)]
     public float boostValue;
 }

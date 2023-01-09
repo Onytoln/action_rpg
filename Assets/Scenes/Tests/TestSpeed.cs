@@ -15,7 +15,7 @@ public class TestSpeed : MonoBehaviour
     IEnumerator<float> IncreaseTheirSpeed() {
         for (int i = 0; i < enemies.Length; i++) {
             if (enemies[i] != null) {
-                    enemies[i].GetComponent<EnemyStats>().AddRelativeStat(StatType.MovementSpeed, 0.3f, 0);
+                    enemies[i].GetComponent<EnemyStats>().AddRelativeStat(CharacterStatType.MovementSpeed, 0.3f, 0);
                     yield return Timing.WaitForSeconds(5f);
             }
         }

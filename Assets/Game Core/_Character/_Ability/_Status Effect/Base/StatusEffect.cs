@@ -60,9 +60,9 @@ public class StatusEffect : ScriptableObject {
     private IHitLayers applierHitLayers;
     public IHitLayers ApplierHitLayers { get => applierHitLayers; private set => applierHitLayers = value; }
 
-    private CoreStatsValuesContainer applierStatsContainer;
-    public CoreStatsValuesContainer ApplierStatsContainer { get => applierStatsContainer; set => applierStatsContainer = value; }
-    protected CoreStatsValuesContainer prevAppliedStatsContainer;
+    private CharStatsValContainer applierStatsContainer;
+    public CharStatsValContainer ApplierStatsContainer { get => applierStatsContainer; set => applierStatsContainer = value; }
+    protected CharStatsValContainer prevAppliedStatsContainer;
 
     #endregion
 
@@ -161,7 +161,7 @@ public class StatusEffect : ScriptableObject {
         statusEffectProperties.Initialize();
     }
 
-    public virtual void PreApply(Character appliedTo, StatusEffectsManager appliedToStatusEffectsManager, Character applier, CoreStatsValuesContainer applierStatsContainer) {
+    public virtual void PreApply(Character appliedTo, StatusEffectsManager appliedToStatusEffectsManager, Character applier, CharStatsValContainer applierStatsContainer) {
         AppliedToCharacterComponent = appliedTo;
         AppliedToStatusEffectsManager = appliedToStatusEffectsManager;
         ApplierCharacterComponent = applier;
@@ -191,7 +191,7 @@ public class StatusEffect : ScriptableObject {
         DirtiedCombatTooltip = true;
     }
 
-    public virtual void Refresh(CoreStatsValuesContainer applierStatsContainer, int stacksCount, HitOutput hitOutput) {
+    public virtual void Refresh(CharStatsValContainer applierStatsContainer, int stacksCount, HitOutput hitOutput) {
         if (Refreshable) {
             currentDuration = statusEffectProperties.duration.GetValue();
             if (applierStatsContainer != null) {
@@ -234,7 +234,7 @@ public class StatusEffect : ScriptableObject {
         }
     }
 
-    protected void CompareAndSetStats(CoreStatsValuesContainer coreStatsValuesContainer, StatsCompareType statsCompareType) {
+    protected void CompareAndSetStats(CharStatsValContainer coreStatsValuesContainer, StatsCompareType statsCompareType) {
         ApplierStatsContainer = statsCompareType switch {
             StatsCompareType.Offensive => prevAppliedStatsContainer.CompareStatsByOffensiveValues(coreStatsValuesContainer),
             StatsCompareType.Defensive => prevAppliedStatsContainer.CompareStatsDefensiveValues(coreStatsValuesContainer),

@@ -80,15 +80,15 @@ public class Equipment : Item {
        }*/
     }
 
-    private bool IsStatResistance(StatType statType) {
+    private bool IsStatResistance(CharacterStatType statType) {
         switch (statType) {
-            case StatType.FireResistance:
+            case CharacterStatType.FireResistance:
                 return true;
-            case StatType.IceResistance:
+            case CharacterStatType.IceResistance:
                 return true;
-            case StatType.LightningResistance:
+            case CharacterStatType.LightningResistance:
                 return true;
-            case StatType.PoisonResistance:
+            case CharacterStatType.PoisonResistance:
                 return true;
             default:
                 return false;

@@ -33,7 +33,7 @@ public class Debuff : StatusEffect {
     /// Adds debuff strenght stat to hashset and then calculated average of it for FinalDebuffStrenghtValue,
     /// has a max limit of values that hashset can contains, duplicates are ignored
     /// </summary>
-    protected void UpdateDebuffStrengthModifiers(CoreStatsValuesContainer applierStatsContainer) {
+    protected void UpdateDebuffStrengthModifiers(CharStatsValContainer applierStatsContainer) {
         if (applierStatsContainer == null) return;
         if (debuffStrengthModifiers == null) InitializeDebuffStrenghtModifiersList();
 

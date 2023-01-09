@@ -24,7 +24,7 @@ public class DataStorage : MonoBehaviour {
     [SerializeField]
     private BaseStatsValues[] baseStatsDefaultValues;
 
-    private readonly Dictionary<StatType, MinMax> baseStatsDefaultValuesDict = new Dictionary<StatType, MinMax>();
+    private readonly Dictionary<CharacterStatType, MinMax> baseStatsDefaultValuesDict = new Dictionary<CharacterStatType, MinMax>();
 
     [SerializeField]
     private BaseStatMultiplierEnchantment[] baseStatMultiplierEnchantments;
@@ -34,7 +34,7 @@ public class DataStorage : MonoBehaviour {
     [SerializeField]
     private LevelStatMultipliers[] levelStatMultipliers;
 
-    private readonly Dictionary<StatType, float[]> levelStatMultipliersDict = new Dictionary<StatType, float[]>();
+    private readonly Dictionary<CharacterStatType, float[]> levelStatMultipliersDict = new Dictionary<CharacterStatType, float[]>();
 
     [SerializeField]
     private ItemIconSetup[] itemIconSetup;
@@ -149,7 +149,7 @@ public class DataStorage : MonoBehaviour {
         }
     }
 
-    public float GetLevelStatMultiplier(StatType stat, int currentLevel) {
+    public float GetLevelStatMultiplier(CharacterStatType stat, int currentLevel) {
         if(levelStatMultipliersDict.TryGetValue(stat, out float[] val)) {
             return val[currentLevel - 1];
         }
@@ -157,7 +157,7 @@ public class DataStorage : MonoBehaviour {
         return 1;
     }
 
-    public static MinMax GetBaseStatMinMaxValues(StatType statType) { 
+    public static MinMax GetBaseStatMinMaxValues(CharacterStatType statType) { 
 
         DataStorage dataStorage = Instance;
 

@@ -22,19 +22,19 @@ public class ChargeSystem : IOnChange<ChargeSystem> {
         if (_initialized) return;
         _initialized = true;
 
-        if (DefaultChargesUseRate.GetValue() <= 0) {
+        if (DefaultChargesUseRate.Value <= 0) {
             DefaultChargesUseRate = new StatInt(1, 1, int.MaxValue);
         }
-        if (DefaultChargesReplenishmentRateOneByOne.GetValue() == 0) {
+        if (DefaultChargesReplenishmentRateOneByOne.Value == 0) {
             DefaultChargesReplenishmentRateOneByOne = new StatInt(1, 1, int.MaxValue);
         }
-        CurrentCharges = MaxCharges.GetValue();
+        CurrentCharges = MaxCharges.Value;
 
         MaxCharges.OnChanged += InvokeChange;
         DefaultChargesUseRate.OnChanged += InvokeChange;
         DefaultChargesReplenishmentRateOneByOne.OnChanged += InvokeChange;
 
-        void InvokeChange(StatInt st) {
+        void InvokeChange(IStatIntReadonly st) {
             OnChanged?.Invoke(this);
         }
     }
@@ -42,7 +42,7 @@ public class ChargeSystem : IOnChange<ChargeSystem> {
     public bool ChargeSystemBeingUsed() {
         Initialize();
 
-        if (MaxCharges.GetValue() > 1) {
+        if (MaxCharges.Value > 1) {
             return true;
         }
 
@@ -53,7 +53,7 @@ public class ChargeSystem : IOnChange<ChargeSystem> {
         if (!ChargeSystemBeingUsed()) return false;
 
         if (chargesRequired <= 0) {
-            chargesRequired = DefaultChargesUseRate.GetValue();
+            chargesRequired = DefaultChargesUseRate.Value;
         }
 
         if (CurrentCharges >= chargesRequired) return true;
@@ -70,12 +70,12 @@ public class ChargeSystem : IOnChange<ChargeSystem> {
     public bool ReplenishCharges(int chargesToReplenish = 0) {
         if (!ChargeSystemBeingUsed()) return true;
 
-        int maxChargesValue = MaxCharges.GetValue();
+        int maxChargesValue = MaxCharges.Value;
 
         if (chargesToReplenish == 0) {
             if (CurrentCharges < maxChargesValue) {
                 if (ChargeReplenishmentType == ChargeReplenishmentType.OneByOne) {
-                    CurrentCharges += DefaultChargesReplenishmentRateOneByOne.GetValue();
+                    CurrentCharges += DefaultChargesReplenishmentRateOneByOne.Value;
                 } else if (ChargeReplenishmentType == ChargeReplenishmentType.AllAtOnce) {
                     CurrentCharges = maxChargesValue;
                 }
@@ -104,7 +104,7 @@ public class ChargeSystem : IOnChange<ChargeSystem> {
         Initialize();
 
         if (chargesToConsume == 0) {
-            chargesToConsume = DefaultChargesUseRate.GetValue();
+            chargesToConsume = DefaultChargesUseRate.Value;
         }
 
         if (!HasCharges(chargesToConsume)) return false;
@@ -115,7 +115,7 @@ public class ChargeSystem : IOnChange<ChargeSystem> {
 
         OnChargesAmountChanged?.Invoke(this);
 
-        if (((MaxCharges.GetValue() - DefaultChargesUseRate.GetValue()) >= CurrentCharges && ChargeReplenishmentType == ChargeReplenishmentType.OneByOne)
+        if (((MaxCharges.Value - DefaultChargesUseRate.Value) >= CurrentCharges && ChargeReplenishmentType == ChargeReplenishmentType.OneByOne)
             || (CurrentCharges == 0 && ChargeReplenishmentType == ChargeReplenishmentType.AllAtOnce)) {
             return true;
         }

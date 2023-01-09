@@ -3,31 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class ScalableStat : ScalableStatBase<ScalableStat> {
+public class ScalableStat : ScalableStatBase<IScalableStatReadonly>, IScalableStat, IScalableStatReadonly {
     public ScalableStat(float defaultScaleValue, float minScaleValue, float maxScaleValue,
-        StatType statType, float primaryValue, float minStatValue, float maxStatValue)
+        CharacterStatType statType, float primaryValue, float minStatValue, float maxStatValue)
         : base(defaultScaleValue, minScaleValue, maxScaleValue, statType, primaryValue, minStatValue, maxStatValue) { }
 
     public ScalableStat(float defaultScaleValue, float minScaleValue, float maxScaleValue, string statName,
-        StatType statType, float primaryValue, float minStatValue, float maxStatValue)
+        CharacterStatType statType, float primaryValue, float minStatValue, float maxStatValue)
         : base(defaultScaleValue, minScaleValue, maxScaleValue, statName, statType, primaryValue, minStatValue, maxStatValue) { }
 }
 
 [System.Serializable]
-public class ScalableStatBase<CallBackReturnType> : CharacterStatBase<CallBackReturnType> 
-    where CallBackReturnType : ScalableStatBase<CallBackReturnType> {
+public class ScalableStatBase<CallbackReturnType> : CharacterStatBase<CallbackReturnType> 
+    where CallbackReturnType : IStatBaseReadonly<float> {
 
     public override StatClassType StatClassType => StatClassType.CharacterScalable;
 
     [field: SerializeField, Header("Scalable stat properties")] public float DefaultScaleValue { get; private set; }
     [field: SerializeField] public float MinScaleValue { get; private set; } 
     [field: SerializeField] public float MaxScaleValue { get; private set; }
-
     public float ScaleValue { get; private set; }
+
+    #region Scale Uncap Modifiers
 
     [NonSerialized] private ModifierHandler<float> _scaleUncapModifiers;
     protected ModifierHandler<float> ScaleUncapModifiers => _scaleUncapModifiers ??= new ModifierHandler<float>(StatDefinitions.floatSumHandler); //lazy loading
     public float UncappedScaleValue => MaxScaleValue + ScaleUncapModifiers.SumVal;
+
+    #endregion
 
     [SerializeField, Header("Total scaled value")] private float _totalScaledValue;
 
@@ -41,7 +44,7 @@ public class ScalableStatBase<CallBackReturnType> : CharacterStatBase<CallBackRe
     }
 
     public ScalableStatBase(float defaultScaleValue, float minScaleValue, float maxScaleValue,
-        StatType statType, float primaryValue, float minStatValue, float maxStatValue)
+        CharacterStatType statType, float primaryValue, float minStatValue, float maxStatValue)
         : base(statType, primaryValue, minStatValue, maxStatValue) {
 
         DefaultScaleValue = defaultScaleValue;
@@ -50,7 +53,7 @@ public class ScalableStatBase<CallBackReturnType> : CharacterStatBase<CallBackRe
     }
 
     public ScalableStatBase(float defaultScaleValue, float minScaleValue, float maxScaleValue, string statName,
-        StatType statType, float primaryValue, float minStatValue, float maxStatValue)
+        CharacterStatType statType, float primaryValue, float minStatValue, float maxStatValue)
         : base(statName, statType, primaryValue, minStatValue, maxStatValue) {
 
         DefaultScaleValue = defaultScaleValue;
@@ -63,8 +66,10 @@ public class ScalableStatBase<CallBackReturnType> : CharacterStatBase<CallBackRe
         ScaleValue = DefaultScaleValue;
         base.Initialize();
     }
-    protected override void CalculateValue() {
-        _totalScaledValue = Mathf.Clamp(base.Value / ScaleValue, MinScaleValue, UncappedScaleValue);
+    protected override float CalculateValue() {
+        float baseCharStatValue = base.CalculateValue();
+        _totalScaledValue = Mathf.Clamp(baseCharStatValue / ScaleValue, MinScaleValue, UncappedScaleValue);
+        return baseCharStatValue;
     }
 
     public void SetScaleValue(float scaleValue) {
@@ -72,20 +77,12 @@ public class ScalableStatBase<CallBackReturnType> : CharacterStatBase<CallBackRe
         StatChanged();
     }
 
-    public void UncapScalableValue(float uncapValue) {
-        if (uncapValue == 0) return;
-
-        ScaleUncapModifiers.Add(uncapValue);
-
-        StatChanged();
+    public override void UncapValue(float uncapValue, float replace = 0f) {
+        AddModifierInternal(ScaleUncapModifiers, uncapValue, replace);
     }
 
-    public void RemoveScalableUncapValue(float uncapValue) {
-        if (uncapValue == 0) return;
-
-        ScaleUncapModifiers.Remove(uncapValue);
-
-        StatChanged();
+    public override void RemoveUncapValue(float uncapValue) {
+        RemoveModifierInternal(ScaleUncapModifiers, uncapValue);
     }
 
     [Obsolete("Use ValueForMaxScaledValue property.")]
