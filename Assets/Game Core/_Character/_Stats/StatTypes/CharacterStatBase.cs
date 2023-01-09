@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class CharacterStat : CharacterStatBase<ICharacterStatReadonly>, ICharacterStat, ICharacterStatReadonly {
+public class CharacterStat : CharacterStatBase<ICharacterStatReadonly>, ICharacterStatReadonly {
     public CharacterStat(CharacterStatType statType, float primaryValue, float minStatValue, float maxStatValue) 
         : base(statType, primaryValue, minStatValue, maxStatValue) { }
 
@@ -13,7 +13,7 @@ public class CharacterStat : CharacterStatBase<ICharacterStatReadonly>, ICharact
 
 [System.Serializable]
 public class CharacterStatBase<CallbackReturnType> : StatFloatBase<CallbackReturnType>
-    where CallbackReturnType : IStatBaseReadonly<float> {
+    where CallbackReturnType : IStatBaseReadonly<CallbackReturnType, float> {
 
     public override StatClassType StatClassType => StatClassType.Character;
 

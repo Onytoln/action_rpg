@@ -13,7 +13,7 @@ public class StatInt : StatIntBase<IStatIntReadonly>, IStatIntReadonly {
 
 [System.Serializable]
 public class StatIntBase<CallbackReturnType> : StatBase<CallbackReturnType, int> 
-    where CallbackReturnType : IStatBaseReadonly<int> {
+    where CallbackReturnType : IStatBaseReadonly<CallbackReturnType, int> {
 
     public override StatClassType StatClassType => StatClassType.Int;
 

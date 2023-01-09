@@ -7,8 +7,8 @@ using UnityEngine;
 public enum StatClassType { Float, Int, Character, CharacterScalable, CharacterRange, CharacterOverridablePrimary }
 
 [System.Serializable]
-public abstract class StatBase<CallbackReturnType, NumberType> : IStatBase<CallbackReturnType, NumberType>, ISerializationCallbackReceiver 
-    where CallbackReturnType : IStatBaseReadonly<NumberType>
+public abstract class StatBase<CallbackReturnType, NumberType> : IStatBaseReadonly<CallbackReturnType, NumberType>, ISerializationCallbackReceiver 
+    where CallbackReturnType : IStatBaseReadonly<CallbackReturnType, NumberType>
     where NumberType : struct, IComparable, IComparable<NumberType>, IConvertible, IEquatable<NumberType>, IFormattable {
 
     public event Action<CallbackReturnType> OnChanged;
@@ -132,7 +132,7 @@ public abstract class StatBase<CallbackReturnType, NumberType> : IStatBase<Callb
 
     protected virtual void StatChanged() {
         _isDirty = true;
-        OnChanged?.Invoke((CallbackReturnType)(object)this);
+        OnChanged?.Invoke((CallbackReturnType)this);
     }
 
     #region Base modifiers add/remove

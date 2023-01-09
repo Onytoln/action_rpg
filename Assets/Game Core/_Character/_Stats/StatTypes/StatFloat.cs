@@ -12,7 +12,7 @@ public class StatFloat : StatFloatBase<IStatFloatReadonly>, IStatFloatReadonly {
 
 [System.Serializable]
 public class StatFloatBase<CallbackReturnType> : StatBase<CallbackReturnType, float> 
-    where CallbackReturnType : IStatBaseReadonly<float> {
+    where CallbackReturnType : IStatBaseReadonly<CallbackReturnType, float> {
 
     public override StatClassType StatClassType => StatClassType.Float;
 
